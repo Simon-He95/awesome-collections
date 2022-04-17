@@ -1,0 +1,88 @@
+{
+  "vue2": {
+    "prefix": "vue2",
+    "body": [
+      "<template>",
+      "    <div class=\"main\">\n",
+      "    </div>",
+      "</template>",
+      "<script>",
+      "export default {",
+      "   data() {",
+      "      return {",
+      "      }",
+      "   },",
+      "   methods: {",
+      "     clickHandler() {}",
+      "   },",
+      "   mounted(){}",
+      "}",
+      "</script>",
+      "<style lang='css' scoped>",
+      "</style>",
+      "$2"
+    ],
+    "description": "Log output to console"
+  },
+  "script": {
+    "prefix": "script setup",
+    "body": [
+      "<script setup lang=\"ts\">",
+      "const props = defineProps<{ modelValue: boolean }>()",
+      "</script>\n",
+      "<template>",
+      "  <div>",
+      "    <slot />",
+      "  </div>",
+      "</template>\n",
+      "<style scoped>",
+      "</style>",
+    ],
+    "description": "Log output to console"
+  },
+  "useAttrs": {
+    "prefix": "myuseAttrs",
+    "body": [
+      "const attrs = useAttrs()",
+    ],
+    "description": "useAttrs"
+  },
+  "defineProps": {
+    "prefix": "mydefineProps",
+    "body": [
+      "const props = defineProps<{name:any}>()",
+    ],
+    "description": "defineProps"
+  },
+  "ref": {
+    "prefix": "myref",
+    "body": [
+      "const {$1} = ref(${2})",
+    ],
+    "description": "ref"
+  },
+  "reactive": {
+    "prefix": "myreactive",
+    "body": [
+      "const {$1} = reactive(${2})",
+    ],
+    "description": "reactive"
+  },
+  "slot": {
+    "prefix": "myslot",
+    "body": [
+      "<slot />",
+    ],
+    "description": "myslot"
+  },
+  "ts": {
+    "prefix": "<ts",
+    "body": [
+      "<script lang=\"ts\">",
+      "export default {",
+      "  inheritAttrs: false,",
+      "}",
+      "</script>",
+    ]
+  }
+}

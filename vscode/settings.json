@@ -1,0 +1,382 @@
+{
+  "http.proxyAuthorization": null,
+  "workbench.iconTheme": "file-icons",
+  "workbench.editor.tabCloseButton": "left",
+  "workbench.fontAliasing": "antialiased",
+  "workbench.editor.closeOnFileDelete": true,
+  "editor.fontSize": 13.5,
+  "editor.lineHeight": 24,
+  "editor.snippetSuggestions": "top",
+  "editor.tabCompletion": "on", // 按tab快速补全自定义代码片段
+  "editor.lineNumbers": "interval",
+  "editor.fontFamily": "Fira Code Medium",
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.renderWhitespace": "boundary",
+  "editor.suggestSelection": "first",
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "macros": {
+    "vimShiftA": [
+      "cursorLineEnd",
+      "extension.vim_insert",
+      "editor.action.inlineSuggest.trigger"
+    ],
+    "openLineBelow": [
+      "editor.action.insertLineAfter",
+      "extension.vim_insert",
+      "editor.action.inlineSuggest.trigger"
+    ],
+    "openLineAbove": [
+      "editor.action.insertLineBefore",
+      "extension.vim_insert",
+      "editor.action.inlineSuggest.trigger"
+    ],
+  },
+  "sync.gist": "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",
+  "sync.forceUpload": true,
+  "sync.autoDownload": true,
+  "explorer.confirmDelete": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "auto-rename-tag.activationOnLanguage": [
+    "*"
+  ],
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "vue-html": "html",
+    "vue": "html",
+    "wxml": "html"
+  },
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.triggerExpansionOnTab": false,
+  "errorLens.enabledDiagnosticLevels": [
+    "warning",
+    "error"
+  ],
+  "errorLens.excludeBySource": [
+    "cSpell",
+    "Grammarly",
+    "eslint"
+  ],
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "vsicons.dontShowNewVersionMessage": true,
+  "[vue]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "volar.autoCompleteRefs": false,
+  "volar.codeLens.pugTools": false,
+  "volar.codeLens.scriptSetupTools": true,
+  "volar.completion.preferredTagNameCase": "pascal",
+  "volar.showWelcomePage": false,
+  "volar.takeOverMode.enabled": true,
+  "windicss.enableCodeFolding": false,
+  "code-runner.runInTerminal": true,
+  "terminal.integrated.tabs.enabled": true,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.fontWeight": "300",
+  "terminal.integrated.persistentSessionReviveProcess": "never",
+  "editor.codeActionsOnSave": {
+    // 开启保存自动修复所有stylelint可修复的选项
+    "source.fixAll": false,
+    "source.fixAll.eslint": true,
+    "source.organizeImports": false
+  },
+  "eslint.codeAction.showDocumentation": {
+    "enable": true
+  },
+  "eslint.quiet": true,
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "jsonc",
+    "json5"
+  ],
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": true,
+    "plaintext": false,
+    "markdown": true
+  },
+  "githubPullRequests.fileListLayout": "tree",
+  "gitlens.codeLens.authors.enabled": false,
+  "gitlens.codeLens.enabled": false,
+  "gitlens.codeLens.recentChange.enabled": false,
+  "gitlens.menus": {
+    "editor": {
+      "blame": false,
+      "clipboard": true,
+      "compare": true,
+      "history": false,
+      "remote": false
+    },
+    "editorGroup": {
+      "blame": true,
+      "compare": false
+    },
+    "editorTab": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": true
+    },
+    "explorer": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": true
+    },
+    "scm": {
+      "authors": true
+    },
+    "scmGroup": {
+      "compare": true,
+      "openClose": true,
+      "stash": true
+    },
+    "scmGroupInline": {
+      "stash": true
+    },
+    "scmItem": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": false,
+      "stash": true
+    }
+  },
+  "emmet.excludeLanguages": [
+    "markdown"
+  ],
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "terminal.integrated.env.osx": {},
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.formatOnSave": true,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnType": true,
+  "editor.detectIndentation": false,
+  "editor.fontLigatures": "'ss01', 'ss02', 'ss03', 'ss06', 'zero'", // 这个控制是否启用字体连字
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "name": "italic font",
+        "scope": [
+          "comment",
+          "keyword",
+          "storage",
+          "keyword.control.import",
+          "keyword.control.default",
+          "keyword.control.from",
+          "keyword.operator.new",
+          "keyword.control.export",
+          "keyword.control.flow",
+          "storage.type.class",
+          "storage.type.function",
+          "storage.type",
+          "storage.type.class",
+          "variable.language",
+          "variable.language.super",
+          "variable.language.this",
+          "meta.class",
+          "meta.var.expr",
+          "constant.language.null",
+          "support.type.primitive",
+          "entity.name.method.js",
+          "entity.other.attribute-name",
+          "punctuation.definition.comment",
+          "text.html.basic entity.other.attribute-name.html",
+          "text.html.basic entity.other.attribute-name",
+          "tag.decorator.js entity.name.tag.js",
+          "tag.decorator.js punctuation.definition.tag.js",
+          "source.js constant.other.object.key.js string.unquoted.label.js"
+        ],
+        "settings": {
+          "fontStyle": "italic"
+        }
+      }
+    ]
+  },
+  "debug.onTaskErrors": "debugAnyway",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "search.exclude": {
+    "**/.git": true,
+    "**/.github": true,
+    "**/.nuxt": true,
+    "**/.output": true,
+    "**/.pnpm": true,
+    "**/.vscode": true,
+    "**/.yarn": true,
+    "**/bower_components": true,
+    "**/dist/**": true,
+    "**/logs": true,
+    "**/node_modules": true,
+    "**/out/**": true,
+    "**/package-lock.json": true,
+    "**/pnpm-lock.yaml": true,
+    "**/tmp": true,
+    "**/yarn.lock": true
+  },
+  "terminal.integrated.fontFamily": "Fira Code Light",
+  "editor.codeLensFontFamily": "Fira Code Medium",
+  "workbench.editor.enablePreview": false,
+  "workbench.sideBar.location": "right",
+  "workbench.editor.untitled.hint": "hidden",
+  "files.associations": {
+    "*.wxml": "html",
+    "*.wxss": "css",
+    "*.wxs": "javascript",
+    "*.cjson": "jsonc"
+  },
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": false, //  #让函数(名)和后面的括号之间加个空格
+  "javascript.format.insertSpaceAfterConstructor": true, // 在构造函数和括号之间加空格
+  "html.format.wrapAttributes": "force-aligned",
+  "wxml-pretty.format": true, // 是否开启格式化wxml
+  "wxml-pretty.maxWidth": 120,
+  "minapp-vscode.disableAutoConfig": true,
+  "prettier.enable": false,
+  "prettier.jsxSingleQuote": true,
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.tree.expandMode": "singleClick",
+  "workbench.tree.indent": 10,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.glyphMargin": true,
+  "editor.guides.bracketPairs": "active",
+  "prettier.arrowParens": "avoid",
+  "prettier.jsxBracketSameLine": true,
+  "prettier.printWidth": 200,
+  "editor.tabSize": 2,
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "zenMode.fullScreen": false,
+  "workbench.colorTheme": "One Dark Pro",
+  "wxmlConfig.onSaveFormat": true,
+  "eslint.run": "onSave",
+  "prettier.vueIndentScriptAndStyle": true,
+  "cSpell.userWords": [
+    "browserslist",
+    "corejs",
+    "Miniprogram",
+    "nums",
+    "pkgroll",
+    "starcraft",
+    "starport",
+    "unref",
+    "vite",
+    "vitest",
+    "vnode",
+    "Wechat"
+  ],
+  "terminal.integrated.defaultProfile.windows": "Ubuntu-20.04 (WSL)",
+  "editor.cursorSmoothCaretAnimation": true,
+  "workbench.productIconTheme": "icons-carbon",
+  "eslint.format.enable": true,
+  "window.autoDetectColorScheme": true,
+  "window.dialogStyle": "custom",
+  "window.nativeTabs": true, // this is great, macOS only
+  "window.titleBarStyle": "custom",
+  "editor.inlineSuggest.enabled": true,
+  "git.enableSmartCommit": true,
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell"
+    },
+    "Command Prompt": {
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe"
+      ],
+      "args": [],
+      "icon": "terminal-cmd"
+    },
+    "Git Bash": {
+      "source": "Git Bash"
+    },
+    "Ubuntu-20.04 (WSL)": {
+      "path": "C:\\WINDOWS\\System32\\wsl.exe",
+      "args": [
+        "-d",
+        "Ubuntu-20.04"
+      ]
+    }
+  },
+  "terminal.integrated.autoReplies": {},
+  "fileheader.Author": "Simon",
+  "fileheader.LastModifiedBy": "Simon",
+  "fileheader.customMade": {
+    "autoAdd": false,
+    "Author": "Simon",
+    "Date": "Do not edit",
+    "LastEditTime": "Do not edit",
+    "FilePath": "Do not edit" // 文件在项目中的相对路径 自动更新
+  },
+  "fileheader.configObj": {
+    "language": {
+      // 普通后缀文件
+      "js": {
+        "head": "/**",
+        "middle": " * @",
+        "end": " */",
+        // 函数自定义注释符号：如果有此配置 会默认使用
+        "functionSymbol": {
+          "head": "/******* ", // 统一增加几个*号
+          "middle": " * @",
+          "end": " */"
+        }
+      },
+      // 一次匹配多种文件后缀文件 不用重复设置
+      "h/hpp/cpp": {
+        "head": "/*** ", // 统一增加几个*号
+        "middle": " * @",
+        "end": " */"
+      },
+      // 针对有特殊要求的文件如：test.blade.php
+      "blade.php": {
+        "head": "<!--",
+        "middle": " * @",
+        "end": "-->",
+      }
+    },
+    "prohibitAutoAdd": [
+      "json",
+      "md"
+    ]
+  },
+  "leetcode.endpoint": "leetcode-cn",
+  "leetcode.defaultLanguage": "javascript",
+  "leetcode.workspaceFolder": "C:\\Users\\13917\\.leetcode",
+  "markdown.preview.breaks": true,
+  "leetcode.showDescription": "Both",
+  "leetcode.nodePath": "/home/simon/.nvm/versions/node/v17.8.0/bin/node",
+  "leetcode.useWsl": true,
+  "algorithm.lang": "cn",
+  "cSpell.customDictionaries": {
+    "custom-dictionary-user": {
+      "name": "custom-dictionary-user",
+      "path": "~/.cspell/custom-dictionary-user.txt",
+      "addWords": true,
+      "scope": "user"
+    }
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "terminal.integrated.automationProfile.windows": {}
+}
