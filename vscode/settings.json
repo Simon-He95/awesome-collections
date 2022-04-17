@@ -88,7 +88,22 @@
     // 开启保存自动修复所有stylelint可修复的选项
     "source.fixAll": false,
     "source.fixAll.eslint": true,
-    "source.organizeImports": false
+    "source.organizeImports": false,
+    "source.fixAll.markdownlint": true
+  },
+  "markdownlint.run": "onType",
+  "markdownlint.config": {
+    "default": true,
+    "MD003": {
+      "style": "atx_closed"
+    },
+    "MD007": {
+      "indent": 4
+    },
+    //禁用某条规则
+    "MD013": false,
+    //也可以使用某条规则的别名来配置
+    "no-hard-tabs": false
   },
   "eslint.codeAction.showDocumentation": {
     "enable": true
@@ -360,6 +375,21 @@
       "json",
       "md"
     ]
+  },
+  "[markdown]": {
+    // 快速补全
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": true,
+      "strings": true
+    },
+    // 显示空格
+    "editor.renderWhitespace": "all",
+    // snippet 提示优先（看个人喜欢）
+    "editor.snippetSuggestions": "top",
+    "editor.tabCompletion": "on",
+    // 使用enter 接受提示
+    // "editor.acceptSuggestionOnEnter": "on",
   },
   "leetcode.endpoint": "leetcode-cn",
   "leetcode.defaultLanguage": "javascript",
