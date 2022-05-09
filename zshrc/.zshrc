@@ -70,7 +70,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-nvm  zsh-z web-search)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-nvm zsh-z web-search)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.bash_profile
@@ -80,7 +80,7 @@ source ~/.bash_profile
 # -------------------------#
 # alias - ni
 
-
+alias nio="ni --prefer-offline"
 alias d="nr dev"
 alias v="pnpm view"
 alias s="nr start"
@@ -94,21 +94,26 @@ alias lintf="nr lint --fix"
 alias s="nr start"
 alias p="nr play"
 alias pb="nr play:build"
+alias updateVersion="git add . && git commit -m 'chore: update version' && git push"
+alias clean="git add . && git commit -m 'chore: clean' && git push"
+alias v="npm view"
+alias init="npm init -y"
 
 #--------------------------#
 # project simple
 # -------------------------#
 
-
+alias cls="clear"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
 alias dc="nr dev:cli"
 alias bp="nr build:prod"
 alias pubc="nr publish:cli-canary"
 
-
 #--------------------------#
 # Git
 # -------------------------#
-
 
 alias gs="git status"
 alias gcc="git checkout"
@@ -120,7 +125,7 @@ alias gba="git branch -a"
 alias gc="git add . && git commit -m"
 alias ga="git add ."
 alias gs="git status"
-alias gpl="git pull"
+alias gpl="git pull --rebase"
 alias gpf="git push --force"
 alias gcl="git clone"
 alias gp="git push"
@@ -130,11 +135,53 @@ alias reset="git reset HEAD"
 alias reset1="git reset HEAD~1"
 alias main="git checkout main"
 alias use="nrm use"
-alias vitesse="npx degit Simon-He95/vitesse-lite"
+alias template="npx degit Simon-He95/vitesse-lite"
 alias unproxy="git config --global --unset http.proxy && git config --global --unset https.proxy"
 alias pullmaster="git pull origin master"
 alias pullmain="git pull origin main"
 alias flog="git reflog"
+alias see="ps -ef|grep"
+
+#--------------------------#
+# Pnpm
+# -------------------------#
+
+run() {
+  command="$2"
+  if ["$2" = ""]; then
+    pnpm run $1
+    return
+  elif [ "$2" = "d" ]; then
+    command="dev"
+  elif [ "$2" = "b" ]; then
+    command="build"
+  elif [ "$2" = "t" ]; then
+    command="test"
+  elif [ "$2" = "p" ]; then
+    command="playground"
+  fi
+  pnpm --filter $1 run $command
+}
+
+#创建git tag
+tag() {
+  echo "请输入tagname:"
+  read tagname
+  if [ "$tagname" = "" ]; then
+    echo "输入的tagname为空"
+    exit 1
+  fi
+
+  echo "请输入描述:"
+
+  read detail
+  if [ -n "detail" ]; then
+    detail="say nothing"
+  fi
+  if [ "$?" = 0 ]; then
+    git tag -a $tagname -m $detail
+  fi
+}
 
 # export MANPATH="/usr/local/man:$MANPATH"
 # You may need to manually set your language environment
@@ -162,7 +209,8 @@ alias flog="git reflog"
 fpath=($fpath "/home/simon/.zfunctions")
 
 # Set Spaceship ZSH as a prompt
-autoload -U promptinit; promptinit
+autoload -U promptinit
+promptinit
 prompt spaceship
 
 export PNPM_HOME="/home/simon/.local/share/pnpm"
