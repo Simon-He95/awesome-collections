@@ -24,15 +24,17 @@ alias t="nr test"
 alias t="nr test -u"
 alias w="nr watch"
 alias lint="nr lint"
-alias lintf="nr lint --fix"
+alias lintf="nr lint:fix"
 alias s="nr start"
-alias p="nr play"
+alias p="nr play || d"
 alias pr="nr preview"
-alias pb="nr play:build"
+alias pb="nr play:build || b"
+alias release="npm run release"
 alias updateVersion="git add . && git commit -m 'chore: update version' && git push"
 alias clean="git add . && git commit -m 'chore: clean' && git push"
 alias v="npm view"
 alias init="npm init -y"
+alias lock="pnpm install --no-frozen-lockfile"
 
 #--------------------------#
 # project simple
@@ -42,7 +44,6 @@ alias cls="clear"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias remove="rimraf"
 
 #--------------------------#
 # Git
@@ -54,13 +55,15 @@ alias gccb="git checkout -b"
 alias gl="git log"
 alias glo="git log --online --graph"
 alias gb="git branch"
+alias gbd="git branch -d"
 alias gba="git branch -a"
 alias gc="git add . && git commit -m"
 alias ga="git add ."
 alias gs="git status"
 alias gpl="git pull --rebase"
 alias gpf="git push --force"
-alias gcl="git clone"
+alias gpt="git push origin --tags"
+alias gptf="git push origin --tags -f"
 alias gp="git push"
 alias gst="git stash"
 alias rebase="git rebase"
@@ -68,7 +71,7 @@ alias reset="git reset HEAD"
 alias reset1="git reset HEAD~1"
 alias main="git checkout main"
 alias use="nrm use"
-alias template="npx degit Simon-He95/vitesse-lite"
+# alias template="npx degit Simon-He95/vitesse-lite"
 alias unproxy="git config --global --unset http.proxy && git config --global --unset https.proxy"
 alias pullmaster="git pull origin master"
 alias pullmain="git pull origin main"
@@ -140,9 +143,37 @@ ignore() {
     return
   fi
   echo "...正在生成.gitignore"
-  touch .gitignore
-                 # 创建文件
+  touch .gitignore                                                                                                                                # 创建文件
   echo "*.DS_Store  \nnode_modules \n*.log \nidea/ \n*.local \n.DS_Store \ndist \n.cache \n.idea \nlogs \n&-debug.log \n*-error.log" >>.gitignore # 添加内容
+}
+
+# clone
+clone() {
+  str=$1
+  str1=${str##*/}
+  result=${str1%.*}
+  echo "正在clone $result"
+  git clone $str && code $result
+}
+
+# template
+template() {
+  if [ ! $1 ]; then
+    echo "请输入模板名称"
+    return 0
+  fi
+  echo "正在创建$1目录,下载vitesse-lite模板,请稍等..."
+  npx degit Simon-He95/vitesse-lite $1 && echo "正在打开$1" && code $1
+}
+
+# remove
+remove() {
+  if [ ! $1 ]; then
+    echo "请输入要删除的目录名称"
+    return 0
+  fi
+  echo "正在删除$1目录"
+  rimraf $1 && echo "删除成功" || echo "删除失败,请重新尝试"
 }
 
 fpath=($fpath "/home/simon/.zfunctions")
