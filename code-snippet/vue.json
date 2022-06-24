@@ -36,42 +36,42 @@
       "  </div>",
       "</template>\n",
       "<style scoped>",
-      "</style>",
+      "</style>"
     ],
     "description": "Log output to console"
   },
   "useAttrs": {
     "prefix": "myuseAttrs",
     "body": [
-      "const attrs = useAttrs()",
+      "const attrs = useAttrs()"
     ],
     "description": "useAttrs"
   },
   "defineProps": {
     "prefix": "mydefineProps",
     "body": [
-      "const props = defineProps<{name:any}>()",
+      "const props = defineProps<{name:any}>()"
     ],
     "description": "defineProps"
   },
   "ref": {
     "prefix": "myref",
     "body": [
-      "const {$1} = ref(${2})",
+      "const {$1} = ref(${2})"
     ],
     "description": "ref"
   },
   "reactive": {
     "prefix": "myreactive",
     "body": [
-      "const {$1} = reactive(${2})",
+      "const {$1} = reactive(${2})"
     ],
     "description": "reactive"
   },
   "slot": {
     "prefix": "myslot",
     "body": [
-      "<slot />",
+      "<slot />"
     ],
     "description": "myslot"
   },
@@ -82,7 +82,7 @@
       "export default {",
       "  inheritAttrs: false,",
       "}",
-      "</script>",
+      "</script>"
     ]
   }
 }

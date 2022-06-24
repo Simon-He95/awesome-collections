@@ -1,9 +1,4 @@
 {
-  // Place your snippets for typescript here. Each snippet is defined under a snippet name and has a prefix, body and 
-  // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
-  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
-  // same ids are connected.
-  // Example:
   "function": {
     "prefix": "function",
     "body": [
@@ -55,42 +50,42 @@
   "useAttrs": {
     "prefix": "myuseAttrs",
     "body": [
-      "const attrs = useAttrs()",
+      "const attrs = useAttrs()"
     ],
     "description": "useAttrs"
   },
   "defineProps": {
     "prefix": "mydefineProps",
     "body": [
-      "const props = defineProps<{name:any}>()",
+      "const props = defineProps<{name:any}>()"
     ],
     "description": "defineProps"
   },
   "ref": {
     "prefix": "myref",
     "body": [
-      "const {$1} = ref(${2})",
+      "const {$1} = ref(${2})"
     ],
     "description": "ref"
   },
   "reactive": {
     "prefix": "myreactive",
     "body": [
-      "const {$1} = reactive<${1:any}>(${2})",
+      "const {$1} = reactive<${1:any}>(${2})"
     ],
     "description": "reactive"
   },
   "useToggle": {
     "prefix": "myuseToggle",
     "body": [
-      "const toggle = useToggle(mode)",
+      "const toggle = useToggle(mode)"
     ],
     "description": "myuseToggle"
   },
   "useElementBounding": {
     "prefix": "myuseElementBounding",
     "body": [
-      "const rect = useElementBounding(el)",
+      "const rect = useElementBounding(el)"
     ],
     "description": "useElementBounding"
   },
@@ -99,7 +94,7 @@
     "body": [
       "watch(${1:ref}, (value) => {",
       "${2}",
-      "})",
+      "})"
     ],
     "description": "useElementBounding"
   },
@@ -108,7 +103,7 @@
     "body": [
       "const result = computed(() => {",
       "${1}",
-      "})",
+      "})"
     ],
     "description": "computed"
   },
@@ -122,15 +117,15 @@
     "body": [
       "watchEffect(() => {",
       "${1}",
-      "})",
+      "})"
     ],
     "description": "watchEffect"
   },
   "useStorage": {
     "prefix": "myuseStorage",
     "body": [
-      "useStorage('${1:key}', ${2:defaultValue})",
+      "useStorage('${1:key}', ${2:defaultValue})"
     ],
     "description": "useStorage"
-  },
+  }
 }

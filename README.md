@@ -1,13 +1,24 @@
-# directory-configuration
+# Settings Docs
 
-## 1.For environment configuration on Linux terminal
+## Linux terminal
+[settings](../linux/settings.json)
 
-- theme : ***spaceship***
-- plugins: ***zsh-syntax-highlighting*** ***zsh-autosuggestions*** ***zsh-nvm***  ***zsh-z*** ***web-search***
-![这是图片](/images/terminal.png "ubuntu terminal")
+![ubuntu](/images/terminal.png "ubuntu terminal")
 
-## 2.For Github CI/CD configuration
 
-## 3.For VScode configuration
+## GitHub CI/CD
+[settings](../workflows/ci.yml)
 
-![这是图片](/images/vscode.png "oh my zsh terminal")
+## ZSH
+```bash
+theme:  spaceship
+plugins:  zsh-syntax-highlighting zsh-autosuggestions zsh-nvm zsh-z web-search
+```
+[settings](../zshrc/.zshrc)
+
+![ZSH](/images/vscode.png)
+
+## Code Snippet
+[javascript](../code-snippet/javascript.json)
+[typescript](../code-snippet/typescript.json)
+[vue](../code-snippet/vue.json)
