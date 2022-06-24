@@ -1,0 +1,40 @@
+{
+  "recommendations": [
+    "antfu.browse-lite",
+    "antfu.iconify",
+    "antfu.slidev",
+    "antfu.unocss",
+    "antfu.vite",
+    "antfu.where-am-i",
+    "antfu.File Nesting Updater",
+    "antfu.Goto definition alias",
+    "lokalise.i18n-ally",
+    "Jun Han.Auto Close Tag",
+    "steoates.Auto Import",
+    "Christian Kohler.Path Intellisense"
+
+    // themes & icons
+    "antfu.icons-carbon",
+    "antfu.theme-vitesse",
+    "file-icons.file-icons",
+    "sainnhe.gruvbox-material",
+    "dbaeumer.vscode-eslint",
+    "Vue.volar",
+    "GitHub.copilot",
+    "usernamehw.errorlens",
+    "streetsidesoftware.code-spell-checker",
+
+    // up to you
+    "amodio.tsl-problem-matcher",
+    "eamodio.gitlens",
+    "EditorConfig.EditorConfig",
+    "GitHub.vscode-pull-request-github",
+    "mpontus.tab-cycle",
+    "naumovs.color-highlight",
+    "richie5um2.vscode-sort-json",
+    "unional.vscode-sort-package-json",
+    "voorjaar.windicss-intellisense",
+    "WakaTime.vscode-wakatime",
+    "znck.grammarly"
+  ]
+}
