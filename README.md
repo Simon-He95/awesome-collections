@@ -1,5 +1,3 @@
-# Settings Docs
-
 ## Linux terminal
 [settings](./linux/settings.json)
 
