@@ -16,7 +16,7 @@ plugins:  zsh-syntax-highlighting zsh-autosuggestions zsh-nvm zsh-z web-search
 ```
 [settings](./zshrc/.zshrc)
 
-![ZSH](/images/vscode.png)
+![ZSH](/images/vscode.png "zsh terminal")
 
 ## Code Snippet
 [javascript](./code-snippet/javascript.json)
