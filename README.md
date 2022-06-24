@@ -20,5 +20,7 @@ plugins:  zsh-syntax-highlighting zsh-autosuggestions zsh-nvm zsh-z web-search
 
 ## Code Snippet
 [javascript](../code-snippet/javascript.json)
+
 [typescript](../code-snippet/typescript.json)
+
 [vue](../code-snippet/vue.json)
