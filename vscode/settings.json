@@ -107,9 +107,10 @@
   ],
   "github.copilot.enable": {
     "*": true,
-    "markdown": true,
+    "yaml": false,
     "plaintext": false,
-    "yaml": false
+    "markdown": true,
+    "javascript": false
   },
   "cSpell.allowCompoundWords": true,
   "cSpell.language": "en,en-US",
@@ -186,7 +187,7 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "//": "Last update at 2022/5/12 09:36:59",
+    "//": "Last update at 2022/5/13 18:55:14",
     "*.asax": "$(capture).*.cs, $(capture).*.vb",
     "*.ascx": "$(capture).*.cs, $(capture).*.vb",
     "*.ashx": "$(capture).*.cs, $(capture).*.vb",
@@ -293,4 +294,17 @@
     "lib-cov",
     ".idea"
   ],
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "editor.quickSuggestionsDelay": 50,
+  "cSpell.userWords": [
+    "nuxt",
+    "Unfin",
+    "Unocss",
+    "vite"
+  ],
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "git.ignoreRebaseWarning": true,
+  "html-fmt-vscode.indentSize": 2,
+  "debug.allowBreakpointsEverywhere": true,
 }
