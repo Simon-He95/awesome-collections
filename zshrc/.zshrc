@@ -5,7 +5,7 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="spaceship"
 
 # plugins
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-nvm zsh-z web-search)
+plugins=(git zsh-autosuggestions zsh-nvm zsh-z zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.bash_profile
@@ -33,7 +33,6 @@ alias release="npm run release"
 alias updateVersion="git add . && git commit -m 'chore: update version' && git push"
 alias clean="git add . && git commit -m 'chore: clean' && git push"
 alias v="npm view"
-alias init="npm init -y"
 alias lock="pnpm install --no-frozen-lockfile"
 
 #--------------------------#
@@ -71,8 +70,8 @@ alias reset="git reset HEAD"
 alias reset1="git reset HEAD~1"
 alias main="git checkout main"
 alias use="nrm use"
-# alias template="npx degit Simon-He95/vitesse-lite"
 alias unproxy="git config --global --unset http.proxy && git config --global --unset https.proxy"
+alias proxy="git config --global http.proxy http://127.0.0.1:57932 && git config --global https.proxy https://127.0.0.1:57932"
 alias pullmaster="git pull origin master"
 alias pullmain="git pull origin main"
 alias flog="git reflog"
@@ -82,9 +81,39 @@ alias see="ps -ef|grep"
 # Pnpm
 # -------------------------#
 
+RED='\e[1;31m'     # 红
+GREEN='\e[1;32m'   # 绿
+YELLOW='\e[1;33m'  # 黄
+BLUE='\e[1;34m'    # 蓝
+PINK='\e[1;35m'    # 粉红
+SKYBLUE='\e[1;96m' # 紫
+RES='\e[0m'        # 清除颜色
+
+console.red() {
+  echo -e "${RED} $* ${RES}"
+}
+
+console.green() {
+  echo -e "${GREEN} $* ${RES}"
+}
+
+console.yellow() {
+  echo -e "${YELLOW} $* ${RES}"
+}
+
+console.blue() {
+  echo -e "${BLUE} $* ${RES}"
+}
+
+console.skyblue() {
+  echo -e "${SKYBLUE} $* ${RES}"
+}
+console.pink() {
+  echo -e "${PINK} $* ${RES}"
+}
+
 run() {
   command="$2"
-
   if [ "$2" = "" ]; then
     pnpm run $1
     return
@@ -118,14 +147,14 @@ run() {
 
 # 创建git tag
 tag() {
-  echo "请输入tagname:"
+  console.skyblue "请输入tagname:"
   read tagname
   if [ "$tagname" = "" ]; then
-    echo "输入的tagname为空"
+    console.red "tagname不能为空"
     exit 1
   fi
 
-  echo "请输入描述:"
+  console.skyblue "请输入描述:"
 
   read detail
   if [ -n "detail" ]; then
@@ -139,10 +168,10 @@ tag() {
 # 自动生成.gitignore
 ignore() {
   if [ -f ".gitignore" ]; then
-    echo "gitignore已存在"
+    console.red ".gitignore已存在"
     return
   fi
-  echo "...正在生成.gitignore"
+  console.green "...正在生成.gitignore"
   touch .gitignore                                                                                                                                # 创建文件
   echo "*.DS_Store  \nnode_modules \n*.log \nidea/ \n*.local \n.DS_Store \ndist \n.cache \n.idea \nlogs \n&-debug.log \n*-error.log" >>.gitignore # 添加内容
 }
@@ -152,28 +181,182 @@ clone() {
   str=$1
   str1=${str##*/}
   result=${str1%.*}
-  echo "正在clone $result"
-  git clone $str && code $result
+  console.skyblue "正在clone $result"
+  if [ ! $2 ]; then
+    git clone $str && console.pink "下载完成,正在打开 $result" && code $result && cd $result && console.green '正在下载依赖' && ni
+  else
+    git clone $str && console.pink "下载完成,正在打开 $result" && code $result && cd $result && console.green '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+  fi
 }
 
 # template
 template() {
+  console.skyblue "请输入模板: ts | vue | nuxt | vitesse"
+  read templateName
   if [ ! $1 ]; then
-    echo "请输入模板名称"
+    console.red "需要指定一个模板名称"
     return 0
   fi
-  echo "正在创建$1目录,下载vitesse-lite模板,请稍等..."
-  npx degit Simon-He95/vitesse-lite $1 && echo "正在打开$1" && code $1
+
+  if [ ! $templateName ]; then
+    templateName=1
+  fi
+
+  if [[ $templateName = "ts" || $templateName = 0 ]]; then
+    console.blue "正在创建$1目录,下载starter-ts模板,请稍等..."
+    if [ ! $2 ]; then
+      npx degit Simon-He95/starter-ts $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
+    else
+      npx degit Simon-He95/starter-ts $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+    fi
+  elif [[ $templateName = "vue" || $templateName = 1 ]]; then
+    console.blue "正在创建$1目录,下载vitesse-lite模板,请稍等..."
+    if [ ! $2 ]; then
+      npx degit Simon-He95/vitesse-lite $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
+    else
+      npx degit Simon-He95/vitesse-lite $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+    fi
+  elif [[ $templateName = "nuxt" || $templateName = 2 ]]; then
+    console.blue "正在创建$1目录,下载vitesse-nuxt3模板,请稍等..."
+    if [ ! $2 ]; then
+      npx degit Simon-He95/vitesse-nuxt3 $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
+    else
+      npx degit Simon-He95/vitesse-nuxt3 $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+    fi
+  elif [[ $templateName = "vitesse" || $templateName = 3 ]]; then
+    console.blue "正在创建$1目录,下载vitesse模板,请稍等..."
+    if [ ! $2 ]; then
+      npx degit Simon-He95/vitesse $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
+    else
+      npx degit Simon-He95/vitesse $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+    fi
+  fi
 }
 
 # remove
 remove() {
   if [ ! $1 ]; then
-    echo "请输入要删除的目录名称"
+    console.red "指定一个删除的目录名称"
     return 0
   fi
-  echo "正在删除$1目录"
-  rimraf $1 && echo "删除成功" || echo "删除失败,请重新尝试"
+  if [ ! -f $1 ] && [ ! -d $1 ]; then
+    console.red '文件或目录不存在'
+    return 0
+  else
+    console.blue "正在删除$1目录"
+    rimraf $1 && console.green "删除成功" || console.red "删除失败,请重新尝试"
+    return 1
+  fi
+}
+
+# reni
+reni() {
+  remove node_modules
+  if [ $? = 1 ]; then
+    ni || ni || ni
+  fi
+}
+
+# 包裹ni
+nii() {
+  ni $* || nio $*
+}
+
+# pkginit
+pkginit() {
+  console.blue "请输入包名:"
+  read pkgname
+  if [ ! $pkgname ]; then
+    console.red "包名不能为空"
+    return 0
+  fi
+  if [ -f package.json ]; then
+    console.red 'package.json已存在'
+    return 0
+  fi
+
+  touch package.json
+  echo '{
+  "name": "'$pkgname'",
+  "version": "0.0.0",
+  "packageManager": "pnpm@6.32.3",
+  "description": "'$pkgname'",
+  "author": "Simon He",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git + git@github.com:Simon-He95/'$pkgname'.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Simon-He95/'$pkgname'/issues"
+  },
+  "keywords": [
+    "'$pkgname'"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "pkgroll --minify",
+    "dev": "pkgroll --watch",
+    "play": "pnpm run -C playground dev",
+    "play:build": "pnpm run -C playground build",
+    "serve": "pnpm run -C playground serve",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest -u",
+    "test:e2e": "cypress open",
+    "prepublishOnly": "nr build",
+    "release": "bumpp --commit --tag --push && pnpm publish"
+  },
+  "dependencies": {
+    "@vueuse/core": "^8.1.1",
+    "vue": "^3.2.36"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.25.0",
+    "@types/node": "^17.0.38",
+    "bumpp": "^7.1.1",
+    "eslint": "^8.16.0",
+    "eslint-plugin-n": "^15.2.1",
+    "pkgroll": "^1.3.1",
+    "typescript": "^4.7.2",
+    "vitest": "^0.7.0"
+  },
+  "eslintConfig": {
+    "extends": "@antfu"
+  }
+}' >>package.json
+  if [ $? = 0 ]; then
+    console.green '创建成功'
+  else
+    console.red '创建失败'
+  fi
+}
+
+# grant 授予文件权限
+grant() {
+  chmod +x $1
+  console.green '已授权成功'
+}
+
+# update 安装最新版本
+update() {
+  all=$*
+  str=${all// /@latest }
+  console.green ni $str
+  ni $str
 }
 
 fpath=($fpath "/home/simon/.zfunctions")
@@ -185,3 +368,18 @@ prompt spaceship
 
 export PNPM_HOME="/home/simon/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+
+source /home/simon/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/simon/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh
+source "/home/simon/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+
+source "/home/simon/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+fpath=($fpath "/home/simon/.zfunctions")
+fpath=($fpath "/home/simon/.zfunctions")
+
+# bun completions
+[ -s "/home/simon/.bun/_bun" ] && source "/home/simon/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
