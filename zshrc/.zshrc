@@ -30,7 +30,7 @@ alias p="nr play || d"
 alias pr="nr preview"
 alias pb="nr play:build || b"
 alias release="npm run release"
-alias updateVersion="git add . && git commit -m 'chore: update version' && git push"
+alias publish="npm publish"
 alias clean="git add . && git commit -m 'chore: clean' && git push"
 alias v="npm view"
 alias lock="pnpm install --no-frozen-lockfile"
@@ -191,8 +191,8 @@ clone() {
 
 # template
 template() {
-  console.skyblue "请输入模板: ts | vue | nuxt | vitesse"
-  read templateName
+  console.skyblue "请选择一个模板: ts | vue | nuxt | vitesse | react | next"
+  templateName=$(gum choose "ts" "vue" "nuxt" "react" "next")
   if [ ! $1 ]; then
     console.red "需要指定一个模板名称"
     return 0
@@ -202,51 +202,70 @@ template() {
     templateName=1
   fi
 
-  if [[ $templateName = "ts" || $templateName = 0 ]]; then
+  if [ $templateName = "ts" ]; then
     console.blue "正在创建$1目录,下载starter-ts模板,请稍等..."
     if [ ! $2 ]; then
       npx degit Simon-He95/starter-ts $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
     else
       npx degit Simon-He95/starter-ts $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
     fi
-  elif [[ $templateName = "vue" || $templateName = 1 ]]; then
+  elif [ $templateName = "vue" ]; then
     console.blue "正在创建$1目录,下载vitesse-lite模板,请稍等..."
     if [ ! $2 ]; then
       npx degit Simon-He95/vitesse-lite $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
     else
       npx degit Simon-He95/vitesse-lite $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
     fi
-  elif [[ $templateName = "nuxt" || $templateName = 2 ]]; then
+  elif [ $templateName = "nuxt" ]; then
     console.blue "正在创建$1目录,下载vitesse-nuxt3模板,请稍等..."
     if [ ! $2 ]; then
       npx degit Simon-He95/vitesse-nuxt3 $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
     else
       npx degit Simon-He95/vitesse-nuxt3 $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
     fi
-  elif [[ $templateName = "vitesse" || $templateName = 3 ]]; then
+  elif [ $templateName = "vitesse" ]; then
     console.blue "正在创建$1目录,下载vitesse模板,请稍等..."
     if [ ! $2 ]; then
       npx degit Simon-He95/vitesse $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
     else
       npx degit Simon-He95/vitesse $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
     fi
+  elif [ $templateName = "react" ]; then
+    console.blue "正在创建$1目录,下载vitesse-lite-react模板,请稍等..."
+    if [ ! $2 ]; then
+      npx degit Simon-He95/vitesse-lite-react $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
+    else
+      npx degit Simon-He95/vitesse-lite-react $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+    fi
+  elif [ $templateName = "next" ]; then
+    console.blue "正在创建$1目录,下载vitesse-next模板,请稍等..."
+    if [ ! $2 ]; then
+      npx degit Simon-He95/vitesse-next $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
+    else
+      npx degit Simon-He95/vitesse-next $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+    fi
   fi
 }
 
 # remove
 remove() {
-  if [ ! $1 ]; then
-    console.red "指定一个删除的目录名称"
-    return 0
+  if [ $1 ]; then
+    if [ ! -f $1 ] && [ ! -d $1 ]; then
+      console.red '文件或目录不存在'
+      return 0
+    else
+      console.blue "正在删除$1"
+      rimraf $1 && console.green "删除成功" || console.red "删除失败,请重新尝试"
+      return 1
+    fi
   fi
-  if [ ! -f $1 ] && [ ! -d $1 ]; then
-    console.red '文件或目录不存在'
-    return 0
-  else
-    console.blue "正在删除$1目录"
-    rimraf $1 && console.green "删除成功" || console.red "删除失败,请重新尝试"
-    return 1
-  fi
+  for file in $(ls); do
+    str="$str\"$file\" "
+  done
+  content=$(gumChoose "$str")
+  console.blue "正在删除$content"
+  rimraf $file && console.green "删除成功" || console.red "删除失败,请重新尝试"
+  return 1
 }
 
 # reni
@@ -357,6 +376,11 @@ update() {
   str=${all// /@latest }
   console.green ni $str
   ni $str
+}
+
+commit() {
+  commitMessage=$(gum choose "chore: update" "feature: add new funciton" "chore: update dependency" "fix: typo" "chore: init")
+  git add . && git commit -m $commitMessage
 }
 
 fpath=($fpath "/home/simon/.zfunctions")
