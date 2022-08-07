@@ -267,15 +267,15 @@
     "Git Bash": {
       "source": "Git Bash"
     },
-    "Ubuntu-20.04 (WSL)": {
+    "Ubuntu-22.04 (WSL)": {
       "path": "C:\\WINDOWS\\System32\\wsl.exe",
       "args": [
         "-d",
-        "Ubuntu-20.04"
+        "Ubuntu-22.04"
       ]
     }
   },
-  "terminal.integrated.defaultProfile.windows": "Ubuntu-20.04 (WSL)",
+  "terminal.integrated.defaultProfile.windows": "Ubuntu-22.04 (WSL)",
   "security.workspace.trust.untrustedFiles": "open",
   "git.repositoryScanIgnoredFolders": [
     "node_modules",
@@ -297,6 +297,7 @@
   "editor.suggest.snippetsPreventQuickSuggestions": false,
   "editor.quickSuggestionsDelay": 50,
   "cSpell.userWords": [
+    "antfu",
     "nuxt",
     "Unfin",
     "Unocss",
