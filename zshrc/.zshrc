@@ -262,9 +262,9 @@ remove() {
   for file in $(ls); do
     str="$str\"$file\" "
   done
-  content=$(gumChoose "$str")
+  content=$(echo $(ls) | sed 's/ /\n/g' | gum choose)
   console.blue "正在删除$content"
-  rimraf $file && console.green "删除成功" || console.red "删除失败,请重新尝试"
+  rimraf $content && console.green "删除成功" || console.red "删除失败,请重新尝试"
   return 1
 }
 
