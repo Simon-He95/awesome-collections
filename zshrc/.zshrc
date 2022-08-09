@@ -378,9 +378,34 @@ update() {
   ni $str
 }
 
+# commit
 commit() {
   commitMessage=$(gum choose "chore: update" "feature: add new funciton" "chore: update dependency" "fix: typo" "chore: init")
   git add . && git commit -m $commitMessage
+}
+
+# new 创建新文件
+new() {
+  currentDir=$(echo ${1%%/*})
+  right=$1
+  if [ -f $1 ]; then
+    console.red '文件已存在'
+    return 1
+  fi
+  while [ true ]; do
+    if [ ! -d $currentDir ]; then
+      mkdir -p $currentDir
+    fi
+    right=$(echo ${right#*/})
+    currentDir="$currentDir/${right%%/*}"
+    end=$(echo $right | grep "/")
+    if [[ "$end" == "" ]]; then
+      touch $1
+      root=$(pwd)
+      console.green "$root/$1, created successfully"
+      return 1
+    fi
+  done
 }
 
 fpath=($fpath "/home/simon/.zfunctions")
