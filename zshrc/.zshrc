@@ -75,7 +75,7 @@ alias proxy="git config --global http.proxy http://127.0.0.1:57932 && git config
 alias pullmaster="git pull origin master"
 alias pullmain="git pull origin main"
 alias flog="git reflog"
-alias see="ps -ef|grep"
+alias see="ps -ef"
 
 #--------------------------#
 # Pnpm
@@ -191,8 +191,8 @@ clone() {
 
 # template
 template() {
-  console.skyblue "请选择一个模板: ts | vue | nuxt | vitesse | react | next"
-  templateName=$(gum choose "ts" "vue" "nuxt" "react" "next")
+  console.skyblue "请选择一个模板: ts | vue-h | vue-template | nuxt | vitesse | react | next | vitepress"
+  templateName=$(gum choose "ts" "vue" "nuxt" "react" "next" "vitepress")
   if [ ! $1 ]; then
     console.red "需要指定一个模板名称"
     return 0
@@ -209,12 +209,19 @@ template() {
     else
       npx degit Simon-He95/starter-ts $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
     fi
-  elif [ $templateName = "vue" ]; then
+  elif [ $templateName = "vue-h" ]; then
     console.blue "正在创建$1目录,下载vitesse-lite模板,请稍等..."
     if [ ! $2 ]; then
-      npx degit Simon-He95/vitesse-lite $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
+      npx degit Simon-He95/vitesse-h $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
     else
-      npx degit Simon-He95/vitesse-lite $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+      npx degit Simon-He95/vitesse-h $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+    fi
+  elif [ $templateName = "vue-template" ]; then
+    console.blue "正在创建$1目录,下载vitesse-lite模板,请稍等..."
+    if [ ! $2 ]; then
+      npx degit Simon-He95/vitesse-template $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
+    else
+      npx degit Simon-He95/vitesse-template $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
     fi
   elif [ $templateName = "nuxt" ]; then
     console.blue "正在创建$1目录,下载vitesse-nuxt3模板,请稍等..."
@@ -243,6 +250,13 @@ template() {
       npx degit Simon-He95/vitesse-next $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
     else
       npx degit Simon-He95/vitesse-next $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+    fi
+  elif [ $templateName = "vitepress" ]; then
+    console.blue "正在创建$1目录,下载vitesse-vitepress模板,请稍等..."
+    if [ ! $2 ]; then
+      npx degit Simon-He95/vitesse-vitepress $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
+    else
+      npx degit Simon-He95/vitesse-vitepress $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
     fi
   fi
 }
@@ -401,11 +415,31 @@ new() {
     end=$(echo $right | grep "/")
     if [[ "$end" == "" ]]; then
       touch $1
-      root=$(pwd)
-      console.green "$root/$1, created successfully"
+      console.green "$1, created successfully"
       return 1
     fi
   done
+}
+
+# cnrm 选择源
+cnrm() {
+  registery=$(echo $(nrm ls) | sed 's/\/ /\n/g' | gum choose)
+  a=${registery/\* /}
+  b=${a%% -*}
+  nrm use $b
+}
+
+# cnvm 选择node版本 - nvm
+cnvm() {
+  registery=$(echo $(nvm_ls) | sed 's/ /\n/g' | gum choose)
+  nvm use $registery
+}
+
+# cfnm 选择node版本 - fnm
+cfnm() {
+  current=$(echo $(fnm current))
+  registery=$(echo $(fnm ls) | sed "s/$current/$current --- current/g" | sed 's/default//g' | sed 's/\* /\n/g' | gum choose)
+  fnm use ${registery% -*}
 }
 
 fpath=($fpath "/home/simon/.zfunctions")
@@ -432,3 +466,11 @@ fpath=($fpath "/home/simon/.zfunctions")
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
+# fnm
+export PATH=/home/simon/.fnm:$PATH
+eval "$(fnm env)"
