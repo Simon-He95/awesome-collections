@@ -191,8 +191,8 @@ clone() {
 
 # template
 template() {
-  console.skyblue "请选择一个模板: ts | vue-h | vue-template | nuxt | vitesse | react | next | vitepress"
-  templateName=$(gum choose "ts" "vue" "nuxt" "react" "next" "vitepress")
+  console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-tsx | nuxt | vitesse | react | next | vitepress"
+  templateName=$(gum choose "ts" "vue-h" "vue-template" "vue-tsx" "nuxt" "react" "next" "vitepress")
   if [ ! $1 ]; then
     console.red "需要指定一个模板名称"
     return 0
@@ -222,6 +222,13 @@ template() {
       npx degit Simon-He95/vitesse-template $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
     else
       npx degit Simon-He95/vitesse-template $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+    fi
+  elif [ $templateName = "vue-tsx" ]; then
+    console.blue "正在创建$1目录,下载vitesse-tsx模板,请稍等..."
+    if [ ! $2 ]; then
+      npx degit Simon-He95/vitesse-tsx $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
+    else
+      npx degit Simon-He95/vitesse-tsx $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
     fi
   elif [ $templateName = "nuxt" ]; then
     console.blue "正在创建$1目录,下载vitesse-nuxt3模板,请稍等..."
