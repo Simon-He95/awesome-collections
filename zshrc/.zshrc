@@ -9,6 +9,7 @@ plugins=(git zsh-autosuggestions zsh-nvm zsh-z zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.bash_profile
+eval "$(fnm env --use-on-cd)"
 # User configuration
 # -------------------------#
 #  Node Package Manager
@@ -114,19 +115,29 @@ console.pink() {
 
 run() {
   command="$2"
+  workspace=$1
+  if [ ! -d "/yarn.lock" ]; then
+    tag=1
+  else 
+    tag=0
+  fi
   if [ "$2" = "" ]; then
-    pnpm run $1
+    if [ $tag = 1 ];then
+      yarn $workspace
+    else
+      pnpm run $workspace
+    fi
     return
   elif [ "$2" = "i" -o "$2" = "install" ]; then
     data=$*
-    len1=$1
+    len1=$workspace
     len2=$2
     result="pnpm --filter "$1" i ${data:$(expr ${#len1} + ${#len2} + 2)}"
     eval $result
     return
   elif [ "$2" = "un" -o "$2" = "uninstall" ]; then
     data=$*
-    len1=$1
+    len1=$workspace
     len2=$2
     result="pnpm --filter "$1" uninstall ${data:$(expr ${#len1} + ${#len2} + 2)}"
     eval $result
@@ -142,7 +153,22 @@ run() {
   elif [ "$2" = "pr" ]; then
     command="preview"
   fi
-  pnpm --filter $1 run $command
+  all=$*
+  argv=${all#* --}
+  echo $1
+  if [ $argv = $all ]; then
+    if [ $tag = 1 ];then
+      yarn workspace $workspace $command
+    else
+    pnpm --filter $workspace run $command
+    fi
+  else
+    if [ $tag = 1 ];then
+    yarn workspace $workspace run $command --$argv
+    else
+    pnpm --filter $workspace run $command --$argv
+    fi
+  fi
 }
 
 # 创建git tag
@@ -449,35 +475,22 @@ cfnm() {
   fnm use ${registery% -*}
 }
 
-fpath=($fpath "/home/simon/.zfunctions")
-
-# Set Spaceship ZSH as a prompt
-autoload -U promptinit
-promptinit
-prompt spaceship
-
-export PNPM_HOME="/home/simon/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
-source /home/simon/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /home/simon/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh
-source "/home/simon/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+source "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$HOME/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh"
+fpath=( "$HOME/.zfunctions" $fpath )
 
-source "/home/simon/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
-fpath=($fpath "/home/simon/.zfunctions")
-fpath=($fpath "/home/simon/.zfunctions")
-
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 # bun completions
-[ -s "/home/simon/.bun/_bun" ] && source "/home/simon/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
-# fnm
-export PATH=/home/simon/.fnm:$PATH
-eval "$(fnm env)"
+source "/Users/hejian/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
