@@ -50,6 +50,7 @@ alias ....="cd ../../.."
 # -------------------------#
 
 alias gs="git status"
+alias fetch="git fetch -all"
 alias gcc="git checkout"
 alias gccb="git checkout -b"
 alias gl="git log"
@@ -128,18 +129,26 @@ run() {
       pnpm run $workspace
     fi
     return
-  elif [ "$2" = "i" -o "$2" = "install" ]; then
+  elif [ "$2" = "i" -o "$2" = "install" -o "$2" = "add" ]; then
     data=$*
     len1=$workspace
     len2=$2
-    result="pnpm --filter "$1" i ${data:$(expr ${#len1} + ${#len2} + 2)}"
+     if [ $tag = 1 ];then
+      result="yarn workspace "$1" add ${data:$(expr ${#len1} + ${#len2} + 2)}"
+    else
+      result="pnpm --filter "$1" i ${data:$(expr ${#len1} + ${#len2} + 2)}"
+    fi
     eval $result
     return
-  elif [ "$2" = "un" -o "$2" = "uninstall" ]; then
+  elif [ "$2" = "un" -o "$2" = "uninstall" -o "$2" = "remove" ]; then
     data=$*
     len1=$workspace
     len2=$2
-    result="pnpm --filter "$1" uninstall ${data:$(expr ${#len1} + ${#len2} + 2)}"
+    if [ $tag = 1 ];then
+      result="yarn workspace "$1" remove ${data:$(expr ${#len1} + ${#len2} + 2)}"
+    else
+      result="pnpm --filter "$1" uninstall ${data:$(expr ${#len1} + ${#len2} + 2)}"
+    fi
     eval $result
     return
   elif [ "$2" = "d" ]; then
@@ -155,7 +164,6 @@ run() {
   fi
   all=$*
   argv=${all#* --}
-  echo $1
   if [ $argv = $all ]; then
     if [ $tag = 1 ];then
       yarn workspace $workspace $command
