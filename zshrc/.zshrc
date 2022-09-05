@@ -12,7 +12,7 @@ source ~/.bash_profile
 eval "$(fnm env --use-on-cd)"
 # User configuration
 # -------------------------#
-#  Node Package Manager
+#  Node Package Managerƒ
 # -------------------------#
 # alias - ni
 
@@ -50,7 +50,7 @@ alias ....="cd ../../.."
 # -------------------------#
 
 alias gs="git status"
-alias fetch="git fetch -all"
+alias fetch="git fetch --all"
 alias gcc="git checkout"
 alias gccb="git checkout -b"
 alias gl="git log"
@@ -71,6 +71,7 @@ alias rebase="git rebase"
 alias reset="git reset HEAD"
 alias reset1="git reset HEAD~1"
 alias main="git checkout main"
+alias master="git checkout master"
 alias use="nrm use"
 alias unproxy="git config --global --unset http.proxy && git config --global --unset https.proxy"
 alias proxy="git config --global http.proxy http://127.0.0.1:57932 && git config --global https.proxy https://127.0.0.1:57932"
@@ -483,6 +484,18 @@ cfnm() {
   fnm use ${registery% -*}
 }
 
+# branch
+branch(){
+  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n /g' | gum choose)
+  gcc $(echo $branch | sed "s/*//g")
+}
+
+# merge
+merge(){
+  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | gum choose)
+  git merge $(echo $branch | sed "s/*//g")
+}
+
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
@@ -495,10 +508,6 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 
 source "/Users/hejian/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
