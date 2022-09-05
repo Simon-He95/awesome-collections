@@ -120,11 +120,11 @@ run() {
   workspace=$1
   if [ ! -d "/yarn.lock" ]; then
     tag=1
-  else 
+  else
     tag=0
   fi
   if [ "$2" = "" ]; then
-    if [ $tag = 1 ];then
+    if [ $tag = 1 ]; then
       yarn $workspace
     else
       pnpm run $workspace
@@ -134,7 +134,7 @@ run() {
     data=$*
     len1=$workspace
     len2=$2
-     if [ $tag = 1 ];then
+    if [ $tag = 1 ]; then
       result="yarn workspace "$1" add ${data:$(expr ${#len1} + ${#len2} + 2)}"
     else
       result="pnpm --filter "$1" i ${data:$(expr ${#len1} + ${#len2} + 2)}"
@@ -145,7 +145,7 @@ run() {
     data=$*
     len1=$workspace
     len2=$2
-    if [ $tag = 1 ];then
+    if [ $tag = 1 ]; then
       result="yarn workspace "$1" remove ${data:$(expr ${#len1} + ${#len2} + 2)}"
     else
       result="pnpm --filter "$1" uninstall ${data:$(expr ${#len1} + ${#len2} + 2)}"
@@ -166,16 +166,16 @@ run() {
   all=$*
   argv=${all#* --}
   if [ $argv = $all ]; then
-    if [ $tag = 1 ];then
+    if [ $tag = 1 ]; then
       yarn workspace $workspace $command
     else
-    pnpm --filter $workspace run $command
+      pnpm --filter $workspace run $command
     fi
   else
-    if [ $tag = 1 ];then
-    yarn workspace $workspace run $command --$argv
+    if [ $tag = 1 ]; then
+      yarn workspace $workspace run $command --$argv
     else
-    pnpm --filter $workspace run $command --$argv
+      pnpm --filter $workspace run $command --$argv
     fi
   fi
 }
@@ -442,7 +442,13 @@ commit() {
 
 # new 创建新文件
 new() {
+  if [ ${1:0:1} != "." ]; then
+    touch $1
+    console.green "$1, created successfully"
+    return 1
+  fi
   currentDir=$(echo ${1%%/*})
+  echo $1
   right=$1
   if [ -f $1 ]; then
     console.red '文件已存在'
@@ -464,8 +470,12 @@ new() {
 }
 
 # cnrm 选择源
-cnrm() {
+co() {
   registery=$(echo $(nrm ls) | sed 's/\/ /\n/g' | gum choose)
+  if [ $? = 130 ]; then
+    echo "已取消"
+    return 1
+  fi
   a=${registery/\* /}
   b=${a%% -*}
   nrm use $b
@@ -474,25 +484,41 @@ cnrm() {
 # cnvm 选择node版本 - nvm
 cnvm() {
   registery=$(echo $(nvm_ls) | sed 's/ /\n/g' | gum choose)
+  if [ $? = 130 ]; then
+    echo "已取消"
+    return 1
+  fi
   nvm use $registery
 }
 
 # cfnm 选择node版本 - fnm
-cfnm() {
+cn() {
   current=$(echo $(fnm current))
   registery=$(echo $(fnm ls) | sed "s/$current/$current --- current/g" | sed 's/default//g' | sed 's/\* /\n/g' | gum choose)
+  if [ $? = 130 ]; then
+    echo "已取消"
+    return 1
+  fi
   fnm use ${registery% -*}
 }
 
-# branch
-branch(){
+# cb 选择分支
+cb() {
   branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n /g' | gum choose)
+  if [ $? = 130 ]; then
+    echo "已取消"
+    return 1
+  fi
   gcc $(echo $branch | sed "s/*//g")
 }
 
 # merge
-merge(){
+merge() {
   branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | gum choose)
+  if [ $? = 130 ]; then
+    echo "已取消"
+    return 1
+  fi
   git merge $(echo $branch | sed "s/*//g")
 }
 
