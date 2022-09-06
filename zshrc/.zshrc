@@ -48,7 +48,7 @@ alias ....="cd ../../.."
 #--------------------------#
 # Git
 # -------------------------#
-
+alias remote="git remote"
 alias gs="git status"
 alias fetch="git fetch --all"
 alias gcc="git checkout"
@@ -66,7 +66,8 @@ alias gpf="git push --force"
 alias gpt="git push origin --tags"
 alias gptf="git push origin --tags -f"
 alias gp="git push"
-alias gst="git stash"
+alias stash="git stash"
+alias pop="git stash pop"
 alias rebase="git rebase"
 alias reset="git reset HEAD"
 alias reset1="git reset HEAD~1"
@@ -120,11 +121,11 @@ run() {
   workspace=$1
   if [ ! -d "/yarn.lock" ]; then
     tag=1
-  else
+  else 
     tag=0
   fi
   if [ "$2" = "" ]; then
-    if [ $tag = 1 ]; then
+    if [ $tag = 1 ];then
       yarn $workspace
     else
       pnpm run $workspace
@@ -134,7 +135,7 @@ run() {
     data=$*
     len1=$workspace
     len2=$2
-    if [ $tag = 1 ]; then
+     if [ $tag = 1 ];then
       result="yarn workspace "$1" add ${data:$(expr ${#len1} + ${#len2} + 2)}"
     else
       result="pnpm --filter "$1" i ${data:$(expr ${#len1} + ${#len2} + 2)}"
@@ -145,7 +146,7 @@ run() {
     data=$*
     len1=$workspace
     len2=$2
-    if [ $tag = 1 ]; then
+    if [ $tag = 1 ];then
       result="yarn workspace "$1" remove ${data:$(expr ${#len1} + ${#len2} + 2)}"
     else
       result="pnpm --filter "$1" uninstall ${data:$(expr ${#len1} + ${#len2} + 2)}"
@@ -166,16 +167,16 @@ run() {
   all=$*
   argv=${all#* --}
   if [ $argv = $all ]; then
-    if [ $tag = 1 ]; then
+    if [ $tag = 1 ];then
       yarn workspace $workspace $command
     else
-      pnpm --filter $workspace run $command
+    pnpm --filter $workspace run $command
     fi
   else
-    if [ $tag = 1 ]; then
-      yarn workspace $workspace run $command --$argv
+    if [ $tag = 1 ];then
+    yarn workspace $workspace run $command --$argv
     else
-      pnpm --filter $workspace run $command --$argv
+    pnpm --filter $workspace run $command --$argv
     fi
   fi
 }
