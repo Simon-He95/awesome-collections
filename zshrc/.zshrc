@@ -443,13 +443,13 @@ commit() {
 
 # new 创建新文件
 new() {
-  if [ ${1:0:1} != "." ]; then
+  dir=$(echo $1 | grep '/')
+  if [[ $dir = "" ]]; then
     touch $1
     console.green "$1, created successfully"
     return 1
   fi
   currentDir=$(echo ${1%%/*})
-  echo $1
   right=$1
   if [ -f $1 ]; then
     console.red '文件已存在'
@@ -461,6 +461,8 @@ new() {
     fi
     right=$(echo ${right#*/})
     currentDir="$currentDir/${right%%/*}"
+  echo $currentDir 
+  echo "right: $right"
     end=$(echo $right | grep "/")
     if [[ "$end" == "" ]]; then
       touch $1
