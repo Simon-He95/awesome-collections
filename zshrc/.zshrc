@@ -461,8 +461,6 @@ new() {
     fi
     right=$(echo ${right#*/})
     currentDir="$currentDir/${right%%/*}"
-  echo $currentDir 
-  echo "right: $right"
     end=$(echo $right | grep "/")
     if [[ "$end" == "" ]]; then
       touch $1
