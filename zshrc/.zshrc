@@ -10,6 +10,7 @@ plugins=(git zsh-autosuggestions zsh-nvm zsh-z zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 source ~/.bash_profile
 eval "$(fnm env --use-on-cd)"
+
 # User configuration
 # -------------------------#
 #  Node Package Managerƒ
@@ -522,6 +523,7 @@ merge() {
   fi
   git merge $(echo $branch | sed "s/*//g")
 }
+
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
