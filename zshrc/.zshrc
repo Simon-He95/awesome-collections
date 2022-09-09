@@ -70,8 +70,6 @@ alias gp="git push"
 alias stash="git stash"
 alias pop="git stash pop"
 alias rebase="git rebase"
-alias reset="git reset HEAD"
-alias reset1="git reset HEAD~1"
 alias main="git checkout main"
 alias master="git checkout master"
 alias use="nrm use"
@@ -122,11 +120,11 @@ run() {
   workspace=$1
   if [ ! -d "/yarn.lock" ]; then
     tag=1
-  else 
+  else
     tag=0
   fi
   if [ "$2" = "" ]; then
-    if [ $tag = 1 ];then
+    if [ $tag = 1 ]; then
       yarn $workspace
     else
       pnpm run $workspace
@@ -136,7 +134,7 @@ run() {
     data=$*
     len1=$workspace
     len2=$2
-     if [ $tag = 1 ];then
+    if [ $tag = 1 ]; then
       result="yarn workspace "$1" add ${data:$(expr ${#len1} + ${#len2} + 2)}"
     else
       result="pnpm --filter "$1" i ${data:$(expr ${#len1} + ${#len2} + 2)}"
@@ -147,7 +145,7 @@ run() {
     data=$*
     len1=$workspace
     len2=$2
-    if [ $tag = 1 ];then
+    if [ $tag = 1 ]; then
       result="yarn workspace "$1" remove ${data:$(expr ${#len1} + ${#len2} + 2)}"
     else
       result="pnpm --filter "$1" uninstall ${data:$(expr ${#len1} + ${#len2} + 2)}"
@@ -168,16 +166,16 @@ run() {
   all=$*
   argv=${all#* --}
   if [ $argv = $all ]; then
-    if [ $tag = 1 ];then
+    if [ $tag = 1 ]; then
       yarn workspace $workspace $command
     else
-    pnpm --filter $workspace run $command
+      pnpm --filter $workspace run $command
     fi
   else
-    if [ $tag = 1 ];then
-    yarn workspace $workspace run $command --$argv
+    if [ $tag = 1 ]; then
+      yarn workspace $workspace run $command --$argv
     else
-    pnpm --filter $workspace run $command --$argv
+      pnpm --filter $workspace run $command --$argv
     fi
   fi
 }
@@ -438,7 +436,7 @@ update() {
 
 # commit
 commit() {
-  commitMessage=$(gum choose "chore: update" "feature: add new funciton" "chore: update dependency" "fix: typo" "chore: init")
+  commitMessage=$(gum choose "chore: update" "feat: add new funciton" "chore: update dependency" "fix: typo" "chore: init" "perf: optimize" "refactor: refactor code" "docs: update docs" "style: update style" "test: update test")
   git add . && git commit -m $commitMessage
 }
 
@@ -471,6 +469,13 @@ new() {
   done
 }
 
+# reset
+reset() {
+  echo "选择回退版本到前几个版本"
+  head=$(gum choose {1..5})
+  git reset HEAD~$head && echo "回退成功,已回退到前$head个版本"
+}
+
 # cnrm 选择源
 co() {
   registery=$(echo $(nrm ls) | sed 's/\/ /\n/g' | gum choose)
@@ -485,7 +490,7 @@ co() {
 
 # cnvm 选择node版本 - nvm
 cnvm() {
-  registery=$(echo $(nvm_ls) | sed 's/ /\n/g' | gum choose)
+  registery=$(echo $(nvm_ls) | sed 's/system//g' | sed 's/ /\n/g' | gum choose)
   if [ $? = 130 ]; then
     echo "已取消"
     return 1
@@ -496,7 +501,7 @@ cnvm() {
 # cfnm 选择node版本 - fnm
 cn() {
   current=$(echo $(fnm current))
-  registery=$(echo $(fnm ls)  | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/* $current/g" | gum choose)
+  registery=$(echo $(fnm ls) | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/* $current/g" | gum choose)
   if [ $? = 130 ]; then
     echo "已取消"
     return 1
@@ -506,7 +511,7 @@ cn() {
 
 # cb 选择分支
 cb() {
-  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | gum choose)
+  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum choose)
   if [ $? = 130 ]; then
     echo "已取消"
     return 1
@@ -516,7 +521,7 @@ cb() {
 
 # merge
 merge() {
-  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | gum choose)
+  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum choose)
   if [ $? = 130 ]; then
     echo "已取消"
     return 1
