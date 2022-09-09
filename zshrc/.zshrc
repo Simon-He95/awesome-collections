@@ -495,7 +495,7 @@ cnvm() {
 # cfnm 选择node版本 - fnm
 cn() {
   current=$(echo $(fnm current))
-  registery=$(echo $(fnm ls) | sed "s/$current/$current --- current/g" | sed 's/default//g' | sed 's/\* /\n/g' | gum choose)
+  registery=$(echo $(fnm ls)  | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/* $current/g" | gum choose)
   if [ $? = 130 ]; then
     echo "已取消"
     return 1
@@ -505,7 +505,7 @@ cn() {
 
 # cb 选择分支
 cb() {
-  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n /g' | gum choose)
+  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | gum choose)
   if [ $? = 130 ]; then
     echo "已取消"
     return 1
@@ -522,7 +522,6 @@ merge() {
   fi
   git merge $(echo $branch | sed "s/*//g")
 }
-
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
