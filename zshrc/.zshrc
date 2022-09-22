@@ -519,6 +519,16 @@ cb() {
   gcc $(echo $branch | sed "s/*//g")
 }
 
+# db 删除分支
+db() {
+  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum choose)
+  if [ $? = 130 ]; then
+    echo "已取消"
+    return 1
+  fi
+  gbd $(echo $branch | sed "s/*//g")
+}
+
 # merge
 merge() {
   branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum choose)
@@ -527,6 +537,11 @@ merge() {
     return 1
   fi
   git merge $(echo $branch | sed "s/*//g")
+}
+
+## 字符串替换
+replace() {
+  echo $1 | sed "s/$2/$3/g"
 }
 
 export PNPM_HOME="$HOME/.local/share/pnpm"
