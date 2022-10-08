@@ -511,6 +511,10 @@ cn() {
 
 # cb 选择分支
 cb() {
+  if [ $1 ]; then
+    gcc $1
+    return 0
+  fi
   branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum choose)
   if [ $? = 130 ]; then
     echo "已取消"
@@ -521,6 +525,10 @@ cb() {
 
 # db 删除分支
 db() {
+  if [ $1 ]; then
+    gbd $1
+    return 0
+  fi
   branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum choose)
   if [ $? = 130 ]; then
     echo "已取消"
@@ -531,6 +539,10 @@ db() {
 
 # merge
 merge() {
+  if [ $1 ]; then
+    git merge $1
+    return 0
+  fi
   branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum choose)
   if [ $? = 130 ]; then
     echo "已取消"
