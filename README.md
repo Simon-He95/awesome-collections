@@ -1,3 +1,5 @@
+<span><div align="center">![picture](/images/kv.png)</div></span>
+
 ## Linux terminal
 [settings](./linux/settings.json)
 
