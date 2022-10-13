@@ -59,6 +59,7 @@ alias glo="git log --online --graph"
 alias gb="git branch"
 alias gbd="git branch -d"
 alias gba="git branch -a"
+alias gbm="git branch -m"
 alias gc="git add . && git commit -m"
 alias ga="git add ."
 alias gs="git status"
@@ -436,8 +437,12 @@ update() {
 
 # commit
 commit() {
-  commitMessage=$(gum choose "chore: update" "feat: add new funciton" "chore: update dependency" "fix: typo" "chore: init" "perf: optimize" "refactor: refactor code" "docs: update docs" "style: update style" "test: update test")
-  git add . && git commit -m $commitMessage
+  if [ $1 ]; then
+    git add . && git commit --quiet --allow-empty-message -m "$1"
+  else
+    commitMessage=$(gum choose "chore: update" "feat: add new funciton" "chore: update dependency" "fix: typo" "chore: init" "perf: optimize" "refactor: refactor code" "docs: update docs" "style: update style" "test: update test")
+    git add . && git commit --quiet --allow-empty-message -m $commitMessage
+  fi
 }
 
 # new 创建新文件
