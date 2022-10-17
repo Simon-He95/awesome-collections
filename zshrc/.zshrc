@@ -442,8 +442,13 @@ commit() {
     git add . && git commit --quiet --allow-empty-message -m "$1"
   else
     commitMessage=$(gum choose "chore: update" "feat: add new funciton" "chore: update dependency" "fix: typo" "chore: init" "perf: optimize" "refactor: refactor code" "docs: update docs" "style: update style" "test: update test")
+    if [ $? = 130 ]; then
+      echo "已取消"
+      return 1
+    fi
     git add . && git commit --quiet --allow-empty-message -m $commitMessage
   fi
+
 }
 
 # new 创建新文件
