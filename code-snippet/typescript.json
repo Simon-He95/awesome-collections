@@ -1,131 +1,182 @@
 {
-  "function": {
-    "prefix": "function",
-    "body": [
-      "function ${1:name}(${2:args}:string) {",
-      "$2"
-    ],
-    "description": "function 函数"
-  },
-  "arrowFunction": {
-    "prefix": "arrowFunction",
-    "body": [
-      "const ${1:name} = (${2:args}:string) {",
-      "$2"
-    ],
-    "description": "arrowFunction 函数"
-  },
-  "import": {
-    "prefix": "import",
-    "body": [
-      "import ${1:name} from '${2:path}';"
-    ],
-    "description": "import 导入"
-  },
-  "require": {
-    "prefix": "require",
-    "body": [
-      "const ${1:name} = require('${2:path}');"
-    ],
-    "description": "require 导入"
-  },
-  "type": {
-    "prefix": "type",
-    "body": [
-      "type ${1:name} = {",
-      "${2:_name}: string",
-      "}"
-    ],
-    "description": "type 类型"
-  },
-  "interface": {
-    "prefix": "interface",
-    "body": [
-      "interface ${1:name}  {",
-      "${2:_name}: string",
-      "}"
-    ],
-    "description": "interface 类型"
-  },
-  "useAttrs": {
-    "prefix": "myuseAttrs",
-    "body": [
-      "const attrs = useAttrs()"
-    ],
-    "description": "useAttrs"
-  },
-  "defineProps": {
-    "prefix": "mydefineProps",
-    "body": [
-      "const props = defineProps<{name:any}>()"
-    ],
-    "description": "defineProps"
-  },
-  "ref": {
-    "prefix": "myref",
-    "body": [
-      "const {$1} = ref(${2})"
-    ],
-    "description": "ref"
-  },
-  "reactive": {
-    "prefix": "myreactive",
-    "body": [
-      "const {$1} = reactive<${1:any}>(${2})"
-    ],
-    "description": "reactive"
-  },
-  "useToggle": {
-    "prefix": "myuseToggle",
-    "body": [
-      "const toggle = useToggle(mode)"
-    ],
-    "description": "myuseToggle"
-  },
-  "useElementBounding": {
-    "prefix": "myuseElementBounding",
-    "body": [
-      "const rect = useElementBounding(el)"
-    ],
-    "description": "useElementBounding"
-  },
-  "watch": {
-    "prefix": "mywatch",
-    "body": [
-      "watch(${1:ref}, (value) => {",
-      "${2}",
-      "})"
-    ],
-    "description": "useElementBounding"
-  },
-  "computed": {
-    "prefix": "mycomputed",
-    "body": [
-      "const result = computed(() => {",
-      "${1}",
-      "})"
-    ],
-    "description": "computed"
-  },
-  "useEventListener": {
-    "prefix": "myuseEventListener",
-    "body": "useEventListener('resize', update)",
-    "description": "useEventListener"
-  },
-  "watchEffect": {
-    "prefix": "mywatchEffect",
-    "body": [
-      "watchEffect(() => {",
-      "${1}",
-      "})"
-    ],
-    "description": "watchEffect"
-  },
-  "useStorage": {
-    "prefix": "myuseStorage",
-    "body": [
-      "useStorage('${1:key}', ${2:defaultValue})"
-    ],
-    "description": "useStorage"
-  }
+	"function": {
+		"prefix": "function",
+		"body": [
+			"function ${1:name}(${2:args}:string) {",
+			"$2"
+		],
+		"description": "function 函数"
+	},
+	"arrowFunction": {
+		"prefix": "arrowFunction",
+		"body": [
+			"const ${1:name} = (${2:args}:string) {",
+			"$2"
+		],
+		"description": "arrowFunction 函数"
+	},
+	"import": {
+		"prefix": "import",
+		"body": [
+			"import ${1:name} from '${2:path}';"
+		],
+		"description": "import 导入"
+	},
+	"require": {
+		"prefix": "require",
+		"body": [
+			"const ${1:name} = require('${2:path}');"
+		],
+		"description": "require 导入"
+	},
+	"type": {
+		"prefix": "type",
+		"body": [
+			"type ${1:name} = {",
+			"${2:_name}: string",
+			"}"
+		],
+		"description": "type 类型"
+	},
+	"interface": {
+		"prefix": "interface",
+		"body": [
+			"interface ${1:name}  {",
+			"${2:_name}: string",
+			"}"
+		],
+		"description": "interface 类型"
+	},
+	"useAttrs": {
+		"prefix": "myuseAttrs",
+		"body": [
+			"const attrs = useAttrs()"
+		],
+		"description": "useAttrs"
+	},
+	"defineProps": {
+		"prefix": "mydefineProps",
+		"body": [
+			"const props = defineProps<{name:any}>()"
+		],
+		"description": "defineProps"
+	},
+	"ref": {
+		"prefix": "myref",
+		"body": [
+			"const {$1} = ref(${2})"
+		],
+		"description": "ref"
+	},
+	"reactive": {
+		"prefix": "myreactive",
+		"body": [
+			"const {$1} = reactive<${1:any}>(${2})"
+		],
+		"description": "reactive"
+	},
+	"useToggle": {
+		"prefix": "myuseToggle",
+		"body": [
+			"const toggle = useToggle(mode)"
+		],
+		"description": "myuseToggle"
+	},
+	"useElementBounding": {
+		"prefix": "myuseElementBounding",
+		"body": [
+			"const rect = useElementBounding(el)"
+		],
+		"description": "useElementBounding"
+	},
+	"watch": {
+		"prefix": "mywatch",
+		"body": [
+			"watch(${1:ref}, (value) => {",
+			"${2}",
+			"})"
+		],
+		"description": "useElementBounding"
+	},
+	"computed": {
+		"prefix": "mycomputed",
+		"body": [
+			"const result = computed(() => {",
+			"${1}",
+			"})"
+		],
+		"description": "computed"
+	},
+	"useEventListener": {
+		"prefix": "myuseEventListener",
+		"body": "useEventListener('resize', update)",
+		"description": "useEventListener"
+	},
+	"watchEffect": {
+		"prefix": "mywatchEffect",
+		"body": [
+			"watchEffect(() => {",
+			"${1}",
+			"})"
+		],
+		"description": "watchEffect"
+	},
+	"useStorage": {
+		"prefix": "myuseStorage",
+		"body": [
+			"useStorage('${1:key}', ${2:defaultValue})"
+		],
+		"description": "useStorage"
+	},
+	"express": {
+		"prefix": "quickExpress",
+		"body": [
+			"const fs = require('fs')",
+			"const express = require('express')",
+			"const app = express()",
+			"app.all('*', (req, res, next) => {",
+			"res.header('Access-Control-Allow-Origin', '*')",
+			"res.header('Access-Control-Allow-Headers', 'content-type')",
+			"res.header('Access-Control-Allow-Methods', 'DELETE,PUT,POST,GET,OPTIONS')",
+			"if (req.method.toLowerCase() === 'options')",
+			"res.send(200) ",
+			"else",
+			"next()",
+			"})",
+			"app.get('/rank', (req, res) => {",
+			"const json = require('./rank.json')",
+			"const { times, city } = req.query",
+			"if (!times || !city) return",
+			"if (!json[city]) {",
+			"json[city] = [{",
+			"times,",
+			"}]",
+			"}",
+			"else { json[city].push({ times }) }",
+			"json[city].sort((a, b) => a.times - b.times)",
+			"const idx = json[city].findIndex(item => +item.times === +times)",
+			"fs.writeFileSync('./rank.json', JSON.stringify(json, undefined, 2), 'utf-8')",
+			"res.json(idx)",
+			"})",
+			"app.listen(5002, () => {",
+			"console.log('服务器启动5002')",
+			"})"
+		]
+	},
+	"koa": {
+		"prefix": "quickKoa",
+		"body": [
+			"const Koa = require('koa');",
+			"const Router = require('@koa/router');",
+			"const app = new Koa();",
+			"const router = new Router();",
+			"router.get('/', (ctx, next) => {",
+			"ctx.body = 'Hello World!';",
+			"});",
+			"app",
+			".use(router.routes())",
+			".use(router.allowedMethods());",
+			"app.listen(3000);"
+		]
+	}
 }
