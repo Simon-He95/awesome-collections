@@ -315,7 +315,7 @@ remove() {
   for file in $(ls); do
     str="$str\"$file\" "
   done
-  content=$(echo $(ls) | sed 's/ /\n/g' | gum filter | cut -d' ' -f1)
+  content=$(echo $(ls) | sed 's/ /\n/g' | gum filter)
   console.blue "正在删除$content"
   rimraf $content && console.green "删除成功" || console.red "删除失败,请重新尝试"
   return 1
@@ -446,7 +446,7 @@ commit() {
     docs='docs: update docs'
     style='style: update style'
     test='test: update test'
-    commitMessage=$(replace "$update,$feat,$dependency,$typo,$init,$perf,$refactor,$docs,$style,$test" "," "\n" | gum filter | cut -d' ' -f1)
+    commitMessage=$(replace "$update,$feat,$dependency,$typo,$init,$perf,$refactor,$docs,$style,$test" "," "\n" | gum filter)
     if [ ! $commitMessage ]; then
       echo "已取消"
       return 1
@@ -505,7 +505,7 @@ co() {
 
 # cnvm 选择node版本 - nvm
 cnvm() {
-  registery=$(echo $(nvm_ls) | sed 's/system//g' | sed 's/ /\n/g' | gum filter | cut -d' ' -f1)
+  registery=$(echo $(nvm_ls) | sed 's/system//g' | sed 's/ /\n/g' | gum filter)
   if [ ! $registery ]; then
     echo "已取消"
     return 1
@@ -516,7 +516,7 @@ cnvm() {
 # cfnm 选择node版本 - fnm
 cn() {
   current=$(echo $(fnm current))
-  registery=$(echo $(fnm ls) | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/* $current/g" | gum filter | cut -d' ' -f1)
+  registery=$(echo $(fnm ls) | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/* $current/g" | gum filter)
   if [ ! $registery ]; then
     echo "已取消"
     return 1
@@ -530,7 +530,8 @@ cb() {
     gcc $1
     return 0
   fi
-  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum filter | cut -d' ' -f1)
+  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum filter)
+  branch=$(echo ${branch// /} | sed 's/\*//g')
   if [ ! $branch ]; then
     echo "已取消"
     return 1
@@ -563,7 +564,8 @@ merge() {
     git merge $1
     return 0
   fi
-  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum filter | cut -d' ' -f1)
+  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum filter)
+  branch=$(echo ${branch// /} | sed 's/\*//g')
   if [ ! $branch ]; then
     echo "已取消"
     return 1
@@ -573,7 +575,7 @@ merge() {
 
 # before 查找前20条使用过的命令
 before() {
-  command=$(history | tail -20 | cut -c 8- | gum filter | cut -d' ' -f1)
+  command=$(history | tail -20 | cut -c 8- | gum filter)
   if [ ! $command ]; then
     echo "已取消"
     return 1
