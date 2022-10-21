@@ -229,11 +229,17 @@ clone() {
 # template
 template() {
   console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-tsx | nuxt | vitesse | react | next | vitepress"
-  templateName=$(spaceToLine "ts vue-h vue-template vue-tsx nuxt react next vitepress" | gum filter | cut -d' ' -f1)
+  templateName=$(spaceToLine "ts vue-h vue-template vue-tsx nuxt react next vitepress" | gum filter)
+  if [ ! $templateName ]; then
+    echo "已取消"
+    return 1
+  fi
+
   if [ ! $1 ]; then
     console.red "需要指定一个模板名称"
     return 0
   fi
+
   if [ $templateName = "ts" ]; then
     console.blue "正在创建$1目录,下载starter-ts模板,请稍等..."
     if [ ! $2 ]; then
