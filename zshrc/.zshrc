@@ -447,7 +447,7 @@ commit() {
     style='style: update style'
     test='test: update test'
     commitMessage=$(replace "$update,$feat,$dependency,$typo,$init,$perf,$refactor,$docs,$style,$test" "," "\n" | gum filter | cut -d' ' -f1)
-    if [ $? = 130 ]; then
+    if [ ! $commitMessage ]; then
       echo "已取消"
       return 1
     fi
@@ -493,7 +493,8 @@ reset() {
 
 # cnrm 选择源
 co() {
-  registery=$(echo $(nrm ls) | sed 's/\/ /\n/g' | gum filter | cut -d' ' -f1)
+  registery=$(echo $(nrm ls) | sed 's/\/ /\n/g' | gum filter | cut -d'-' -f1)
+  registery=$(echo $registery | sed 's/\*/ /g' | sed 's/\/ //g')
   if [ ! $registery ]; then
     echo "已取消"
     return 1
