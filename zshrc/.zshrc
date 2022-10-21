@@ -53,7 +53,7 @@ alias remote="git remote"
 alias gs="git status"
 alias fetch="git fetch --all"
 alias gcc="git checkout"
-alias gccb="git checkout -b"
+alias gcb="git checkout -b"
 alias gl="git log"
 alias glo="git log --online --graph"
 alias gb="git branch"
@@ -229,16 +229,11 @@ clone() {
 # template
 template() {
   console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-tsx | nuxt | vitesse | react | next | vitepress"
-  templateName=$(gum choose "ts" "vue-h" "vue-template" "vue-tsx" "nuxt" "react" "next" "vitepress")
+  templateName=$(spaceToLine "ts vue-h vue-template vue-tsx nuxt react next vitepress" | gum filter | cut -d' ' -f1)
   if [ ! $1 ]; then
     console.red "需要指定一个模板名称"
     return 0
   fi
-
-  if [ ! $templateName ]; then
-    templateName=1
-  fi
-
   if [ $templateName = "ts" ]; then
     console.blue "正在创建$1目录,下载starter-ts模板,请稍等..."
     if [ ! $2 ]; then
@@ -320,7 +315,7 @@ remove() {
   for file in $(ls); do
     str="$str\"$file\" "
   done
-  content=$(echo $(ls) | sed 's/ /\n/g' | gum choose)
+  content=$(echo $(ls) | sed 's/ /\n/g' | gum filter | cut -d' ' -f1)
   console.blue "正在删除$content"
   rimraf $content && console.green "删除成功" || console.red "删除失败,请重新尝试"
   return 1
@@ -441,14 +436,24 @@ commit() {
   if [ $1 ]; then
     git add . && git commit --quiet --allow-empty-message -m "$1"
   else
-    commitMessage=$(gum choose "chore: update" "feat: add new funciton" "chore: update dependency" "fix: typo" "chore: init" "perf: optimize" "refactor: refactor code" "docs: update docs" "style: update style" "test: update test")
+    update='chore: update'
+    feat='feat: add new funciton'
+    dependency='chore: update dependency'
+    typo='fix: typo'
+    init='chore: init'
+    perf='perf: improve performance'
+    refactor='refactor: refactor code'
+    docs='docs: update docs'
+    style='style: update style'
+    test='test: update test'
+    commitMessage=$(replace "$update,$feat,$dependency,$typo,$init,$perf,$refactor,$docs,$style,$test" "," "\n" | gum filter | cut -d' ' -f1)
     if [ $? = 130 ]; then
       echo "已取消"
       return 1
     fi
+    return
     git add . && git commit --quiet --allow-empty-message -m $commitMessage
   fi
-
 }
 
 # new 创建新文件
@@ -482,15 +487,14 @@ new() {
 
 # reset
 reset() {
-  echo "选择回退版本到前几个版本"
-  head=$(gum choose {1..5})
-  git reset HEAD~$head && echo "回退成功,已回退到前$head个版本"
+  head=$(git log --oneline | gum filter | cut -d' ' -f1)
+  git reset --hard $head
 }
 
 # cnrm 选择源
 co() {
-  registery=$(echo $(nrm ls) | sed 's/\/ /\n/g' | gum choose)
-  if [ $? = 130 ]; then
+  registery=$(echo $(nrm ls) | sed 's/\/ /\n/g' | gum filter | cut -d' ' -f1)
+  if [ ! $registery ]; then
     echo "已取消"
     return 1
   fi
@@ -501,8 +505,8 @@ co() {
 
 # cnvm 选择node版本 - nvm
 cnvm() {
-  registery=$(echo $(nvm_ls) | sed 's/system//g' | sed 's/ /\n/g' | gum choose)
-  if [ $? = 130 ]; then
+  registery=$(echo $(nvm_ls) | sed 's/system//g' | sed 's/ /\n/g' | gum filter | cut -d' ' -f1)
+  if [ ! $registery ]; then
     echo "已取消"
     return 1
   fi
@@ -512,8 +516,8 @@ cnvm() {
 # cfnm 选择node版本 - fnm
 cn() {
   current=$(echo $(fnm current))
-  registery=$(echo $(fnm ls) | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/* $current/g" | gum choose)
-  if [ $? = 130 ]; then
+  registery=$(echo $(fnm ls) | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/* $current/g" | gum filter | cut -d' ' -f1)
+  if [ ! $registery ]; then
     echo "已取消"
     return 1
   fi
@@ -526,26 +530,31 @@ cb() {
     gcc $1
     return 0
   fi
-  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum choose)
-  if [ $? = 130 ]; then
+  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum filter | cut -d' ' -f1)
+  if [ ! $branch ]; then
     echo "已取消"
     return 1
   fi
   gcc $(echo $branch | sed "s/*//g")
 }
-
 # db 删除分支
 db() {
-  if [ $1 ]; then
-    gbd $1
-    return 0
-  fi
-  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum choose)
-  if [ $? = 130 ]; then
-    echo "已取消"
-    return 1
-  fi
-  gbd $(echo $branch | sed "s/*//g")
+  git branch | cut -c 3- | gum choose --no-limit | xargs git branch -D
+}
+
+# checkout the chosen PR
+cpr() {
+  gh pr list | cut -f1,2 | gum choose | cut -f1 | xargs gh pr checkout
+}
+
+## 字符串替换
+replace() {
+  echo $1 | sed "s/$2/$3/g"
+}
+
+## 空格替换换行
+spaceToLine() {
+  replace $1 " " "\n"
 }
 
 # merge
@@ -554,17 +563,22 @@ merge() {
     git merge $1
     return 0
   fi
-  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum choose)
-  if [ $? = 130 ]; then
+  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum filter | cut -d' ' -f1)
+  if [ ! $branch ]; then
     echo "已取消"
     return 1
   fi
   git merge $(echo $branch | sed "s/*//g")
 }
 
-## 字符串替换
-replace() {
-  echo $1 | sed "s/$2/$3/g"
+# before 查找前20条使用过的命令
+before() {
+  command=$(history | tail -20 | cut -c 8- | gum filter | cut -d' ' -f1)
+  if [ ! $command ]; then
+    echo "已取消"
+    return 1
+  fi
+  $command
 }
 
 export PNPM_HOME="$HOME/.local/share/pnpm"
