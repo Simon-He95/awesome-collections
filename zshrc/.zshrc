@@ -493,7 +493,7 @@ reset() {
 # cnrm 选择源
 co() {
   registery=$(echo $(nrm ls) | sed 's/\/ /\n/g' | gum filter | cut -d'-' -f1)
-  registery=$(echo $registery | sed 's/\*/ /g' | sed 's/\/ //g')
+  registery=$(echo ${registery// /} | sed 's/\*//g')
   if [ ! $registery ]; then
     echo "已取消"
     return 1
