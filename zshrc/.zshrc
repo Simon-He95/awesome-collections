@@ -451,7 +451,6 @@ commit() {
       echo "已取消"
       return 1
     fi
-    return
     git add . && git commit --quiet --allow-empty-message -m $commitMessage
   fi
 }
