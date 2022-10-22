@@ -442,18 +442,12 @@ commit() {
   if [ $1 ]; then
     git add . && git commit --quiet --allow-empty-message -m "$1"
   else
-    update='chore: update'
-    feat='feat: add new funciton'
-    dependency='chore: update dependency'
-    typo='fix: typo'
-    init='chore: init'
-    perf='perf: improve performance'
-    refactor='refactor: refactor code'
-    docs='docs: update docs'
-    style='style: update style'
-    test='test: update test'
-    commitMessage=$(replace "$update,$feat,$dependency,$typo,$init,$perf,$refactor,$docs,$style,$test" "," "\n" | gum filter)
-    if [ ! $commitMessage ]; then
+    commitType="fix feat docs style refactor test chore revert perf build ci"
+    TYPE=$(spaceToLine $commitType | gum filter)
+    SCOPE=$(gum input --placeholder "scope")
+    test -n "$SCOPE" && SCOPE="($SCOPE)"
+    SUMMARY=$(gum input --value "$TYPE$SCOPE: " --placeholder "Summary of this change")
+    if [ ! $SUMMARY ]; then
       echo "已取消"
       return 1
     fi
