@@ -322,6 +322,10 @@ remove() {
     str="$str\"$file\" "
   done
   content=$(echo $(ls) | sed 's/ /\n/g' | gum filter)
+  if [ ! $content ]; then
+    echo "已取消"
+    return 1
+  fi
   console.blue "正在删除$content"
   rimraf $content && console.green "删除成功" || console.red "删除失败,请重新尝试"
   return 1
@@ -487,6 +491,10 @@ new() {
 # reset
 reset() {
   head=$(git log --oneline | gum filter | cut -d' ' -f1)
+  if [ ! $head ]; then
+    echo '已取消'
+    return 1
+  fi
   git reset --hard $head
 }
 
