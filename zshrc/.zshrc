@@ -525,6 +525,7 @@ cnvm() {
 cn() {
   current=$(echo $(fnm current))
   registery=$(echo $(fnm ls) | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/* $current/g" | gum filter)
+   registery=$(echo ${registery// /} | sed 's/\*//g')
   if [ ! $registery ]; then
     echo "已取消"
     return 1
