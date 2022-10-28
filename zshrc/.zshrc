@@ -5,10 +5,8 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="spaceship"
 
 # plugins
-plugins=(git zsh-autosuggestions zsh-nvm zsh-z zsh-syntax-highlighting)
+plugins=(git vscode zsh-autosuggestions zsh-nvm zsh-z zsh-syntax-highlighting)
 
-source $ZSH/oh-my-zsh.sh
-source ~/.bash_profile
 eval "$(fnm env --use-on-cd)"
 
 # User configuration
@@ -575,9 +573,15 @@ cb() {
   fi
   gcc $(echo $branch | sed "s/*//g")
 }
+
 # db 删除分支
 db() {
-  git branch | cut -c 3- | gum choose --no-limit | xargs git branch -D
+  git branch | cut -c 3- | gum filter | xargs git branch -D
+}
+
+# drb 删除远程分支
+drb() {
+  git branch -r | cut -c 3- | gum filter | xargs git push origin --delete
 }
 
 # checkout the chosen PR
@@ -620,18 +624,7 @@ before() {
   $command
 }
 
-export PNPM_HOME="$HOME/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh"
-fpath=( "$HOME/.zfunctions" $fpath )
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-
-source "/Users/hejian/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+source "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
+source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
