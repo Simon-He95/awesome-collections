@@ -29,7 +29,6 @@ alias t="nr test -u"
 alias w="nr watch"
 alias lint="nr lint"
 alias lintf="nr lint:fix"
-alias s="nr start"
 alias p="nr play || d"
 alias pr="nr preview"
 alias pb="nr play:build || b"
@@ -70,7 +69,6 @@ alias gpl="git pull --rebase"
 alias gpf="git push --force"
 alias gpt="git push origin --tags"
 alias gptf="git push origin --tags -f"
-alias gp="git push"
 alias stash="git stash"
 alias pop="git stash pop"
 alias rebase="git rebase"
@@ -85,7 +83,7 @@ alias flog="git reflog"
 alias see="ps -ef"
 
 #--------------------------#
-# Pnpm
+# console color
 # -------------------------#
 
 RED='\e[1;31m'     # 红
@@ -121,6 +119,12 @@ console.skyblue() {
 }
 console.pink() {
   echo -e "${PINK} $* ${RES}"
+}
+
+# gp git push
+gp() {
+  current=$(git branch --show-current)
+  git push || git push -u origin $current
 }
 
 # workspace run
@@ -264,11 +268,11 @@ template() {
 remove() {
   if [ $1 ]; then
     if [ ! -f $1 ] && [ ! -d $1 ]; then
-      console.red '文件或目录不存在'
+      console.red '文件或目录不存在:('
       return 0
     else
       console.blue "正在删除$1"
-      rimraf $1 && console.green "删除成功" || console.red "删除失败,请重新尝试"
+      rimraf $1 && console.green "删除成功:)" || console.red "删除失败,请重新尝试:("
       return 1
     fi
   fi
@@ -281,7 +285,7 @@ remove() {
     return 1
   fi
   console.blue "正在删除$content"
-  rimraf $content && console.green "删除成功" || console.red "删除失败,请重新尝试"
+  rimraf $content && console.green "删除成功:)" || console.red "删除失败,请重新尝试:("
   return 1
 }
 
@@ -375,24 +379,30 @@ pkginit() {
   }
 }' >>package.json
   if [ $? = 0 ]; then
-    console.green '创建成功'
+    console.green '创建成功:)'
   else
-    console.red '创建失败'
+    console.red '创建失败:('
   fi
 }
 
 # grant 授予文件权限
 grant() {
   chmod +x $1
-  console.green '已授权成功'
+  console.green '已授权成功:)'
 }
 
 # update 安装最新版本
 update() {
   all=$*
-  str=${all// /@latest }
-  console.green ni $str
-  ni $str
+    includes $all " -"
+    isParams=$?
+    console.blue "正在安装最新版本: ${all%% -*}"
+    str=${all// /@latest }
+  if [[ $isParams == 0 ]];then
+    console.green ni $str && ni $str && console.green "安装成功:)"
+  else 
+    console.green ni $str@latest && ni $str@latest && console.green "安装成功:)"
+  fi
 }
 
 # commit
@@ -503,12 +513,7 @@ cb() {
 }
 # db 删除分支
 db() {
-  git branch | cut -c 3- | gum filter | xargs git branch -D
-}
-
-# drb 删除远程分支
-drb() {
-  git branch -r | cut -c 3- | gum filter | xargs git push origin --delete
+  git branch -a | cut -c 3- | gum filter | xargs git branch -D
 }
 
 # checkout the chosen PR
@@ -524,6 +529,15 @@ replace() {
 ## 空格替换换行
 spaceToLine() {
   replace $1 " " "\n"
+}
+
+# includes 判断是否包含
+includes(){
+  result=$(echo $1 | grep "$2")
+  if [[ $result != "" ]];then 
+    return 0
+  fi
+    return 1
 }
 
 # merge
