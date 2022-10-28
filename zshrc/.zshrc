@@ -5,14 +5,18 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="spaceship"
 
 # plugins
-plugins=(git vscode zsh-autosuggestions zsh-nvm zsh-z zsh-syntax-highlighting)
+plugins=(git vscode zsh-autosuggestions zsh-z zsh-syntax-highlighting)
 
+# fnm env
 eval "$(fnm env --use-on-cd)"
 
 # User configuration
 # -------------------------#
 #  Node Package Managerƒ
 # -------------------------#
+
+#code
+alias github="cd ~/Documents/GitHub"
 # alias - ni
 
 alias nio="ni --prefer-offline"
@@ -92,6 +96,10 @@ PINK='\e[1;35m'    # 粉红
 SKYBLUE='\e[1;96m' # 紫
 RES='\e[0m'        # 清除颜色
 
+#--------------------------#
+# Functions
+# -------------------------#
+
 console.red() {
   echo -e "${RED} $* ${RES}"
 }
@@ -115,6 +123,7 @@ console.pink() {
   echo -e "${PINK} $* ${RES}"
 }
 
+# workspace run
 run() {
   command="$2"
   workspace=$1
@@ -217,17 +226,19 @@ clone() {
   str1=${str##*/}
   result=${str1%.*}
   console.skyblue "正在clone $result"
-  if [ ! $2 ]; then
-    git clone $str && console.pink "下载完成,正在打开 $result" && code $result && cd $result && console.green '正在下载依赖' && ni
-  else
-    git clone $str && console.pink "下载完成,正在打开 $result" && code $result && cd $result && console.green '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+  git clone $str && console.pink "下载完成,正在打开 $result" && code $result && cd $result
+  if [ -f "package.json" ]; then
+    console.green '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试'
+  fi
+  if [ $2 ]; then
+    console.blue "正在执行 nr $2" && nr $2 || eval ${2}
   fi
 }
 
 # template
 template() {
-  console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-tsx | nuxt | vitesse | react | next | vitepress"
-  templateName=$(spaceToLine "ts vue-h vue-template vue-tsx nuxt react next vitepress" | gum filter)
+  console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress"
+  templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress" | gum filter)
   if [ ! $templateName ]; then
     echo "已取消"
     return 1
@@ -238,70 +249,15 @@ template() {
     return 0
   fi
 
-  if [ $templateName = "ts" ]; then
-    console.blue "正在创建$1目录,下载starter-ts模板,请稍等..."
-    if [ ! $2 ]; then
-      npx degit Simon-He95/starter-ts $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
-    else
-      npx degit Simon-He95/starter-ts $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
-    fi
-  elif [ $templateName = "vue-h" ]; then
-    console.blue "正在创建$1目录,下载vitesse-lite模板,请稍等..."
-    if [ ! $2 ]; then
-      npx degit Simon-He95/vitesse-h $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
-    else
-      npx degit Simon-He95/vitesse-h $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
-    fi
-  elif [ $templateName = "vue-template" ]; then
-    console.blue "正在创建$1目录,下载vitesse-lite模板,请稍等..."
-    if [ ! $2 ]; then
-      npx degit Simon-He95/vitesse-template $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
-    else
-      npx degit Simon-He95/vitesse-template $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
-    fi
-  elif [ $templateName = "vue-tsx" ]; then
-    console.blue "正在创建$1目录,下载vitesse-tsx模板,请稍等..."
-    if [ ! $2 ]; then
-      npx degit Simon-He95/vitesse-tsx $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
-    else
-      npx degit Simon-He95/vitesse-tsx $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
-    fi
-  elif [ $templateName = "nuxt" ]; then
-    console.blue "正在创建$1目录,下载vitesse-nuxt3模板,请稍等..."
-    if [ ! $2 ]; then
-      npx degit Simon-He95/vitesse-nuxt3 $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
-    else
-      npx degit Simon-He95/vitesse-nuxt3 $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
-    fi
-  elif [ $templateName = "vitesse" ]; then
-    console.blue "正在创建$1目录,下载vitesse模板,请稍等..."
-    if [ ! $2 ]; then
-      npx degit Simon-He95/vitesse $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
-    else
-      npx degit Simon-He95/vitesse $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
-    fi
-  elif [ $templateName = "react" ]; then
-    console.blue "正在创建$1目录,下载vitesse-lite-react模板,请稍等..."
-    if [ ! $2 ]; then
-      npx degit Simon-He95/vitesse-lite-react $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
-    else
-      npx degit Simon-He95/vitesse-lite-react $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
-    fi
-  elif [ $templateName = "next" ]; then
-    console.blue "正在创建$1目录,下载vitesse-next模板,请稍等..."
-    if [ ! $2 ]; then
-      npx degit Simon-He95/vitesse-next $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
-    else
-      npx degit Simon-He95/vitesse-next $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
-    fi
-  elif [ $templateName = "vitepress" ]; then
-    console.blue "正在创建$1目录,下载vitesse-vitepress模板,请稍等..."
-    if [ ! $2 ]; then
-      npx degit Simon-He95/vitesse-vitepress $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni
-    else
-      npx degit Simon-He95/vitesse-vitepress $1 && console.green "正在打开$1" && code $1 && cd $1 && find ./ -type f -path "./package.json" | xargs sed -i "s:pkg-name:$1:g" && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试' && console.blue "正在执行 nr $2" && nr $2 || eval ${2}
-    fi
+  console.blue "正在创建$1目录,下载starter-$templateName模板,请稍等..."
+  npx degit Simon-He95/$templateName $1 && console.green "正在打开$1" && code $1 && cd $1 
+  if [ -f "package.json" ]; then
+    echo ${"$(cat ./package.json)//vitesse/$1"}>package.json  && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试'
   fi
+  if [ $2 ]; then
+    console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+  fi
+
 }
 
 # remove
@@ -461,37 +417,17 @@ commit() {
 new() {
   dir=$(echo $1 | grep '/')
   if [[ $dir = "" ]]; then
-    if [[ $(echo $1 | grep '\.') != "" ]]; then
-      if [[ -f $1 ]]; then
-        console.red '文件已存在'
-        return 1
-      fi
-      touch $1
-    else
-      if [ -d $1 ]; then
-        console.red '文件夹已存在'
-        return 1
-      fi
-      mkdir $1
-    fi
-    if [[ $? = 1 ]]; then
-      console.red "$1, created failed"
-      return 1
-    fi
+    touch $1
     console.green "$1, created successfully"
     return 1
   fi
   currentDir=$(echo ${1%%/*})
   right=$1
-  if [[ $(echo $1 | grep '\.') != '' && -f $1 ]]; then
+  if [ -f $1 ]; then
     console.red '文件已存在'
-    return 1
-  elif [ -d $1 ]; then
-    console.red '文件夹已存在'
     return 1
   fi
   while [ true ]; do
-    echo $currentDir
     if [ ! -d $currentDir ]; then
       mkdir -p $currentDir
     fi
@@ -499,17 +435,9 @@ new() {
     currentDir="$currentDir/${right%%/*}"
     end=$(echo $right | grep "/")
     if [[ "$end" == "" ]]; then
-      if [[ $(echo $1 | grep '\.') != "" ]]; then
-        touch $1
-      else
-        mkdir $1
-      fi
-      if [[ $? = 1 ]]; then
-        console.red "$1, created failed"
-        return 1
-      fi
+      touch $1
       console.green "$1, created successfully"
-      return 0
+      return 1
     fi
   done
 }
@@ -551,7 +479,7 @@ cnvm() {
 cn() {
   current=$(echo $(fnm current))
   registery=$(echo $(fnm ls) | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/* $current/g" | gum filter)
-   registery=$(echo ${registery// /} | sed 's/\*//g')
+  registery=$(echo ${registery// /} | sed 's/\*//g')
   if [ ! $registery ]; then
     echo "已取消"
     return 1
@@ -573,7 +501,6 @@ cb() {
   fi
   gcc $(echo $branch | sed "s/*//g")
 }
-
 # db 删除分支
 db() {
   git branch | cut -c 3- | gum filter | xargs git branch -D
@@ -624,6 +551,8 @@ before() {
   $command
 }
 
+
+# source plugin
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh"
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
