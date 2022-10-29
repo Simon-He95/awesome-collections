@@ -422,17 +422,37 @@ commit() {
 new() {
   dir=$(echo $1 | grep '/')
   if [[ $dir = "" ]]; then
-    touch $1
+    if [[ $(echo $1 | grep '\.') != "" ]]; then
+      if [[ -f $1 ]]; then
+        console.red '文件已存在'
+        return 1
+      fi
+      touch $1
+    else
+      if [ -d $1 ]; then
+        console.red '文件夹已存在'
+        return 1
+      fi
+      mkdir $1
+    fi
+    if [[ $? = 1 ]]; then
+      console.red "$1, created failed"
+      return 1
+    fi
     console.green "$1, created successfully"
     return 1
   fi
   currentDir=$(echo ${1%%/*})
   right=$1
-  if [ -f $1 ]; then
+  if [[ $(echo $1 | grep '\.') != '' && -f $1 ]]; then
     console.red '文件已存在'
+    return 1
+  elif [ -d $1 ]; then
+    console.red '文件夹已存在'
     return 1
   fi
   while [ true ]; do
+    echo $currentDir
     if [ ! -d $currentDir ]; then
       mkdir -p $currentDir
     fi
@@ -440,9 +460,17 @@ new() {
     currentDir="$currentDir/${right%%/*}"
     end=$(echo $right | grep "/")
     if [[ "$end" == "" ]]; then
-      touch $1
+      if [[ $(echo $1 | grep '\.') != "" ]]; then
+        touch $1
+      else
+        mkdir $1
+      fi
+      if [[ $? = 1 ]]; then
+        console.red "$1, created failed"
+        return 1
+      fi
       console.green "$1, created successfully"
-      return 1
+      return 0
     fi
   done
 }
