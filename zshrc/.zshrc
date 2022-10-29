@@ -65,6 +65,7 @@ alias gc="git add . && git commit -m"
 alias gca="git commit --amend"
 alias ga="git add ."
 alias gs="git status"
+alias gp="git push"
 alias gpl="git pull --rebase"
 alias gpf="git push --force"
 alias gpt="git push origin --tags"
@@ -119,12 +120,6 @@ console.skyblue() {
 }
 console.pink() {
   echo -e "${PINK} $* ${RES}"
-}
-
-# gp git push
-gp() {
-  current=$(git branch --show-current)
-  git push || git push -u origin $current
 }
 
 # workspace run
@@ -511,9 +506,19 @@ cb() {
   fi
   gcc $(echo $branch | sed "s/*//g")
 }
+
 # db 删除分支
 db() {
-  git branch -a | cut -c 3- | gum filter | xargs git branch -D
+  branch=$(git branch -a | cut -c 3- | gum filter)
+  includes $branch "remotes/"
+  isRemote=$?
+  if [ $isRemote = 0 ]; then
+    origin=$(echo ${branch#remotes/}  | cut -d'/' -f1)
+    _branch=$(echo $branch | sed "s/remotes\/$origin\///g")
+    git push $origin --delete $_branch
+  else
+    git branch -D $branch
+  fi
 }
 
 # checkout the chosen PR
