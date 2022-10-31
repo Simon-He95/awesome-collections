@@ -17,6 +17,8 @@ eval "$(fnm env --use-on-cd)"
 
 #code
 alias github="cd ~/Documents/GitHub"
+## where code -> /usr/local/bin/code
+alias code='/var/folders/z8/w1qvd0cd46z6k8_swl1n33d00000gn/T/AppTranslocation/DCC89056-493F-47EE-BD2F-20407AA9DFA3/d/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 # alias - ni
 
 alias nio="ni --prefer-offline"
@@ -46,6 +48,7 @@ alias cls="clear"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
+alias link="npm link"
 
 #--------------------------#
 # Git
@@ -82,6 +85,20 @@ alias pullmaster="git pull origin master"
 alias pullmain="git pull origin main"
 alias flog="git reflog"
 alias see="ps -ef"
+
+#--------------------------#
+# vsce 
+# -------------------------#
+
+alias package="vsce package"
+alias vpublish="vsce publish"
+
+#--------------------------#
+# ccommand 
+# -------------------------#
+
+alias c="ccommand"
+alias cf="ccommand find"
 
 #--------------------------#
 # console color
@@ -236,8 +253,8 @@ clone() {
 
 # template
 template() {
-  console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | playground"
-  templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress vitesse-playground" | gum filter)
+  console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress"
+  templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress" | gum filter)
   if [ ! $templateName ]; then
     echo "已取消"
     return 1
