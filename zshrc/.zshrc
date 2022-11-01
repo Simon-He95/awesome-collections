@@ -17,8 +17,7 @@ eval "$(fnm env --use-on-cd)"
 
 #code
 alias github="cd ~/Documents/GitHub"
-## where code -> /usr/local/bin/code
-alias code='/var/folders/z8/w1qvd0cd46z6k8_swl1n33d00000gn/T/AppTranslocation/DCC89056-493F-47EE-BD2F-20407AA9DFA3/d/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
+
 # alias - ni
 
 alias nio="ni --prefer-offline"
@@ -499,7 +498,17 @@ reset() {
     echo '已取消'
     return 1
   fi
-  git reset --hard $head
+  git reset --hard $head && echo '已重置到' $head
+}
+
+# reset
+revert() {
+  head=$(git log --author="Simon He" --oneline | gum filter | cut -d' ' -f1)
+  if [ ! $head ]; then
+    echo '已取消'
+    return 1
+  fi
+  git revert $head -n && echo $head '提交已还原' 
 }
 
 # cnrm 选择源
