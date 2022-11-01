@@ -30,3 +30,5 @@ plugins:  zsh-syntax-highlighting zsh-autosuggestions zsh-nvm zsh-z web-search
 
 ## Detail
 - git config --global core.editor vim // 将git的文本编辑器改vim
+
+<span><div align="center">![sponsors](https://www.hejian.club/images/sponsors.jpg)</div></span>
