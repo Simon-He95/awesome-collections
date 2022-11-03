@@ -16,88 +16,87 @@ eval "$(fnm env --use-on-cd)"
 # -------------------------#
 
 #code
-alias github="cd ~/Documents/GitHub"
+alias github="cd ~/Documents/GitHub" # 快速进入github文件夹
 
 # alias - ni
 
-alias nio="ni --prefer-offline"
-alias d="nr dev"
-alias s="nr start"
-alias b="nr build"
-alias bw="nr build --watch"
-alias t="nr test"
-alias t="nr test -u"
-alias w="nr watch"
-alias lint="nr lint"
-alias lintf="nr lint:fix"
-alias p="nr play || d"
-alias pr="nr preview"
-alias pb="nr play:build || b"
-alias release="npm run release"
-alias publish="npm publish --access public"
-alias clean="git add . && git commit -m 'chore: clean' && git push"
-alias v="npm view"
-alias lock="pnpm install --no-frozen-lockfile"
+alias nio="ni --prefer-offline" # npm install offline 离线安装
+alias d="nr dev" # dev 启动dev环境
+alias s="nr start" # start the server 启动项目
+alias b="nr build" # build 执行打包
+alias bw="nr build --watch" # watch mode 执行构建并监视文件更改
+alias t="nr test" # test 执行测试
+alias t="nr test -u" # update snapshots 执行测试并更新快照
+alias w="nr watch" # watch mode 执行watch命令
+alias lint="nr lint" # eslint 检查eslint
+alias lintf="nr lint:fix" # fix linting errors 修复eslint错误
+alias p="nr play || d" # play or dev 启动项目
+alias pr="nr preview" # preview 预览
+alias pb="nr play:build || b" # build and play 执行playground打包
+alias release="npm run release" # release a new version 发布新版本
+alias publish="npm publish --access public" # publish to npm 发布到npm
+alias clean="git add . && git commit -m 'chore: clean' && git push" # clean 提交清理
+alias v="npm view" # 查看包信息
+alias lock="pnpm install --no-frozen-lockfile" # 更新依赖
 
 #--------------------------#
 # project simple
 # -------------------------#
 
-alias cls="clear"
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias link="npm link"
+alias cls="clear" # 清理终端
+alias ..="cd .." # 返回上一级
+alias ...="cd ../.." # 返回上上级
+alias ....="cd ../../.." # 返回上上上级
+alias link="npm link" # link 本地包
 
 #--------------------------#
 # Git
 # -------------------------#
-alias remote="git remote"
-alias gs="git status"
-alias fetch="git fetch --all"
-alias gcc="git checkout"
-alias gcb="git checkout -b"
-alias gl="git log"
-alias glo="git log --online --graph"
-alias gb="git branch"
-alias gbd="git branch -d"
-alias gba="git branch -a"
-alias gbm="git branch -m"
-alias gc="git add . && git commit -m"
-alias gca="git commit --amend"
-alias ga="git add ."
-alias gs="git status"
-alias gp="git push"
-alias gpl="git pull --rebase"
-alias gpf="git push --force"
-alias gpt="git push origin --tags"
-alias gptf="git push origin --tags -f"
-alias stash="git stash"
-alias pop="git stash pop"
-alias rebase="git rebase"
-alias main="git checkout main"
-alias master="git checkout master"
-alias use="nrm use"
-alias unproxy="git config --global --unset http.proxy && git config --global --unset https.proxy"
-alias proxy="git config --global http.proxy http://127.0.0.1:57932 && git config --global https.proxy https://127.0.0.1:57932"
-alias pullmaster="git pull origin master"
-alias pullmain="git pull origin main"
-alias flog="git reflog"
-alias see="ps -ef"
+alias remote="git remote" # 查看远程仓库
+alias gs="git status" # 查看状态
+alias fetch="git fetch --all" # 拉取远程仓库
+alias gcc="git checkout" # 切换分支
+alias gcb="git checkout -b" # 创建并切换分支
+alias gl="git log" # 查看提交日志
+alias glo="git log --online --graph" # 查看提交日志
+alias gb="git branch" # 查看分支
+alias gbd="git branch -d" # 删除分支
+alias gba="git branch -a" # 查看所有分支
+alias gbm="git branch -m" # 重命名分支
+alias gc="git add . && git commit -m" # 提交
+alias gca="git commit --amend" # 修改最后一次提交
+alias ga="git add ." # 添加
+alias gp="git push" # 推送
+alias gpl="git pull --rebase" # 拉取
+alias gpf="git push --force" # 强制推送
+alias gpt="git push origin --tags" # 推送所有标签
+alias gptf="git push origin --tags -f" # 强制推送所有标签
+alias stash="git stash" # 暂存
+alias pop="git stash pop" # 恢复暂存
+alias rebase="git rebase" # 重写提交
+alias main="git checkout main" # 切换到主分支
+alias master="git checkout master" # 切换到主分支
+alias use="nrm use" # 切换npm源
+alias unproxy="git config --global --unset http.proxy && git config --global --unset https.proxy" # 取消代理
+alias proxy="git config --global http.proxy http://127.0.0.1:57932 && git config --global https.proxy https://127.0.0.1:57932" # 设置代理
+alias pullmaster="git pull origin master" # 拉取主分支
+alias pullmain="git pull origin main" # 拉取主分支
+alias flog="git reflog" # 查看提交日志
+alias see="ps -ef" # 查看进程
 
 #--------------------------#
 # vsce 
 # -------------------------#
 
-alias package="vsce package"
-alias vpublish="vsce publish"
+alias package="vsce package" # vscode 插件 打包
+alias vpublish="vsce publish" # vscode 插件 发布
 
 #--------------------------#
 # ccommand 
 # -------------------------#
 
-alias c="ccommand"
-alias cf="ccommand find"
+alias c="ccommand" # 选择当前scripts命令
+alias cf="ccommand find" # 查找workspace命令
 
 #--------------------------#
 # console color
@@ -110,6 +109,10 @@ BLUE='\e[1;34m'    # 蓝
 PINK='\e[1;35m'    # 粉红
 SKYBLUE='\e[1;96m' # 紫
 RES='\e[0m'        # 清除颜色
+
+color () {  # 设置颜色
+  gum style --foreground "$1" "$2"
+}
 
 #--------------------------#
 # Functions
@@ -138,7 +141,7 @@ console.pink() {
   echo -e "${PINK} $* ${RES}"
 }
 
-# workspace run
+# run 正对pnpm、yarn workspace 根目录执行子命令
 run() {
   command="$2"
   workspace=$1
@@ -204,7 +207,7 @@ run() {
   fi
 }
 
-# 创建git tag
+# tag 创建git tag
 tag() {
   console.skyblue "请输入tagname:"
   read tagname
@@ -235,7 +238,7 @@ ignore() {
   echo "*.DS_Store  \nnode_modules \n*.log \nidea/ \n*.local \n.DS_Store \ndist \n.cache \n.idea \nlogs \n&-debug.log \n*-error.log" >>.gitignore # 添加内容
 }
 
-# clone
+# clone 项目clone
 clone() {
   str=$1
   str1=${str##*/}
@@ -250,10 +253,10 @@ clone() {
   fi
 }
 
-# template
+# template 选择项目模板
 template() {
   console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress"
-  templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress" | gum filter)
+  templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress" | gum filter --placeholder=" 请选择一个模板 ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress")
   if [ ! $templateName ]; then
     echo "已取消"
     return 1
@@ -275,7 +278,7 @@ template() {
 
 }
 
-# remove
+# remove 删除文件或目录
 remove() {
   if [ $1 ]; then
     if [ ! -f $1 ] && [ ! -d $1 ]; then
@@ -290,7 +293,7 @@ remove() {
   for file in $(ls); do
     str="$str\"$file\" "
   done
-  content=$(echo $(ls) | sed 's/ /\n/g' | gum filter)
+  content=$(echo $(ls) | sed 's/ /\n/g' | gum filter --placeholder=" 请选择要删除的文件或目录")
   if [ ! $content ]; then
     echo "已取消"
     return 1
@@ -313,7 +316,7 @@ nii() {
   ni $* || nio $*
 }
 
-# pkginit
+# pkginit 生成package.json
 pkginit() {
   console.blue "请输入包名:"
   read pkgname
@@ -416,13 +419,13 @@ update() {
   fi
 }
 
-# commit
+# commit git 提交
 commit() {
   if [ $1 ]; then
     git add . && git commit --quiet --allow-empty-message -m "$1"
   else
     commitType="fix feat docs style refactor test chore revert perf build ci"
-    TYPE=$(spaceToLine $commitType | gum filter)
+    TYPE=$(spaceToLine $commitType | gum filter --placeholder=" 请选择提交类型")
     SCOPE=$(gum input --placeholder "scope")
     test -n "$SCOPE" && SCOPE="($SCOPE)"
     SUMMARY=$(gum input --value "$TYPE$SCOPE: " --placeholder "Summary of this change")
@@ -434,7 +437,7 @@ commit() {
   fi
 }
 
-# new 创建新文件
+# new 创建新文件或目录
 new() {
   dir=$(echo $1 | grep '/')
   if [[ $dir = "" ]]; then
@@ -491,9 +494,9 @@ new() {
   done
 }
 
-# reset
+# reset 重置到某一次的commit
 reset() {
-  head=$(git log --oneline | gum filter | cut -d' ' -f1)
+  head=$(git log --oneline | gum filter --placeholder=" 请选择一个要重置的版本" | cut -d' ' -f1)
   if [ ! $head ]; then
     echo '已取消'
     return 1
@@ -501,9 +504,9 @@ reset() {
   git reset --hard $head && echo '已重置到' $head
 }
 
-# reset
+# reset 撤销某一次的commit
 revert() {
-  head=$(git log --author="Simon He" --oneline | gum filter | cut -d' ' -f1)
+  head=$(git log --author="Simon He" --oneline | gum filter --placeholder=" 请选择一个要还原的提交" | cut -d' ' -f1)
   if [ ! $head ]; then
     echo '已取消'
     return 1
@@ -513,7 +516,7 @@ revert() {
 
 # cnrm 选择源
 co() {
-  registery=$(echo $(nrm ls) | sed 's/\/ /\n/g' | gum filter | cut -d'-' -f1)
+  registery=$(echo $(nrm ls) | sed 's/\/ /\n/g' | gum filter --placeholder=" 请选择一个源"| cut -d'-' -f1)
   registery=$(echo ${registery// /} | sed 's/\*//g')
   if [ ! $registery ]; then
     echo "已取消"
@@ -526,7 +529,7 @@ co() {
 
 # cnvm 选择node版本 - nvm
 cnvm() {
-  registery=$(echo $(nvm_ls) | sed 's/system//g' | sed 's/ /\n/g' | gum filter)
+  registery=$(echo $(nvm_ls) | sed 's/system//g' | sed 's/ /\n/g' | gum filter --placeholder=" 请选择一个node版本")
   if [ ! $registery ]; then
     echo "已取消"
     return 1
@@ -537,7 +540,7 @@ cnvm() {
 # cfnm 选择node版本 - fnm
 cn() {
   current=$(echo $(fnm current))
-  registery=$(echo $(fnm ls) | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/* $current/g" | gum filter)
+  registery=$(echo $(fnm ls) | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/* $current/g" | gum filter --placeholder=" 请选择一个node版本")
   registery=$(echo ${registery// /} | sed 's/\*//g')
   if [ ! $registery ]; then
     echo "已取消"
@@ -546,24 +549,27 @@ cn() {
   fnm use ${registery% -*}
 }
 
-# cb 选择分支
+# cb 选择分支切换
 cb() {
   if [ $1 ]; then
     gcc $1
     return 0
   fi
-  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum filter)
-  branch=$(echo ${branch// /} | sed 's/\*//g')
-  if [ ! $branch ]; then
-    echo "已取消"
-    return 1
+  branch=$(git branch -a | cut -c 3-  | gum filter --placeholder=" 选择一个分支切换")
+  includes $branch "remotes/"
+  isRemote=$?
+  if [ $isRemote = 0 ]; then
+    origin=$(echo ${branch#remotes/}  | cut -d'/' -f1)
+    _branch=$(echo $branch | sed "s/remotes\/$origin\///g")
+      gcc $(echo $_branch | sed "s/*//g")
+  else
+      gcc $(echo $branch | sed "s/*//g")
   fi
-  gcc $(echo $branch | sed "s/*//g")
 }
 
 # db 删除分支
 db() {
-  branch=$(git branch -a | cut -c 3- | gum filter)
+  branch=$(git branch -a | cut -c 3- | gum filter --placeholder=" 请选择一个分支删除")
   includes $branch "remotes/"
   isRemote=$?
   if [ $isRemote = 0 ]; then
@@ -580,12 +586,12 @@ cpr() {
   gh pr list | cut -f1,2 | gum choose | cut -f1 | xargs gh pr checkout
 }
 
-## 字符串替换
+##字符串替换
 replace() {
   echo $1 | sed "s/$2/$3/g"
 }
 
-## 空格替换换行
+# 空格替换换行
 spaceToLine() {
   replace $1 " " "\n"
 }
@@ -599,13 +605,13 @@ includes(){
     return 1
 }
 
-# merge
+# merge 选择分支合并到当前
 merge() {
   if [ $1 ]; then
     git merge $1
     return 0
   fi
-  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum filter)
+  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum filter --placeholder=" 请选择一个分支合并")
   branch=$(echo ${branch// /} | sed 's/\*//g')
   if [ ! $branch ]; then
     echo "已取消"
@@ -616,7 +622,7 @@ merge() {
 
 # before 查找前20条使用过的命令
 before() {
-  command=$(history | tail -20 | cut -c 8- | gum filter)
+  command=$(history | tail -20 | cut -c 8- | gum filter --placeholder=" 请选择一个命令")
   if [ ! $command ]; then
     echo "已取消"
     return 1
@@ -625,7 +631,7 @@ before() {
 }
 
 
-# source plugin
+# source plugin 引入插件
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh"
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
