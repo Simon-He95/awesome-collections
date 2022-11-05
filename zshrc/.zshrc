@@ -17,7 +17,13 @@ eval "$(fnm env --use-on-cd)"
 
 #code
 alias github="cd ~/Documents/GitHub" # 快速进入github文件夹
-
+alias Go="cd ~/Documents/go" # 快速进入github文件夹
+alias gopath="cd ~/go/src"
+alias goi="go get"
+alias gor="go run"
+alias gob="go build"
+alias draw="~/go/bin/draw"
+alias gom="gor main.go"
 # alias - ni
 
 alias nio="ni --prefer-offline" # npm install offline 离线安装
@@ -56,7 +62,7 @@ alias remote="git remote" # 查看远程仓库
 alias gs="git status" # 查看状态
 alias fetch="git fetch --all" # 拉取远程仓库
 alias gcc="git checkout" # 切换分支
-alias gcb="git checkout -b" # 创建并切换分支
+# alias gcb="git checkout -b" 
 alias gl="git log" # 查看提交日志
 alias glo="git log --online --graph" # 查看提交日志
 alias gb="git branch" # 查看分支
@@ -286,7 +292,7 @@ remove() {
       return 0
     else
       console.blue "正在删除$1"
-      rimraf $1 && console.green "删除成功:)" || console.red "删除失败,请重新尝试:("
+      rimraf $1 && console.green "删除成功👅" || console.red "删除失败,请重新尝试:("
       return 1
     fi
   fi
@@ -299,7 +305,7 @@ remove() {
     return 1
   fi
   console.blue "正在删除$content"
-  rimraf $content && console.green "删除成功:)" || console.red "删除失败,请重新尝试:("
+  rimraf $content && console.green "删除成功👅" || console.red "删除失败,请重新尝试:("
   return 1
 }
 
@@ -393,7 +399,7 @@ pkginit() {
   }
 }' >>package.json
   if [ $? = 0 ]; then
-    console.green '创建成功:)'
+    console.green '创建成功👅'
   else
     console.red '创建失败:('
   fi
@@ -402,7 +408,7 @@ pkginit() {
 # grant 授予文件权限
 grant() {
   chmod +x $1
-  console.green '已授权成功:)'
+  console.green '已授权成功👅'
 }
 
 # update 安装最新版本
@@ -413,9 +419,9 @@ update() {
     console.blue "正在安装最新版本: ${all%% -*}"
     str=${all// /@latest }
   if [[ $isParams == 0 ]];then
-    console.green ni $str && ni $str && console.green "安装成功:)"
+    console.green ni $str && ni $str && console.green "安装成功👅"
   else 
-    console.green ni $str@latest && ni $str@latest && console.green "安装成功:)"
+    console.green ni $str@latest && ni $str@latest && console.green "安装成功👅"
   fi
 }
 
@@ -567,6 +573,38 @@ cb() {
   fi
 }
 
+#gcb 创建新分支
+gcb(){
+  branch=$(gum input --placeholder " 请输入新分支名" | sed 's/ //g') 
+  if [[ $? == 130 ]]; then
+    echo "已取消"
+    return 1
+  fi
+  if [[  $branch == '' ]]; then
+    echo "分支名不能为空"
+    return 1
+  fi
+  gum confirm "是否基于当前分支创建?"
+  _status=$?
+  echo $_status
+  if [[ $_status == 0 ]]; then
+    git checkout -b $branch
+    return 0
+  fi
+  base=$(git branch -a | cut -c 3-  | gum filter --placeholder=" 请选择基于哪个分支创建")
+   if [[ $? == 130 ]]; then
+    echo "已取消"
+    return 1
+  fi
+  includes $base "remotes/"
+  isRemote=$?
+  if [ $isRemote = 0 ]; then
+    _branch=$(echo $base | sed "s/remotes\///g")
+    git checkout -b $branch $_branch
+  else
+    git checkout -b $branch $base
+  fi
+}
 # db 删除分支
 db() {
   branch=$(git branch -a | cut -c 3- | gum filter --placeholder=" 请选择一个分支删除")
@@ -636,3 +674,10 @@ source "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highl
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh"
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+source "$HOME/go/bin"
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn
+export DRAW_FILE=~/Documents/GitHub/to/draw.txt
