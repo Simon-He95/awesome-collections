@@ -470,6 +470,9 @@ commit() {
       echo "已取消"
       return 1
     fi
+    title=$(getTitle $SUMMARY)
+    header=$(getHeader "Commit Message:")
+    gum join --vertical "$header" "$title"
     git add . && git commit --quiet --allow-empty-message -m $SUMMARY
   fi
 }
@@ -697,6 +700,19 @@ before() {
     return 1
   fi
   $command
+}
+
+getTitle(){
+  gum style \
+        --foreground 212 \
+        --align left --width 50  --padding "0 2" \
+        "$1"
+}
+getHeader(){
+  gum style \
+        --foreground 62   --bold --italic \
+        --align left --width 50  --padding "1 1" \
+        "$1"
 }
 
 
