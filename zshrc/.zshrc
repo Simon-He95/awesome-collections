@@ -24,6 +24,7 @@ alias gor="go run"
 alias gob="go build"
 alias draw="~/go/bin/draw"
 alias gom="gor main.go"
+alias goinit="go mod init"
 # alias - ni
 
 alias nio="ni --prefer-offline" # npm install offline 离线安装
@@ -80,6 +81,7 @@ alias gptf="git push origin --tags -f" # 强制推送所有标签
 alias stash="git stash" # 暂存
 alias pop="git stash pop" # 恢复暂存
 alias rebase="git rebase" # 重写提交
+alias abort="git rebase --abort" # 退出变基
 alias main="git checkout main" # 切换到主分支
 alias master="git checkout master" # 切换到主分支
 alias use="nrm use" # 切换npm源
@@ -89,6 +91,7 @@ alias pullmaster="git pull origin master" # 拉取主分支
 alias pullmain="git pull origin main" # 拉取主分支
 alias flog="git reflog" # 查看提交日志
 alias see="ps -ef" # 查看进程
+alias typecheck="nr typecheck"
 
 #--------------------------#
 # vsce 
@@ -244,9 +247,37 @@ ignore() {
   echo "*.DS_Store  \nnode_modules \n*.log \nidea/ \n*.local \n.DS_Store \ndist \n.cache \n.idea \nlogs \n&-debug.log \n*-error.log" >>.gitignore # 添加内容
 }
 
+endWith(){
+  if echo "$1" | grep -q -E "$2$"
+  then return 0
+  else return 1
+  fi
+}
+
 # clone 项目clone
 clone() {
-  str=$1
+  command=$2
+  if [ $(uname) = "Darwin" ]; then
+    paste="pbpaste"
+  else
+    paste="clip"
+  fi
+  if [ "$1" = "" ]; then
+    str=$($paste)
+  else
+    endWith "$1" ".git"
+    if [ $? = 1 ];then
+      str=$($paste)
+      command=$1
+    else
+      str=$1
+    fi
+  fi
+  endWith "${str}" ".git"
+  if [ $? = 1 ]; then
+    console.red "请输入正确的git地址"
+    return
+  fi
   str1=${str##*/}
   result=${str1%.*}
   console.skyblue "正在clone $result"
@@ -254,8 +285,8 @@ clone() {
   if [ -f "package.json" ]; then
     console.green '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试'
   fi
-  if [ $2 ]; then
-    console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+  if [ $command ]; then
+    console.blue "正在执行 nr $command" && nr $command || eval $command
   fi
 }
 
