@@ -463,7 +463,15 @@ commit() {
   else
     commitType="fix feat docs style refactor test chore revert perf build ci"
     TYPE=$(spaceToLine $commitType | gum filter --placeholder=" 请选择提交类型")
+    if [ $? = 130 ];then 
+      echo "已取消"
+      return 1
+    fi
     SCOPE=$(gum input --placeholder "scope")
+      if [ $? = 130 ];then 
+      echo "已取消"
+      return 1
+    fi
     test -n "$SCOPE" && SCOPE="($SCOPE)"
     SUMMARY=$(gum input --value "$TYPE$SCOPE: " --placeholder "Summary of this change")
     if [ ! $SUMMARY ]; then
@@ -609,7 +617,11 @@ cb() {
 
 #gcb 创建新分支
 gcb(){
-  branch=$(gum input --placeholder " 请输入新分支名" | sed 's/ //g') 
+  if [ $1 = "" ];then
+    branch=$(gum input --placeholder " 请输入新分支名" | sed 's/ //g') 
+  else 
+    branch=$1
+  fi
   if [[ $? == 130 ]]; then
     echo "已取消"
     return 1
@@ -619,9 +631,7 @@ gcb(){
     return 1
   fi
   gum confirm "是否基于当前分支创建?"
-  _status=$?
-  echo $_status
-  if [[ $_status == 0 ]]; then
+  if [[ $? == 0 ]]; then
     git checkout -b $branch
     return 0
   fi
@@ -710,7 +720,7 @@ getTitle(){
 }
 getHeader(){
   gum style \
-        --foreground 62   --bold --italic \
+        --foreground 62   --bold --italic  \
         --align left --width 50  --padding "1 1" \
         "$1"
 }
@@ -728,3 +738,6 @@ export GOPATH=$HOME/go
 export GO111MODULE=on
 export GOPROXY=https://goproxy.cn
 export DRAW_FILE=~/Documents/GitHub/to/draw.txt
+export PI_COLOR=red
+export PI_SPINNER=moon
+export LC_CTYPE="en_US.UTF-8"
