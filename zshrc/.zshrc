@@ -604,6 +604,10 @@ cb() {
     return 0
   fi
   branch=$(git branch -a | cut -c 3-  | gum filter --placeholder=" 选择一个分支切换")
+  if [ $? = 130 ];then
+    echo "已取消"
+    return 1
+  fi
   includes $branch "remotes/"
   isRemote=$?
   if [ $isRemote = 0 ]; then
@@ -617,7 +621,7 @@ cb() {
 
 #gcb 创建新分支
 gcb(){
-  if [ $1 = "" ];then
+  if [[ $1 == "" ]];then
     branch=$(gum input --placeholder " 请输入新分支名" | sed 's/ //g') 
   else 
     branch=$1
@@ -739,5 +743,5 @@ export GO111MODULE=on
 export GOPROXY=https://goproxy.cn
 export DRAW_FILE=~/Documents/GitHub/to/draw.txt
 export PI_COLOR=red
-export PI_SPINNER=moon
+export PI_SPINNER=weather
 export LC_CTYPE="en_US.UTF-8"
