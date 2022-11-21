@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -716,12 +718,15 @@ before() {
   $command
 }
 
+# style
 getTitle(){
   gum style \
         --foreground 212 \
         --align left --width 50  --padding "0 2" \
         "$1"
 }
+
+# style
 getHeader(){
   gum style \
         --foreground 62   --bold --italic  \
@@ -729,6 +734,15 @@ getHeader(){
         "$1"
 }
 
+# write file
+wf(){
+  if [[ $1 == "" ]];then
+    console.red "请输入要写入的文件"
+    return 1
+  fi
+  getTitle "以esc 或 ctrl + D 确认写入内容 ✍️"
+  gum write > $1
+}
 
 # source plugin 引入插件
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
@@ -736,6 +750,7 @@ source "$HOME/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh"
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 source "$HOME/go/bin"
+
 export GOROOT=/usr/local/go
 export PATH=$PATH:$GOROOT/bin
 export GOPATH=$HOME/go
@@ -745,3 +760,8 @@ export DRAW_FILE=~/Documents/GitHub/to/draw.txt
 export PI_COLOR=red
 export PI_SPINNER=weather
 export LC_CTYPE="en_US.UTF-8"
+
+# clash
+export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+# thefuck
+eval $(thefuck --alias q)
