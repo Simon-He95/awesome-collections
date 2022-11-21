@@ -27,12 +27,13 @@ alias gob="go build"
 alias draw="~/go/bin/draw"
 alias gom="gor main.go"
 alias goinit="go mod init"
+alias rustinit="cargo new"
 # alias - ni
 
 alias nio="ni --prefer-offline" # npm install offline 离线安装
 alias d="nr dev" # dev 启动dev环境
 alias s="nr start" # start the server 启动项目
-alias b="nr build" # build 执行打包
+# alias b="nr build" # build 执行打包
 alias bw="nr build --watch" # watch mode 执行构建并监视文件更改
 alias t="nr test" # test 执行测试
 alias tu="nr test -u" # update snapshots 执行测试并更新快照
@@ -42,7 +43,6 @@ alias lintf="nr lint:fix" # fix linting errors 修复eslint错误
 alias p="nr play || d" # play or dev 启动项目
 alias pr="nr preview" # preview 预览
 alias pb="nr play:build || b" # build and play 执行playground打包
-alias release="npm run release" # release a new version 发布新版本
 alias publish="npm publish --access public" # publish to npm 发布到npm
 alias clean="git add . && git commit -m 'chore: clean' && git push" # clean 提交清理
 alias v="npm view" # 查看包信息
@@ -154,6 +154,13 @@ console.pink() {
 
 # run 正对pnpm、yarn workspace 根目录执行子命令
 run() {
+  if [ -f "go.mod" ];then
+    go run $1
+    return 0
+  elif [ -f "Cargo.toml" ];then
+    cargo run $1
+    return 0
+  fi
   command="$2"
   workspace=$1
   if [ ! -d "/yarn.lock" ]; then
@@ -446,6 +453,10 @@ grant() {
 
 # update 安装最新版本
 update() {
+  if [ -f "Cargo.toml" ];then
+    cargo update
+    return 0
+  fi
   all=$*
     includes $all " -"
     isParams=$?
@@ -742,6 +753,39 @@ wf(){
   fi
   getTitle "以esc 或 ctrl + D 确认写入内容 ✍️"
   gum write > $1
+}
+
+# build
+b(){
+  if [ -f "Cargo.toml" ];then
+    cargo build
+    return 0
+  elif [ -f "go.mod" ];then
+    go build
+    return 0
+  fi
+  nr build
+}
+
+# release a new version 发布新版本
+release(){
+  if [ -f "Cargo.toml" ];then
+    cargo build --release
+    return 0
+  elif [ -f "go.mod" ];then
+    go build -tags="release"
+    return 0
+  fi
+  npm run release 
+}
+
+# check
+check(){
+  if [ -f "Cargo.toml" ];then
+    cargo check
+  return 0
+  fi
+  nr check
 }
 
 # source plugin 引入插件
