@@ -1,5 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -7,7 +5,7 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="spaceship"
 
 # plugins
-plugins=(git vscode zsh-autosuggestions zsh-z zsh-syntax-highlighting)
+plugins=(git web-search vscode zsh-autosuggestions zsh-z last-working-dir zsh-syntax-highlighting)
 
 # fnm env
 eval "$(fnm env --use-on-cd)"
@@ -29,7 +27,7 @@ alias gom="gor main.go"
 alias goinit="go mod init"
 alias rustinit="cargo new"
 # alias - ni
-
+alias cacheclean="npm cache clean --force"
 alias nio="ni --prefer-offline" # npm install offline 离线安装
 alias d="nr dev" # dev 启动dev环境
 alias s="nr start" # start the server 启动项目
@@ -125,6 +123,10 @@ color () {  # 设置颜色
   gum style --foreground "$1" "$2"
 }
 
+#--------------------------#
+# Other
+# -------------------------#
+alias zshrc="source ~/.zshrc"
 #--------------------------#
 # Functions
 # -------------------------#
@@ -788,6 +790,8 @@ check(){
   nr check
 }
 
+
+
 # source plugin 引入插件
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh"
@@ -799,7 +803,7 @@ export GOROOT=/usr/local/go
 export PATH=$PATH:$GOROOT/bin
 export GOPATH=$HOME/go
 export GO111MODULE=on
-export GOPROXY=https://goproxy.cn
+export GOPROXY=https://goproxy.cn,direct
 export DRAW_FILE=~/Documents/GitHub/to/draw.txt
 export PI_COLOR=red
 export PI_SPINNER=weather
