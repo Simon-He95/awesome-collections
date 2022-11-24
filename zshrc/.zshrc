@@ -26,21 +26,21 @@ alias draw="~/go/bin/draw"
 alias gom="gor main.go"
 alias goinit="go mod init"
 alias rustinit="cargo new"
-# alias - ni
+# alias - pi -> npm i -g @simon_he/pi
 alias cacheclean="npm cache clean --force"
-alias nio="ni --prefer-offline" # npm install offline 离线安装
-alias d="nr dev" # dev 启动dev环境
-alias s="nr start" # start the server 启动项目
-# alias b="nr build" # build 执行打包
-alias bw="nr build --watch" # watch mode 执行构建并监视文件更改
-alias t="nr test" # test 执行测试
-alias tu="nr test -u" # update snapshots 执行测试并更新快照
-alias w="nr watch" # watch mode 执行watch命令
-alias lint="nr lint" # eslint 检查eslint
-alias lintf="nr lint:fix" # fix linting errors 修复eslint错误
-alias p="nr play || d" # play or dev 启动项目
-alias pr="nr preview" # preview 预览
-alias pb="nr play:build || b" # build and play 执行playground打包
+alias nio="pi --prefer-offline" # npm install offline 离线安装
+alias d="prun dev" # dev 启动dev环境
+alias s="prun start" # start the server 启动项目
+# alias b="prun build" # build 执行打包
+alias bw="prun build --watch" # watch mode 执行构建并监视文件更改
+alias t="prun test" # test 执行测试
+alias tu="prun test -u" # update snapshots 执行测试并更新快照
+alias w="prun watch" # watch mode 执行watch命令
+alias lint="prun lint" # eslint 检查eslint
+alias lintf="prun lint:fix" # fix linting errors 修复eslint错误
+alias p="prun play || d" # play or dev 启动项目
+alias pr="prun preview" # preview 预览
+alias pb="prun play:build || b" # build and play 执行playground打包
 alias publish="npm publish --access public" # publish to npm 发布到npm
 alias clean="git add . && git commit -m 'chore: clean' && git push" # clean 提交清理
 alias v="npm view" # 查看包信息
@@ -91,7 +91,7 @@ alias pullmaster="git pull origin master" # 拉取主分支
 alias pullmain="git pull origin main" # 拉取主分支
 alias flog="git reflog" # 查看提交日志
 alias see="ps -ef" # 查看进程
-alias typecheck="nr typecheck"
+alias typecheck="prun typecheck"
 
 #--------------------------#
 # vsce 
@@ -101,7 +101,7 @@ alias package="vsce package" # vscode 插件 打包
 alias vpublish="vsce publish" # vscode 插件 发布
 
 #--------------------------#
-# ccommand 
+# ccommand -> npm i -g ccommand
 # -------------------------#
 
 alias c="ccommand" # 选择当前scripts命令
@@ -294,10 +294,10 @@ clone() {
   console.skyblue "正在clone $result"
   git clone $str && console.pink "下载完成,正在打开 $result" && code $result && cd $result
   if [ -f "package.json" ]; then
-    console.green '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试'
+    console.green '正在下载依赖' && pi || pi || pi || console.red '安装依赖失败，请重新尝试'
   fi
   if [ $command ]; then
-    console.blue "正在执行 nr $command" && nr $command || eval $command
+    console.blue "正在执行 prun $command" && prun $command || eval $command
   fi
 }
 
@@ -318,10 +318,10 @@ template() {
   console.blue "正在创建$1目录,下载starter-$templateName模板,请稍等..."
   npx degit Simon-He95/$templateName $1 && console.green "正在打开$1" && code $1 && cd $1 
   if [ -f "package.json" ]; then
-    echo ${"$(cat ./package.json)//vitesse/$1"}>package.json  && console.pink '正在下载依赖' && ni || ni || ni || console.red '安装依赖失败，请重新尝试'
+    echo ${"$(cat ./package.json)//vitesse/$1"}>package.json  && console.pink '正在下载依赖' && pi || pi || pi || console.red '安装依赖失败，请重新尝试'
   fi
   if [ $2 ]; then
-    console.blue "正在执行 nr $2" && nr $2 || eval ${2}
+    console.blue "正在执行 prun $2" && prun $2 || eval ${2}
   fi
 
 }
@@ -355,13 +355,13 @@ remove() {
 reni() {
   remove node_modules
   if [ $? = 1 ]; then
-    ni || ni || ni
+    pi || pi || pi
   fi
 }
 
 # 包裹ni
 nii() {
-  ni $* || nio $*
+  pi $* || nio $*
 }
 
 # pkginit 生成package.json
@@ -419,7 +419,7 @@ pkginit() {
     "typecheck": "vue-tsc --noEmit",
     "test": "vitest -u",
     "test:e2e": "cypress open",
-    "prepublishOnly": "nr build",
+    "prepublishOnly": "pnpm run build",
     "release": "bumpp --commit --tag --push && pnpm publish"
   },
   "dependencies": {
@@ -465,9 +465,9 @@ update() {
     console.blue "正在安装最新版本: ${all%% -*}"
     str=${all// /@latest }
   if [[ $isParams == 0 ]];then
-    console.green ni $str && ni $str && console.green "安装成功👅"
+    console.green pi $str && pi $str && console.green "安装成功👅"
   else 
-    console.green ni $str@latest && ni $str@latest && console.green "安装成功👅"
+    console.green pi $str@latest && pi $str@latest && console.green "安装成功👅"
   fi
 }
 
@@ -766,7 +766,7 @@ b(){
     go build
     return 0
   fi
-  nr build
+  prun build
 }
 
 # release a new version 发布新版本
@@ -787,7 +787,7 @@ check(){
     cargo check
   return 0
   fi
-  nr check
+  prun check
 }
 
 
