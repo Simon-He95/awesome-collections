@@ -25,6 +25,9 @@ plugins:  zsh-syntax-highlighting zsh-autosuggestions zsh-nvm zsh-z web-search
 
 [vue](./code-snippet/vue.json)
 
+## web-search
+https://user-images.githubusercontent.com/57086651/203928145-0f3469f0-ac8a-4c07-a83b-580b8a3e2dd7.mov
+
 ## :coffee: 
 <a href="https://github.com/Simon-He95/sponsor" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
 
