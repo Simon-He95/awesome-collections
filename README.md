@@ -34,4 +34,7 @@ https://user-images.githubusercontent.com/57086651/203928145-0f3469f0-ac8a-4c07-
 ## Detail
 - git config --global core.editor vim // 将git的文本编辑器改vim
 
+## License
+[MIT](./LICENSE)
+
 <span><div align="center">![sponsors](https://www.hejian.club/images/sponsors.jpg)</div></span>
