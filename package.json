@@ -1,0 +1,27 @@
+{
+  "name": "@simon_he/config",
+  "private": true,
+  "packageManager": "pnpm@6.32.3",
+  "description": "A directory-configuration related to oh my zsh",
+  "author": "Simon He",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Simon-He95/directory-configuration.git"
+  },
+  "keywords": [
+    "simon",
+    "config"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.31.0",
+    "eslint": "^8.13.0",
+    "typescript": "^4.9.3"
+  },
+  "eslintConfig": {
+    "extends": "@antfu"
+  }
+}

@@ -7,6 +7,7 @@ function web_search() {
   typeset -A urls
   urls=(
     $ZSH_WEB_SEARCH_ENGINES
+    gg              "https://www.google.com/search?q="
     google          "https://www.google.com/search?q="
     bing            "https://www.bing.com/search?q="
     brave           "https://search.brave.com/search?q="
@@ -14,7 +15,9 @@ function web_search() {
     duckduckgo      "https://www.duckduckgo.com/?q="
     startpage       "https://www.startpage.com/do/search?q="
     yandex          "https://yandex.ru/yandsearch?text="
+    gb              "https://github.com/search?q="
     github          "https://github.com/search?q="
+    bd              "https://www.baidu.com/s?wd="
     baidu           "https://www.baidu.com/s?wd="
     ecosia          "https://www.ecosia.org/search?q="
     goodreads       "https://www.goodreads.com/search?q="
@@ -29,7 +32,9 @@ function web_search() {
     youku           "https://www.youku.com/search_video/q_"
     youtube         "https://www.youtube.com/results?search_query="
     jd              "https://search.jd.com/Search?keyword="
+    tb              "https://s.taobao.com/search?q="
     taobao          "https://s.taobao.com/search?q="
+    tt              "https://twitter.com/search?q="
     twitter         "https://twitter.com/search?q="
     reg             "https://regex101.com/"
     figma           "https://www.figma.com/search/?q="
@@ -40,6 +45,7 @@ function web_search() {
     ast             "https://astexplorer.net/"
     babel           "https://babeljs.io/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&corejs=3.21&spec=false&loose=false&code_lz=MYewdgzgLgBCBGArGBeGBvAvgKAJYDMAKBRAfgDowBDAWwFMBKdbUSEAGzvPZAHNCA5AAsqIgQ2w4CxJDABkcuEkq1GzVhA5ce_YaKrjJQA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=env%2Creact%2Cstage-2&prettier=false&targets=&version=7.20.4&externalPlugins=&assumptions=%7B%7D"
     bb              "https://search.bilibili.com/all?keyword="
+    bilibili        "https://search.bilibili.com/all?keyword="
     unocss          "https://uno.antfu.me/"
     iconfont        "https://www.iconfont.cn/"
   )

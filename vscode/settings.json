@@ -307,5 +307,5 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "git.ignoreRebaseWarning": true,
   "html-fmt-vscode.indentSize": 2,
-  "debug.allowBreakpointsEverywhere": true,
+  "debug.allowBreakpointsEverywhere": true
 }
