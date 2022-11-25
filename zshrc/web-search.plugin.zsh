@@ -46,8 +46,9 @@ function web_search() {
 
   # check whether the search engine is supported
   if [[ -z "$urls[$1]" ]]; then
-    echo "Search engine '$1' not supported."
-    return 1
+    url="${urls[google]}$1"
+    open_command "$url"
+    return 
   fi
 
   # search or go to main page depending on number of arguments passed
@@ -55,6 +56,8 @@ function web_search() {
     # build search url:
     # join arguments passed with '+', then append to search engine URL
     url="${urls[$1]}$(omz_urlencode ${@[2,-1]})"
+    echo $url
+
   else
     # build main page url:
     # split by '/', then rejoin protocol (1) and domain (2) parts with '//'
