@@ -1,11 +1,12 @@
-# Path to your oh-my-zsh installation.
+   # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="spaceship"
 
 # plugins
-plugins=(git web-search vscode zsh-autosuggestions zsh-z last-working-dir zsh-syntax-highlighting)
+plugins=(git web-search zsh-autosuggestions zsh-z last-working-dir zsh-syntax-highlighting)
+
 
 # fnm env
 eval "$(fnm env --use-on-cd)"
@@ -26,7 +27,7 @@ alias draw="~/go/bin/draw"
 alias gom="gor main.go"
 alias goinit="go mod init"
 alias rustinit="cargo new"
-# alias - pi -> npm i -g @simon_he/pi
+# alias - pi -> @simon_he/pi
 alias cacheclean="npm cache clean --force"
 alias nio="pi --prefer-offline" # npm install offline 离线安装
 alias d="prun dev" # dev 启动dev环境
@@ -63,7 +64,6 @@ alias remote="git remote" # 查看远程仓库
 alias gs="git status" # 查看状态
 alias fetch="git fetch --all" # 拉取远程仓库
 alias gcc="git checkout" # 切换分支
-# alias gcb="git checkout -b" 
 alias gl="git log" # 查看提交日志
 alias glo="git log --online --graph" # 查看提交日志
 alias gb="git branch" # 查看分支
@@ -101,7 +101,7 @@ alias package="vsce package" # vscode 插件 打包
 alias vpublish="vsce publish" # vscode 插件 发布
 
 #--------------------------#
-# ccommand -> npm i -g ccommand
+# ccommand 
 # -------------------------#
 
 alias c="ccommand" # 选择当前scripts命令
@@ -634,8 +634,8 @@ cb() {
   fi
 }
 
-#gcb 创建新分支
-gcb(){
+#nb 创建新分支
+nb(){
   if [[ $1 == "" ]];then
     branch=$(gum input --placeholder " 请输入新分支名" | sed 's/ //g') 
   else 
@@ -790,14 +790,14 @@ check(){
   prun check
 }
 
+# web-search
+search(){
+  web_search $*
+}
 
 
 # source plugin 引入插件
-source "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-source "$HOME/.oh-my-zsh/custom/plugins/zsh-z/zsh-z.plugin.zsh"
-source "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
-source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
-source "$HOME/go/bin"
+source "$HOME/.oh-my-zsh/oh-my-zsh.sh"
 
 export GOROOT=/usr/local/go
 export PATH=$PATH:$GOROOT/bin
@@ -808,8 +808,15 @@ export DRAW_FILE=~/Documents/GitHub/to/draw.txt
 export PI_COLOR=red
 export PI_SPINNER=weather
 export LC_CTYPE="en_US.UTF-8"
+export LC_ALL=en_US.UTF-8  
+export LANG=en_US.UTF-8
 
 # clash
 export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
 # thefuck
 eval $(thefuck --alias q)
+   
+
+# fnm
+export PATH="/Users/hejian/Library/Application Support/fnm:$PATH"
+eval "`fnm env`"
