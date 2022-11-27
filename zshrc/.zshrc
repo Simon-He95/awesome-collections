@@ -71,7 +71,7 @@ alias gbd="git branch -d" # 删除分支
 alias gba="git branch -a" # 查看所有分支
 alias gbm="git branch -m" # 重命名分支
 alias gc="git add . && git commit -m" # 提交
-alias gca="git commit --amend" # 修改最后一次提交
+alias gca="git commit --amend --message=" # 修改最后一次提交
 alias ga="git add ." # 添加
 alias gp="git push" # 推送
 alias gpl="git pull --rebase" # 拉取
@@ -299,6 +299,31 @@ clone() {
   if [ $command ]; then
     console.blue "正在执行 prun $command" && prun $command || eval $command
   fi
+}
+
+# isGit 判断是否是一个.git
+isGit(){
+  if [ $(uname) = "Darwin" ]; then
+    paste="pbpaste"
+  else
+    paste="clip"
+  fi
+  if [ "$1" = "" ]; then
+    str=$($paste)
+  else
+    endWith "$1" ".git"
+    if [ $? = 1 ];then
+      str=$($paste)
+      command=$1
+    else
+      str=$1
+    fi
+  fi
+  endWith "${str}" ".git"
+  if [ $? = 1 ]; then
+    return 1
+  fi
+  return 0
 }
 
 # template 选择项目模板
@@ -799,6 +824,9 @@ search(){
 # source plugin 引入插件
 source "$HOME/.oh-my-zsh/oh-my-zsh.sh"
 
+# 修改终端标题
+ZSH_THEME_TERM_TITLE_IDLE="Simon"
+
 export GOROOT=/usr/local/go
 export PATH=$PATH:$GOROOT/bin
 export GOPATH=$HOME/go
@@ -812,7 +840,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # clash
-export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+# export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
 # thefuck
 eval $(thefuck --alias q)
    
