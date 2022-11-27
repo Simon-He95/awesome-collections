@@ -696,6 +696,10 @@ nb(){
 # db 删除分支
 db() {
   branch=$(git branch -a | cut -c 3- | gum filter --placeholder=" 请选择一个分支删除")
+  if [[ $? == 130 ]]; then
+    echo "已取消"
+    return 1
+  fi
   includes $branch "remotes/"
   isRemote=$?
   if [ $isRemote = 0 ]; then
