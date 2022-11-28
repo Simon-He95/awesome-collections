@@ -345,7 +345,7 @@ template() {
 
 
   console.blue "正在创建$1目录,下载starter-$templateName模板,请稍等..."
-  npx degit Simon-He95/$templateName $1 && console.green "正在打开$1" && code $1 && cd $1 
+  npx degit Simon-He95/$templateName $projectName && console.green "正在打开$1" && code $1 && cd $1 
   if [ -f "package.json" ]; then
     echo ${"$(cat ./package.json)//vitesse/$1"}>package.json  && console.pink '正在下载依赖' && pi || pi || pi || console.red '安装依赖失败，请重新尝试'
   fi
