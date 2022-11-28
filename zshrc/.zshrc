@@ -502,8 +502,11 @@ update() {
 
 # commit git 提交
 commit() {
-  if [ $1 ]; then
+  if [[ $1 != "" && $1 != "-p" ]]; then
     git add . && git commit --quiet --allow-empty-message -m "$1"
+    if [ $2 = "-p" ];then
+      gp
+    fi
   else
     commitType="fix feat docs style refactor test chore revert perf build ci"
     TYPE=$(spaceToLine $commitType | gum filter --placeholder=" 请选择提交类型")
@@ -526,6 +529,9 @@ commit() {
     header=$(getHeader "Commit Message:")
     gum join --vertical "$header" "$title"
     git add . && git commit --quiet --allow-empty-message -m $SUMMARY
+     if [ $1 = "-p" ];then
+      gp
+    fi
   fi
 }
 
