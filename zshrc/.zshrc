@@ -529,7 +529,7 @@ commit() {
     header=$(getHeader "Commit Message:")
     gum join --vertical "$header" "$title"
     git add . && git commit --quiet --allow-empty-message -m $SUMMARY
-     if [ $1 = "-p" ];then
+     if [ $1 == "-p" ];then
       gp
     fi
   fi
