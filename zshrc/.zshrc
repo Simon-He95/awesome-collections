@@ -62,7 +62,7 @@ alias link="npm link" # link 本地包
 # -------------------------#
 alias remote="git remote" # 查看远程仓库
 alias gs="git status" # 查看状态
-alias fetch="git fetch --all" # 拉取远程仓库
+alias fetch="git fetch --all && gpl" # 拉取远程仓库
 alias gcc="git checkout" # 切换分支
 alias gl="git log" # 查看提交日志
 alias glo="git log --online --graph" # 查看提交日志
@@ -328,6 +328,14 @@ isGit(){
 
 # template 选择项目模板
 template() {
+  projectName=$1
+  if [ "$projectName" = "" ]; then
+    projectName=$(gum input --placeholder " 请输入项目名称")
+  fi
+  if [ "$projectName" = "" ]; then
+    echo "项目名称不能为空"
+    return 0
+  fi
   console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress"
   templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress" | gum filter --placeholder=" 请选择一个模板 ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress")
   if [ ! $templateName ]; then
@@ -335,10 +343,6 @@ template() {
     return 1
   fi
 
-  if [ ! $1 ]; then
-    console.red "需要指定一个模板名称"
-    return 0
-  fi
 
   console.blue "正在创建$1目录,下载starter-$templateName模板,请稍等..."
   npx degit Simon-He95/$templateName $1 && console.green "正在打开$1" && code $1 && cd $1 
@@ -844,7 +848,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # clash
-# export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
 # thefuck
 eval $(thefuck --alias q)
    
