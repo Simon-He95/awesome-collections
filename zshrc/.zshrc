@@ -5,7 +5,7 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="spaceship"
 
 # plugins
-plugins=(git web-search zsh-autosuggestions zsh-z last-working-dir zsh-syntax-highlighting)
+plugins=(git web-search zsh-autosuggestions zsh-autocomplete zsh-z last-working-dir zsh-syntax-highlighting)
 
 
 # fnm env
@@ -847,8 +847,8 @@ export GOPATH=$HOME/go
 export GO111MODULE=on
 export GOPROXY=https://goproxy.cn,direct
 export DRAW_FILE=~/Documents/GitHub/to/draw.txt
-export PI_COLOR=red
-export PI_SPINNER=weather
+export PI_COLOR=blue
+export PI_SPINNER=moon
 export LC_CTYPE="en_US.UTF-8"
 export LC_ALL=en_US.UTF-8  
 export LANG=en_US.UTF-8
