@@ -1,0 +1,1 @@
+/Users/hejian/Documents/Github/directory-configuration/zshrc/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme
