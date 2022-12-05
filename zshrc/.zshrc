@@ -861,18 +861,29 @@ export GOPATH=$HOME/go
 export GO111MODULE=on
 export GOPROXY=https://goproxy.cn,direct
 export DRAW_FILE=~/Documents/GitHub/to/draw.txt
-export PI_COLOR=blue
-export PI_SPINNER=moon
 export LC_CTYPE="en_US.UTF-8"
 export LC_ALL=en_US.UTF-8  
 export LANG=en_US.UTF-8
 
+# pi config
+export PI_COLOR=blue
+export PI_SPINNER=moon
+# pi config end
+
 # clash
 export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+# clash end
+
 # thefuck
 eval $(thefuck --alias q)
-   
+# thefuck end 
 
 # fnm
 export PATH="/Users/hejian/Library/Application Support/fnm:$PATH"
 eval "`fnm env`"
+# fnm end
+
+# pnpm
+export PNPM_HOME="/Users/hejian/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
