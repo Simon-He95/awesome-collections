@@ -703,6 +703,7 @@ nb(){
     git checkout -b $branch $base
   fi
 }
+
 # db 删除分支
 db() {
   branch=$(git branch -a | cut -c 3- | gum filter --placeholder=" 请选择一个分支删除")
@@ -794,6 +795,19 @@ wf(){
   fi
   getTitle "以esc 或 ctrl + D 确认写入内容 ✍️"
   gum write > $1
+}
+
+# copy directory
+cpd(){
+  if [[ $1 == "" ]];then
+    console.red "请输入要复制的目录"
+    return 1
+  fi
+  if [[ $2 == "" ]];then
+    console.red "请输入要复制到的目录"
+    return 1
+  fi
+  cp -r $1 $2
 }
 
 # build
