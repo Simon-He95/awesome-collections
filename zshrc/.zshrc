@@ -1,6 +1,5 @@
-   # Path to your oh-my-zsh installation.
+# Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="spaceship"
 
@@ -53,8 +52,11 @@ alias lock="pnpm install --no-frozen-lockfile" # 更新依赖
 
 alias cls="clear" # 清理终端
 alias ..="cd .." # 返回上一级
+alias 。。="cd .." # 返回上一级
 alias ...="cd ../.." # 返回上上级
+alias 。。。="cd ../.." # 返回上上级
 alias ....="cd ../../.." # 返回上上上级
+alias 。。。。="cd ../../.." # 返回上上上级
 alias link="npm link" # link 本地包
 
 #--------------------------#
