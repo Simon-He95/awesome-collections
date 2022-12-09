@@ -889,3 +889,6 @@ eval "`fnm env`"
 export PNPM_HOME="/Users/hejian/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+
+# 处理zsh *
+setopt no_nomatch
