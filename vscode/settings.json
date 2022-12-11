@@ -80,15 +80,8 @@
   // Extension configs
   "emmet.showSuggestionsAsSnippets": true,
   "emmet.triggerExpansionOnTab": false,
-  "errorLens.enabledDiagnosticLevels": [
-    "warning",
-    "error"
-  ],
-  "errorLens.excludeBySource": [
-    "cSpell",
-    "Grammarly",
-    "eslint"
-  ],
+  "errorLens.enabledDiagnosticLevels": ["warning", "error"],
+  "errorLens.excludeBySource": ["cSpell", "Grammarly", "eslint"],
   "eslint.codeAction.showDocumentation": {
     "enable": true
   },
@@ -269,10 +262,7 @@
     },
     "Ubuntu-22.04 (WSL)": {
       "path": "C:\\WINDOWS\\System32\\wsl.exe",
-      "args": [
-        "-d",
-        "Ubuntu-22.04"
-      ]
+      "args": ["-d", "Ubuntu-22.04"]
     }
   },
   "terminal.integrated.defaultProfile.windows": "Ubuntu-22.04 (WSL)",
@@ -296,13 +286,7 @@
   ],
   "editor.suggest.snippetsPreventQuickSuggestions": false,
   "editor.quickSuggestionsDelay": 50,
-  "cSpell.userWords": [
-    "antfu",
-    "nuxt",
-    "Unfin",
-    "Unocss",
-    "vite"
-  ],
+  "cSpell.userWords": ["antfu", "nuxt", "Unfin", "Unocss", "vite"],
   "javascript.updateImportsOnFileMove.enabled": "always",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "git.ignoreRebaseWarning": true,

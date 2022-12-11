@@ -6,11 +6,7 @@
   },
   "arrow": {
     "prefix": "arrowFunction 新建方法",
-    "body": [
-      "const fn = (${1}) => {",
-      "  ${2}",
-      "};"
-    ],
+    "body": ["const fn = (${1}) => {", "  ${2}", "};"],
     "description": "方法"
   },
   "import": {
@@ -25,97 +21,62 @@
   },
   "log": {
     "prefix": "log 打印",
-    "body": [
-      "console.log('$1');",
-      "$2"
-    ],
+    "body": ["console.log('$1');", "$2"],
     "description": "Log output to console"
   },
   "forEach": {
     "prefix": "forEach",
-    "body": [
-      "${1:array}.forEach((${2:i}) => {",
-      "  ${3}",
-      "}"
-    ],
+    "body": ["${1:array}.forEach((${2:i}) => {", "  ${3}", "}"],
     "description": "forEach"
   },
   "map": {
     "prefix": "map",
-    "body": [
-      "${1:array}.map((${2:i}) => {",
-      "  ${3}",
-      "}"
-    ],
+    "body": ["${1:array}.map((${2:i}) => {", "  ${3}", "}"],
     "description": "map"
   },
   "filter": {
     "prefix": "filter",
-    "body": [
-      "${1:array}.filter((${2:i}) => {",
-      "  ${3}",
-      "}"
-    ],
+    "body": ["${1:array}.filter((${2:i}) => {", "  ${3}", "}"],
     "description": "filter 过滤"
   },
   "useAttrs": {
     "prefix": "myuseAttrs",
-    "body": [
-      "const attrs = useAttrs()"
-    ],
+    "body": ["const attrs = useAttrs()"],
     "description": "useAttrs"
   },
   "defineProps": {
     "prefix": "mydefineProps",
-    "body": [
-      "const props = defineProps()"
-    ],
+    "body": ["const props = defineProps()"],
     "description": "defineProps"
   },
   "ref": {
     "prefix": "myref",
-    "body": [
-      "const {$1} = ref(${2})"
-    ],
+    "body": ["const {$1} = ref(${2})"],
     "description": "ref"
   },
   "reactive": {
     "prefix": "myreactive",
-    "body": [
-      "const {$1} = reactive(${2})"
-    ],
+    "body": ["const {$1} = reactive(${2})"],
     "description": "reactive"
   },
   "useToggle": {
     "prefix": "myuseToggle",
-    "body": [
-      "const toggle = useToggle(mode)"
-    ],
+    "body": ["const toggle = useToggle(mode)"],
     "description": "myuseToggle"
   },
   "useElementBounding": {
     "prefix": "myuseElementBounding",
-    "body": [
-      "const rect = useElementBounding(el)"
-    ],
+    "body": ["const rect = useElementBounding(el)"],
     "description": "useElementBounding"
   },
   "watch": {
     "prefix": "mywatch",
-    "body": [
-      "watch(${1:ref}, (value) => {",
-      "${2}",
-      "})"
-    ],
+    "body": ["watch(${1:ref}, (value) => {", "${2}", "})"],
     "description": "useElementBounding"
   },
   "computed": {
     "prefix": "mycomputed",
-    "body": [
-      "const result = computed(() => {",
-      "${1}",
-      "})"
-    ],
+    "body": ["const result = computed(() => {", "${1}", "})"],
     "description": "computed"
   },
   "useEventListener": {
@@ -125,18 +86,12 @@
   },
   "watchEffect": {
     "prefix": "mywatchEffect",
-    "body": [
-      "watchEffect(() => {",
-      "${1}",
-      "})"
-    ],
+    "body": ["watchEffect(() => {", "${1}", "})"],
     "description": "watchEffect"
   },
   "useStorage": {
     "prefix": "myuseStorage",
-    "body": [
-      "useStorage('${1:key}', ${2:defaultValue})"
-    ],
+    "body": ["useStorage('${1:key}', ${2:defaultValue})"],
     "description": "useStorage"
   }
 }

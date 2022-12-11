@@ -270,6 +270,7 @@ endWith(){
 # clone 项目clone
 clone() {
   command=$2
+  hasWrong=0
   if [ $(uname) = "Darwin" ]; then
     paste="pbpaste"
   else
@@ -294,7 +295,7 @@ clone() {
   str1=${str##*/}
   result=${str1%.*}
   console.skyblue "正在clone $result"
-  git clone $str && console.pink "下载完成,正在打开 $result" && code $result && cd $result
+  git clone $str && console.pink "下载完成,正在打开 $result" && code $result && cd $result || hasWrong=1
   if [ -f "package.json" ]; then
     console.green '正在下载依赖' && pi || pi || pi || console.red '安装依赖失败，请重新尝试'
   fi
@@ -303,7 +304,9 @@ clone() {
   fi
 
   # 回到上一级目录
-  cd ..
+  if [ $hasWrong = 0 ];then
+    cd ..
+  fi
 }
 
 # isGit 判断是否是一个.git
@@ -334,6 +337,7 @@ isGit(){
 # template 选择项目模板
 template() {
   projectName=$1
+  hasWrong=0
   if [ "$projectName" = "" ]; then
     projectName=$(gum input --placeholder " 请输入项目名称")
   fi
@@ -350,7 +354,7 @@ template() {
 
 
   console.blue "正在创建$1目录,下载starter-$templateName模板,请稍等..."
-  npx degit Simon-He95/$templateName $projectName && console.green "正在打开$1" && code $1 && cd $1
+  npx degit Simon-He95/$templateName $projectName && console.green "正在打开$1" && code $1 && cd $1 || hasWrong=1
   if [ -f "package.json" ]; then
     echo ${"$(cat ./package.json)//vitesse/$1"}>package.json  && console.pink '正在下载依赖' && pi || pi || pi || console.red '安装依赖失败，请重新尝试'
   fi
@@ -359,7 +363,9 @@ template() {
   fi
 
   # 回到上一级目录
-  cd ..
+  if [ $hasWrong = 0 ];then
+    cd ..
+  fi
 }
 
 # remove 删除文件或目录

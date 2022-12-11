@@ -1,110 +1,72 @@
 {
   "function": {
     "prefix": "function",
-    "body": [
-      "function ${1:name}(${2:args}:string) {",
-      "$2"
-    ],
+    "body": ["function ${1:name}(${2:args}:string) {", "$2"],
     "description": "function 函数"
   },
   "arrowFunction": {
     "prefix": "arrowFunction",
-    "body": [
-      "const ${1:name} = (${2:args}:string) {",
-      "$2"
-    ],
+    "body": ["const ${1:name} = (${2:args}:string) {", "$2"],
     "description": "arrowFunction 函数"
   },
   "import": {
     "prefix": "import",
-    "body": [
-      "import ${1:name} from '${2:path}';"
-    ],
+    "body": ["import ${1:name} from '${2:path}';"],
     "description": "import 导入"
   },
   "require": {
     "prefix": "require",
-    "body": [
-      "const ${1:name} = require('${2:path}');"
-    ],
+    "body": ["const ${1:name} = require('${2:path}');"],
     "description": "require 导入"
   },
   "type": {
     "prefix": "type",
-    "body": [
-      "type ${1:name} = {",
-      "${2:_name}: string",
-      "}"
-    ],
+    "body": ["type ${1:name} = {", "${2:_name}: string", "}"],
     "description": "type 类型"
   },
   "interface": {
     "prefix": "interface",
-    "body": [
-      "interface ${1:name}  {",
-      "${2:_name}: string",
-      "}"
-    ],
+    "body": ["interface ${1:name}  {", "${2:_name}: string", "}"],
     "description": "interface 类型"
   },
   "useAttrs": {
     "prefix": "myuseAttrs",
-    "body": [
-      "const attrs = useAttrs()"
-    ],
+    "body": ["const attrs = useAttrs()"],
     "description": "useAttrs"
   },
   "defineProps": {
     "prefix": "mydefineProps",
-    "body": [
-      "const props = defineProps<{name:any}>()"
-    ],
+    "body": ["const props = defineProps<{name:any}>()"],
     "description": "defineProps"
   },
   "ref": {
     "prefix": "myref",
-    "body": [
-      "const {$1} = ref(${2})"
-    ],
+    "body": ["const {$1} = ref(${2})"],
     "description": "ref"
   },
   "reactive": {
     "prefix": "myreactive",
-    "body": [
-      "const {$1} = reactive<${1:any}>(${2})"
-    ],
+    "body": ["const {$1} = reactive<${1:any}>(${2})"],
     "description": "reactive"
   },
   "useToggle": {
     "prefix": "myuseToggle",
-    "body": [
-      "const toggle = useToggle(mode)"
-    ],
+    "body": ["const toggle = useToggle(mode)"],
     "description": "myuseToggle"
   },
   "useElementBounding": {
     "prefix": "myuseElementBounding",
-    "body": [
-      "const rect = useElementBounding(el)"
-    ],
+    "body": ["const rect = useElementBounding(el)"],
     "description": "useElementBounding"
   },
   "watch": {
     "prefix": "mywatch",
-    "body": [
-      "watch(${1:ref}, (value) => {",
-      "${2}",
-      "})"
-    ],
+    "body": ["watch(${1:ref}, (value) => {", "${2}", "})"],
     "description": "useElementBounding"
   },
   "computed": {
     "prefix": "mycomputed",
-    "body": [
-      "const result = computed(() => {",
-      "${1}",
-      "})"
-    ],
+    "body": ["const result = computed(() => {", "${1}", "})"],
     "description": "computed"
   },
   "useEventListener": {
@@ -114,18 +76,12 @@
   },
   "watchEffect": {
     "prefix": "mywatchEffect",
-    "body": [
-      "watchEffect(() => {",
-      "${1}",
-      "})"
-    ],
+    "body": ["watchEffect(() => {", "${1}", "})"],
     "description": "watchEffect"
   },
   "useStorage": {
     "prefix": "myuseStorage",
-    "body": [
-      "useStorage('${1:key}', ${2:defaultValue})"
-    ],
+    "body": ["useStorage('${1:key}', ${2:defaultValue})"],
     "description": "useStorage"
   },
   "express": {

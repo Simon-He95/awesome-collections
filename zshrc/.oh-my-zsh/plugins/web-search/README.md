@@ -12,8 +12,8 @@ plugins=( ... web-search)
 
 You can use the `web-search` plugin in these two forms:
 
-* `web_search <context> <term> [more terms if you want]`
-* `<context> <term> [more terms if you want]`
+- `web_search <context> <term> [more terms if you want]`
+- `<context> <term> [more terms if you want]`
 
 For example, these two are equivalent:
 
@@ -48,7 +48,7 @@ Available search contexts are:
 Also there are aliases for bang-searching DuckDuckGo:
 
 | Context   | Bang  |
-|-----------|-------|
+| --------- | ----- |
 | `wiki`    | `!w`  |
 | `news`    | `!n`  |
 | `youtube` | `!yt` |

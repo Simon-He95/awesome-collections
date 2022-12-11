@@ -42,37 +42,27 @@
   },
   "useAttrs": {
     "prefix": "myuseAttrs",
-    "body": [
-      "const attrs = useAttrs()"
-    ],
+    "body": ["const attrs = useAttrs()"],
     "description": "useAttrs"
   },
   "defineProps": {
     "prefix": "mydefineProps",
-    "body": [
-      "const props = defineProps<{name:any}>()"
-    ],
+    "body": ["const props = defineProps<{name:any}>()"],
     "description": "defineProps"
   },
   "ref": {
     "prefix": "myref",
-    "body": [
-      "const {$1} = ref(${2})"
-    ],
+    "body": ["const {$1} = ref(${2})"],
     "description": "ref"
   },
   "reactive": {
     "prefix": "myreactive",
-    "body": [
-      "const {$1} = reactive(${2})"
-    ],
+    "body": ["const {$1} = reactive(${2})"],
     "description": "reactive"
   },
   "slot": {
     "prefix": "myslot",
-    "body": [
-      "<slot />"
-    ],
+    "body": ["<slot />"],
     "description": "myslot"
   },
   "ts": {
