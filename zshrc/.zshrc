@@ -96,14 +96,14 @@ alias see="ps -ef" # 查看进程
 alias typecheck="prun typecheck"
 
 #--------------------------#
-# vsce 
+# vsce
 # -------------------------#
 
 alias package="vsce package" # vscode 插件 打包
 alias vpublish="vsce publish" # vscode 插件 发布
 
 #--------------------------#
-# ccommand 
+# ccommand
 # -------------------------#
 
 alias c="ccommand" # 选择当前scripts命令
@@ -301,6 +301,9 @@ clone() {
   if [ $command ]; then
     console.blue "正在执行 prun $command" && prun $command || eval $command
   fi
+
+  # 回到上一级目录
+  cd ..
 }
 
 # isGit 判断是否是一个.git
@@ -347,7 +350,7 @@ template() {
 
 
   console.blue "正在创建$1目录,下载starter-$templateName模板,请稍等..."
-  npx degit Simon-He95/$templateName $projectName && console.green "正在打开$1" && code $1 && cd $1 
+  npx degit Simon-He95/$templateName $projectName && console.green "正在打开$1" && code $1 && cd $1
   if [ -f "package.json" ]; then
     echo ${"$(cat ./package.json)//vitesse/$1"}>package.json  && console.pink '正在下载依赖' && pi || pi || pi || console.red '安装依赖失败，请重新尝试'
   fi
@@ -355,6 +358,8 @@ template() {
     console.blue "正在执行 prun $2" && prun $2 || eval ${2}
   fi
 
+  # 回到上一级目录
+  cd ..
 }
 
 # remove 删除文件或目录
@@ -497,7 +502,7 @@ update() {
     str=${all// /@latest }
   if [[ $isParams == 0 ]];then
     console.green pi $str && pi $str && console.green "安装成功👅"
-  else 
+  else
     console.green pi $str@latest && pi $str@latest && console.green "安装成功👅"
   fi
 }
@@ -512,12 +517,12 @@ commit() {
   else
     commitType="fix feat docs style refactor test chore revert perf build ci"
     TYPE=$(spaceToLine $commitType | gum filter --placeholder=" 请选择提交类型")
-    if [ $? = 130 ];then 
+    if [ $? = 130 ];then
       echo "已取消"
       return 1
     fi
     SCOPE=$(gum input --placeholder "scope")
-      if [ $? = 130 ];then 
+      if [ $? = 130 ];then
       echo "已取消"
       return 1
     fi
@@ -611,7 +616,7 @@ revert() {
     echo '已取消'
     return 1
   fi
-  git revert $head -n && echo $head '提交已还原' 
+  git revert $head -n && echo $head '提交已还原'
 }
 
 # cnrm 选择源
@@ -674,8 +679,8 @@ cb() {
 #nb 创建新分支
 nb(){
   if [[ $1 == "" ]];then
-    branch=$(gum input --placeholder " 请输入新分支名" | sed 's/ //g') 
-  else 
+    branch=$(gum input --placeholder " 请输入新分支名" | sed 's/ //g')
+  else
     branch=$1
   fi
   if [[ $? == 130 ]]; then
@@ -742,7 +747,7 @@ spaceToLine() {
 # includes 判断是否包含
 includes(){
   result=$(echo $1 | grep "$2")
-  if [[ $result != "" ]];then 
+  if [[ $result != "" ]];then
     return 0
   fi
     return 1
@@ -833,7 +838,7 @@ release(){
     go build -tags="release"
     return 0
   fi
-  npm run release 
+  npm run release
 }
 
 # check
@@ -864,7 +869,7 @@ export GO111MODULE=on
 export GOPROXY=https://goproxy.cn,direct
 export DRAW_FILE=~/Documents/GitHub/to/draw.txt
 export LC_CTYPE="en_US.UTF-8"
-export LC_ALL=en_US.UTF-8  
+export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # pi config
@@ -878,7 +883,7 @@ export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_pr
 
 # thefuck
 eval $(thefuck --alias q)
-# thefuck end 
+# thefuck end
 
 # fnm
 export PATH="/Users/hejian/Library/Application Support/fnm:$PATH"
