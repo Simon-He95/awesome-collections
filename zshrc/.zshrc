@@ -345,8 +345,8 @@ template() {
     echo "项目名称不能为空"
     return 0
   fi
-  console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr"
-  templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress vitesse-vitessr vitesse-reactssr" | gum filter --placeholder=" 请选择一个模板 ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr")
+  console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte"
+  templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress vitesse-vitessr vitesse-reactssr vitesse-svelte" | gum filter --placeholder=" 请选择一个模板 ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte")
   if [ ! $templateName ]; then
     echo "已取消"
     return 1
@@ -370,6 +370,15 @@ template() {
 
 # remove 删除文件或目录
 remove() {
+  # remove. -> 删除当前目录
+  if [ $1 = '.' ];then
+    _path=$(pwd)
+    current=$(basename $_path)
+    console.blue "正在删除当前目录"
+    _current="../${current}"
+    rimraf $_current && console.green "删除成功👅" || console.red "删除失败,请重新尝试:("
+    return 0
+  fi
   if [ $1 ]; then
     if [ ! -f $1 ] && [ ! -d $1 ]; then
       console.red '文件或目录不存在:('
@@ -901,5 +910,3 @@ export PNPM_HOME="/Users/hejian/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
-# 处理zsh *
-setopt no_nomatch
