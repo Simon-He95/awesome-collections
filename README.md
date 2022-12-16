@@ -29,6 +29,12 @@ plugins:  git web-search zsh-autosuggestions zsh-autocomplete zsh-z last-working
 
 [vue](./code-snippet/vue.json)
 
+## Alfred
+
+[Alfred 5 crack version tool](./Alfred/Alfred5/Alfred_PowerPack_5.0.4.2092__iMacSO.com.dmg)
+
+[Useful workflows](./Alfred/workflows/)
+
 ## web-search
 
 https://user-images.githubusercontent.com/57086651/203928145-0f3469f0-ac8a-4c07-a83b-580b8a3e2dd7.mov
