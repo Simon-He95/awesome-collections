@@ -62,6 +62,7 @@ alias link="npm link" # link 本地包
 #--------------------------#
 # Git
 # -------------------------#
+
 alias remote="git remote" # 查看远程仓库
 alias gs="git status" # 查看状态
 alias fetch="git fetch --all && gpl" # 拉取远程仓库
@@ -101,6 +102,13 @@ alias typecheck="prun typecheck"
 
 alias package="vsce package" # vscode 插件 打包
 alias vpublish="vsce publish" # vscode 插件 发布
+alias package="vsce package" # vscode 插件 打包
+
+#--------------------------#
+# ipinfo -> brew install ipinfo-cli
+# -------------------------#
+
+alias ip="ipinfo myip"
 
 #--------------------------#
 # ccommand
