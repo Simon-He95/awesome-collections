@@ -26,7 +26,10 @@ alias draw="~/go/bin/draw"
 alias gom="gor main.go"
 alias goinit="go mod init"
 alias rustinit="cargo new"
+
 # alias - pi -> @simon_he/pi
+alias i=pi
+alias r=prun
 alias cacheclean="npm cache clean --force"
 alias nio="pi --prefer-offline" # npm install offline 离线安装
 alias d="prun dev" # dev 启动dev环境
