@@ -101,6 +101,7 @@ alias pullmain="git pull origin main" # 拉取主分支
 alias flog="git reflog" # 查看提交日志
 alias see="ps -ef" # 查看进程
 alias typecheck="prun typecheck"
+alias ignorecase="git config core.ignorecase false" # git 提交 区分大小写
 
 #--------------------------#
 # vsce
