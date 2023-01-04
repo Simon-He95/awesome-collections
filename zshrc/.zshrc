@@ -577,10 +577,14 @@ commit() {
     header=$(getHeader "Commit Message:")
     gum join --vertical "$header" "$title"
     git add . && git commit --quiet --allow-empty-message -m $SUMMARY
+    haveError=$?
+    if [ $haveError = 1 ];then
+      return 1
+    fi
      if [[ $1 == "-p" ]];then
       gp
       else
-      gum confirm "Do you want to push this commit" && gp
+      gum confirm "Do you want to push this commit ?" && gp
     fi
   fi
 }
