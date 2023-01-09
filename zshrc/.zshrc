@@ -64,6 +64,7 @@ alias 。。。="cd ../.." # 返回上上级
 alias ....="cd ../../.." # 返回上上上级
 alias 。。。。="cd ../../.." # 返回上上上级
 alias link="npm link" # link 本地包
+alias unlink="npm unlink" # unlink 本地包
 alias rmmodule="remove !" # 删除node_modules
 
 #--------------------------#
@@ -898,6 +899,7 @@ check(){
   fi
   prun check
 }
+
 
 # web-search
 search(){
