@@ -393,8 +393,13 @@ template() {
 
 # remove 删除文件或目录
 remove() {
+  root=~
+  if [ $1 = "$root" ];then
+    console.red "不允许删除根目录！"
+    return 1
+  fi
   # remove . -> 删除当前目录
-  if [ $1 = '.' ];then
+  if [ $1 = "." ];then
     _path=$(pwd)
     current=$(basename $_path)
     console.blue "正在删除当前目录"
@@ -403,7 +408,7 @@ remove() {
     return 0
   fi
   # remove ! -> 删除node_modules
-    if [ $1 = '!' ];then
+    if [ $1 = "!" ];then
     console.blue "正在删除node_modules"
     rimraf "node_modules" && console.green "删除成功👅" || console.red "删除失败,请重新尝试:("
     return 0
@@ -422,7 +427,7 @@ remove() {
     str="$str\"$file\" "
   done
   content=$(echo $(ls) | sed 's/ /\n/g' | gum filter --placeholder=" 请选择要删除的文件或目录")
-  if [ ! $content ]; then
+  if [ ! "$content" ]; then
     echo "已取消"
     return 1
   fi
