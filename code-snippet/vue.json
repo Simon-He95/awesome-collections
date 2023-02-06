@@ -24,8 +24,17 @@
     ],
     "description": "Log output to console"
   },
-  "script": {
-    "prefix": "script setup",
+  "setup": {
+    "prefix": "setup",
+    "body": [
+      "<script setup lang=\"ts\">",
+      "const props = defineProps<{ modelValue: boolean }>()",
+      "</script>\n"
+    ],
+    "description": "Log output to console"
+  },
+  "scriptsetup": {
+    "prefix": "setup",
     "body": [
       "<script setup lang=\"ts\">",
       "const props = defineProps<{ modelValue: boolean }>()",
@@ -40,6 +49,18 @@
     ],
     "description": "Log output to console"
   },
+  "defineComponent": {
+    "prefix": "mydefineComponent",
+    "body": [
+      "<script lang=\"ts\">",
+      "import { defineComponent } from 'vue';",
+      "export default defineComponent({",
+      "  name:'$1',",
+      "})",
+      "</script>"
+    ],
+    "description": "defineComponent"
+  },
   "useAttrs": {
     "prefix": "myuseAttrs",
     "body": ["const attrs = useAttrs()"],
@@ -52,12 +73,12 @@
   },
   "ref": {
     "prefix": "myref",
-    "body": ["const {$1} = ref(${2})"],
+    "body": ["const $1 = ref(${2})"],
     "description": "ref"
   },
   "reactive": {
     "prefix": "myreactive",
-    "body": ["const {$1} = reactive(${2})"],
+    "body": ["const $1 = reactive(${2})"],
     "description": "reactive"
   },
   "slot": {
@@ -74,5 +95,30 @@
       "}",
       "</script>"
     ]
+  },
+  "forloop": {
+    "prefix": "forloop",
+    "body": ["for (let i = 0; i < ${1:content}; i++) {", " $2", "}"],
+    "description": "for loop"
+  },
+  "forin": {
+    "prefix": "forin",
+    "body": [
+      "for (const key in ${1:object}) {",
+      "  const val = $1[key]",
+      "  $2",
+      "}"
+    ],
+    "description": "for in"
+  },
+  "forof": {
+    "prefix": "forof",
+    "body": ["for (const item of ${1:array}) {", "  $2", "}"],
+    "description": "for of"
+  },
+  "forawait": {
+    "prefix": "forawait",
+    "body": ["for await (const item of ${1:array) {", "  $2", "}"],
+    "description": "for await of"
   }
 }

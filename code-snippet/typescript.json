@@ -1,12 +1,17 @@
 {
+  // Place your snippets for typescript here. Each snippet is defined under a snippet name and has a prefix, body and
+  // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+  // same ids are connected.
+  // Example:
   "function": {
     "prefix": "function",
-    "body": ["function ${1:name}(${2:args}:string) {", "$2"],
+    "body": ["function ${1:name}(${2:args}:string) {", "$2", "}"],
     "description": "function 函数"
   },
   "arrowFunction": {
     "prefix": "arrowFunction",
-    "body": ["const ${1:name} = (${2:args}:string) {", "$2"],
+    "body": ["const ${1:name} = ($2) => {", "  $3", "}"],
     "description": "arrowFunction 函数"
   },
   "import": {
@@ -41,12 +46,12 @@
   },
   "ref": {
     "prefix": "myref",
-    "body": ["const {$1} = ref(${2})"],
+    "body": ["const $1 = ref(${2})"],
     "description": "ref"
   },
   "reactive": {
     "prefix": "myreactive",
-    "body": ["const {$1} = reactive<${1:any}>(${2})"],
+    "body": ["const $1 = reactive<${1:any}>(${2})"],
     "description": "reactive"
   },
   "useToggle": {
@@ -61,12 +66,12 @@
   },
   "watch": {
     "prefix": "mywatch",
-    "body": ["watch(${1:ref}, (value) => {", "${2}", "})"],
+    "body": ["watch(${1:ref}, (newV, oldV) => {", "  ${2}", "})"],
     "description": "useElementBounding"
   },
   "computed": {
     "prefix": "mycomputed",
-    "body": ["const result = computed(() => {", "${1}", "})"],
+    "body": ["const result = computed(() => {", "  ${1}", "})"],
     "description": "computed"
   },
   "useEventListener": {
@@ -76,63 +81,57 @@
   },
   "watchEffect": {
     "prefix": "mywatchEffect",
-    "body": ["watchEffect(() => {", "${1}", "})"],
+    "body": ["watchEffect(() => {", "  ${1}", "})"],
     "description": "watchEffect"
   },
   "useStorage": {
     "prefix": "myuseStorage",
-    "body": ["useStorage('${1:key}', ${2:defaultValue})"],
+    "body": ["const $1 = useStorage('${2:key}', ${3:defaultValue})"],
     "description": "useStorage"
   },
-  "express": {
-    "prefix": "quickExpress",
-    "body": [
-      "const fs = require('fs')",
-      "const express = require('express')",
-      "const app = express()",
-      "app.all('*', (req, res, next) => {",
-      "res.header('Access-Control-Allow-Origin', '*')",
-      "res.header('Access-Control-Allow-Headers', 'content-type')",
-      "res.header('Access-Control-Allow-Methods', 'DELETE,PUT,POST,GET,OPTIONS')",
-      "if (req.method.toLowerCase() === 'options')",
-      "res.send(200) ",
-      "else",
-      "next()",
-      "})",
-      "app.get('/rank', (req, res) => {",
-      "const json = require('./rank.json')",
-      "const { times, city } = req.query",
-      "if (!times || !city) return",
-      "if (!json[city]) {",
-      "json[city] = [{",
-      "times,",
-      "}]",
-      "}",
-      "else { json[city].push({ times }) }",
-      "json[city].sort((a, b) => a.times - b.times)",
-      "const idx = json[city].findIndex(item => +item.times === +times)",
-      "fs.writeFileSync('./rank.json', JSON.stringify(json, undefined, 2), 'utf-8')",
-      "res.json(idx)",
-      "})",
-      "app.listen(5002, () => {",
-      "console.log('服务器启动5002')",
-      "})"
-    ]
+  "log": {
+    "prefix": "log 打印",
+    "body": ["console.log('$1');", "$2"],
+    "description": "Log output to console"
   },
-  "koa": {
-    "prefix": "quickKoa",
+  "forEach": {
+    "prefix": "forEach",
+    "body": ["${1:array}.forEach((${2:i}) => {", "  ${3}", "}"],
+    "description": "forEach"
+  },
+  "map": {
+    "prefix": "map",
+    "body": ["${1:array}.map((${2:i}) => {", "  ${3}", "}"],
+    "description": "map"
+  },
+  "filter": {
+    "prefix": "filter",
+    "body": ["${1:array}.filter((${2:item}) => {", "  ${3}", "}"],
+    "description": "filter 过滤"
+  },
+  "forloop": {
+    "prefix": "forloop",
+    "body": ["for (let i = 0; i < ${1:content}; i++) {", " $2", "}"],
+    "description": "for loop"
+  },
+  "forin": {
+    "prefix": "forin",
     "body": [
-      "const Koa = require('koa');",
-      "const Router = require('@koa/router');",
-      "const app = new Koa();",
-      "const router = new Router();",
-      "router.get('/', (ctx, next) => {",
-      "ctx.body = 'Hello World!';",
-      "});",
-      "app",
-      ".use(router.routes())",
-      ".use(router.allowedMethods());",
-      "app.listen(3000);"
-    ]
+      "for (const key in ${1:object}) {",
+      "  const val = $1[key]",
+      "  $2",
+      "}"
+    ],
+    "description": "for in"
+  },
+  "forof": {
+    "prefix": "forof",
+    "body": ["for (const item of ${1:array}) {", "  $2", "}"],
+    "description": "for of"
+  },
+  "forawait": {
+    "prefix": "forawait",
+    "body": ["for await (const item of ${1:array) {", "  $2", "}"],
+    "description": "for await of"
   }
 }
