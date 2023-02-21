@@ -30,6 +30,7 @@ alias rustinit="cargo new"
 # alias - pi -> @simon_he/pi
 alias i=pi
 alias r=prun
+alias f=pfind
 alias cacheclean="npm cache clean --force"
 alias nio="pi --prefer-offline" # npm install offline 离线安装
 alias d="prun dev" # dev 启动dev环境
@@ -66,6 +67,7 @@ alias 。。。。="cd ../../.." # 返回上上上级
 alias link="npm link" # link 本地包
 alias unlink="npm unlink" # unlink 本地包
 alias rmmodule="remove !" # 删除node_modules
+alias rename="mv" # 删除node_modules
 
 #--------------------------#
 # Git
@@ -368,8 +370,8 @@ template() {
     echo "项目名称不能为空"
     return 0
   fi
-  console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid"
-  templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress vitesse-vitessr vitesse-reactssr vitesse-svelte vitesse-solid" | gum filter --placeholder=" 请选择一个模板 ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid")
+  console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-js-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid"
+  templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-jsvue vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress vitesse-vitessr vitesse-reactssr vitesse-svelte vitesse-solid" | gum filter --placeholder=" 请选择一个模板 ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid")
   if [ ! $templateName ]; then
     echo "已取消"
     return 1
@@ -931,6 +933,7 @@ export LANG=en_US.UTF-8
 # pi config
 export PI_COLOR=blue
 export PI_SPINNER=moon
+export PI_DEFAULT=pnpm
 # pi config end
 
 # clash
