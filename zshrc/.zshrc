@@ -1,10 +1,13 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="spaceship"
 
 # plugins
-plugins=(git web-search zsh-autosuggestions zsh-autocomplete zsh-z last-working-dir zsh-syntax-highlighting)
+# 使用fig 替换了zsh-autocomplete
+plugins=(git web-search zsh-autosuggestions zsh-z last-working-dir zsh-syntax-highlighting)
 
 
 # fnm env
@@ -954,3 +957,5 @@ export PNPM_HOME="/Users/hejian/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
