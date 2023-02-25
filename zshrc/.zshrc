@@ -19,7 +19,7 @@ eval "$(fnm env --use-on-cd)"
 # -------------------------#
 
 #code
-alias github="cd ~/Documents/GitHub" # 快速进入github文件夹
+alias Github="cd ~/Documents/GitHub" # 快速进入github文件夹
 alias Go="cd ~/Documents/go" # 快速进入github文件夹
 alias gopath="cd ~/go/src"
 alias goi="go get"
@@ -409,7 +409,7 @@ remove() {
     current=$(basename $_path)
     console.blue "正在删除当前目录"
     _current="../${current}"
-    rimraf $_current && console.green "删除成功👅" || console.red "删除失败,请重新尝试:("
+    gum confirm "确认要删除${current}目录吗?" && rimraf $_current && console.green "删除成功👅" && cd .. || console.red "删除失败,请重新尝试:(" || echo "已取消"
     return 0
   fi
   # remove ! -> 删除node_modules
@@ -424,7 +424,7 @@ remove() {
       return 0
     else
       console.blue "正在删除$1"
-      rimraf $1 && console.green "删除成功👅" || console.red "删除失败,请重新尝试:("
+      gum confirm "确认要删除$1目录吗?" && rimraf $1 && console.green "删除成功👅" || console.red "删除失败,请重新尝试:(" || echo "已取消"
       return 1
     fi
   fi
