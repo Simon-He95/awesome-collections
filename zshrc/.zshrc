@@ -327,12 +327,12 @@ clone() {
   if [ -f "package.json" ]; then
     console.green '正在下载依赖' && pi || pi || pi || console.red '安装依赖失败，请重新尝试'
   fi
-  if [ $command ]; then
+  if [ "$command" ]; then
     console.blue "正在执行 prun $command" && prun $command || eval $command
   fi
 
   # 回到上一级目录
-  if [ $hasWrong = 0 ];then
+  if [ "$hasWrong" = 0 ];then
     cd ..
   fi
 }
@@ -381,17 +381,17 @@ template() {
   fi
 
 
-  console.blue "正在创建$1目录,下载starter-$templateName模板,请稍等..."
-  npx degit Simon-He95/$templateName $projectName && console.green "正在打开$1" && code $1 && cd $1 || hasWrong=1
+  console.blue "正在创建$projectName目录,下载starter-$templateName模板,请稍等..."
+  npx degit Simon-He95/$templateName $projectName && console.green "正在打开$projectName" && code $projectName && cd $projectName || hasWrong=1
   if [ -f "package.json" ]; then
-    echo ${"$(cat ./package.json)//vitesse/$1"}>package.json  && console.pink '正在下载依赖' && pi || pi || pi || console.red '安装依赖失败，请重新尝试'
+    echo ${"$(cat ./package.json)//vitesse/$projectName"}>package.json  && console.pink '正在下载依赖' && pi || pi || pi || console.red '安装依赖失败，请重新尝试'
   fi
-  if [ $2 ]; then
+  if [ "$2" ]; then
     console.blue "正在执行 prun $2" && prun $2 || eval ${2}
   fi
 
   # 回到上一级目录
-  if [ $hasWrong = 0 ];then
+  if [ "$hasWrong" = 0 ];then
     cd ..
   fi
 }
@@ -399,12 +399,12 @@ template() {
 # remove 删除文件或目录
 remove() {
   root=~
-  if [ $1 = "$root" ];then
+  if [ "$1" = "$root" ];then
     console.red "不允许删除根目录！"
     return 1
   fi
   # remove . -> 删除当前目录
-  if [ $1 = "." ];then
+  if [ "$1" = "." ];then
     _path=$(pwd)
     current=$(basename $_path)
     console.blue "正在删除当前目录"
@@ -413,18 +413,18 @@ remove() {
     return 0
   fi
   # remove ! -> 删除node_modules
-    if [ $1 = "!" ];then
+    if [ "$1" = "!" ];then
     console.blue "正在删除node_modules"
     rimraf "node_modules" && console.green "删除成功👅" || console.red "删除失败,请重新尝试:("
     return 0
   fi
-  if [ $1 ]; then
-    if [ ! -f $1 ] && [ ! -d $1 ]; then
+  if [ "$1" ]; then
+    if [ ! -f "$1" ] && [ ! -d "$1" ]; then
       console.red '文件或目录不存在:('
       return 0
     else
       console.blue "正在删除$1"
-      gum confirm "确认要删除$1目录吗?" && rimraf $1 && console.green "删除成功👅" || console.red "删除失败,请重新尝试:(" || echo "已取消"
+      gum confirm "确认要删除$1吗?" && rimraf $1 && console.green "删除成功👅" || console.red "删除失败,请重新尝试:(" || echo "已取消"
       return 1
     fi
   fi
@@ -959,3 +959,5 @@ export PATH="$PNPM_HOME:$PATH"
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
+eval $(thefuck --alias)
