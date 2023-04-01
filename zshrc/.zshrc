@@ -70,7 +70,6 @@ alias 。。。。="cd ../../.." # 返回上上上级
 alias link="npm link" # link 本地包
 alias unlink="npm unlink" # unlink 本地包
 alias rmmodule="remove !" # 删除node_modules
-alias rename="mv" # 删除node_modules
 
 #--------------------------#
 # Git
@@ -916,6 +915,15 @@ search(){
   web_search $*
 }
 
+# rename
+rename(){
+  mv "$1" "$2"
+  if [ $? = 0 ];then
+    console.green "文件名$1已成功修改为$2"
+    return 0
+  fi
+}
+
 
 # source plugin 引入插件
 source "$HOME/.oh-my-zsh/oh-my-zsh.sh"
@@ -937,7 +945,13 @@ export LANG=en_US.UTF-8
 export PI_COLOR=blue
 export PI_SPINNER=moon
 export PI_DEFAULT=pnpm
+export PI_MaxSockets=8
 # pi config end
+
+# github
+export Github_token=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
+export Github_owner=Simon-He95
+# github end
 
 # clash
 export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
