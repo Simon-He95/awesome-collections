@@ -917,10 +917,20 @@ search(){
 
 # rename
 rename(){
+  if [ "$1" = "." ];then
+    url=$(pwd)
+    dir=$(basename $url)
+    cd ..
+    mv "$dir" "$2"
+    if [ $? = 0 ];then
+      console.green "文件名$1已成功修改为$2"
+    fi
+    cd "$2"
+    return
+  fi
   mv "$1" "$2"
   if [ $? = 0 ];then
     console.green "文件名$1已成功修改为$2"
-    return 0
   fi
 }
 
