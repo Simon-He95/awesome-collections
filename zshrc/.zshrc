@@ -1,5 +1,5 @@
 # Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+# [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
@@ -7,7 +7,7 @@ ZSH_THEME="spaceship"
 
 # plugins
 # 使用fig 替换了zsh-autocomplete
-plugins=(git web-search zsh-autosuggestions zsh-z last-working-dir zsh-syntax-highlighting)
+plugins=(git web-search zsh-autocomplete zsh-autosuggestions zsh-z last-working-dir zsh-syntax-highlighting)
 
 
 # fnm env
@@ -295,12 +295,12 @@ clone() {
   if [ $(uname) = "Darwin" ]; then
     paste="pbpaste"
   else
-    paste="clip"
+    paste="powershell.exe -Command \"Get-Clipboard\""
   fi
   if [ "$1" = "" ]; then
     str=$($paste)
   else
-    endWith "$1" ".git"
+    isGit "$1"
     if [ $? = 1 ];then
       str=$($paste)
       command=$1
@@ -308,7 +308,7 @@ clone() {
       str=$1
     fi
   fi
-  endWith "${str}" ".git"
+  isGit "${str}"
   if [ $? = 1 ]; then
     console.red "请输入正确的git地址"
     return
@@ -338,11 +338,6 @@ clone() {
 
 # isGit 判断是否是一个.git
 isGit(){
-  if [ $(uname) = "Darwin" ]; then
-    paste="pbpaste"
-  else
-    paste="clip"
-  fi
   if [ "$1" = "" ]; then
     str=$($paste)
   else
@@ -934,6 +929,21 @@ rename(){
   fi
 }
 
+# killer
+killer(){
+  data=$(ps > .ps.temp)
+  content=$(tail -n +2 .ps.temp > ._ps.temp)
+  result=$(cat ._ps.temp | gum filter | cut -d ' ' -f 1)
+   if [ $? -eq 130 ] || [ -z "$result" ];then
+      echo "已取消"
+      rimraf .ps.temp
+      rimraf ._ps.temp
+      return 1
+    fi
+  rimraf .ps.temp
+  rimraf ._ps.temp
+  gum confirm "确认要杀死${result}端口进程吗?" && echo "kill -9 ${result}" || echo "已取消"
+}
 
 # source plugin 引入插件
 source "$HOME/.oh-my-zsh/oh-my-zsh.sh"
@@ -982,6 +992,4 @@ export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 # Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
-
-eval $(thefuck --alias)
+# [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
