@@ -367,8 +367,8 @@ template() {
     echo "项目名称不能为空"
     return 0
   fi
-  console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-js-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid"
-  templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-jsvue vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress vitesse-vitessr vitesse-reactssr vitesse-svelte vitesse-solid" | gum filter --placeholder=" 请选择一个模板 ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid")
+  console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-js-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid | vscode"
+  templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-jsvue vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress vitesse-vitessr vitesse-reactssr vitesse-svelte vitesse-solid vitesse-vscode" | gum filter --placeholder=" 请选择一个模板 ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid | vscode")
   if [ ! $templateName ]; then
     echo "已取消"
     return 1
@@ -960,6 +960,7 @@ export DRAW_FILE=~/Documents/GitHub/to/draw.txt
 export LC_CTYPE="en_US.UTF-8"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export RUNEWIDTH_EASTASIAN=0
 
 # pi config
 export PI_COLOR=blue
