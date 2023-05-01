@@ -1,5 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-# [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
@@ -7,7 +5,7 @@ ZSH_THEME="spaceship"
 
 # plugins
 # 使用fig 替换了zsh-autocomplete
-plugins=(git web-search zsh-autocomplete zsh-autosuggestions zsh-z last-working-dir zsh-syntax-highlighting)
+plugins=(git web-search zsh-autocomplete  zsh-autosuggestions zsh-z last-working-dir zsh-syntax-highlighting)
 
 
 # fnm env
@@ -18,7 +16,10 @@ eval "$(fnm env --use-on-cd)"
 #  Node Package Managerƒ
 # -------------------------#
 
-#code
+# python
+alias python=python3
+
+# code
 alias Github="cd ~/Documents/GitHub" # 快速进入github文件夹
 alias Go="cd ~/Documents/go" # 快速进入github文件夹
 alias gopath="cd ~/go/src"
@@ -154,26 +155,26 @@ alias zshrc="source ~/.zshrc"
 # Functions
 # -------------------------#
 
-console.red() {
+logRed() {
   echo -e "${RED} $* ${RES}"
 }
 
-console.green() {
+logGreen() {
   echo -e "${GREEN} $* ${RES}"
 }
 
-console.yellow() {
+logYellow() {
   echo -e "${YELLOW} $* ${RES}"
 }
 
-console.blue() {
+logBlue() {
   echo -e "${BLUE} $* ${RES}"
 }
 
-console.skyblue() {
+logSkyblue() {
   echo -e "${SKYBLUE} $* ${RES}"
 }
-console.pink() {
+logPink() {
   echo -e "${PINK} $* ${RES}"
 }
 
@@ -252,14 +253,14 @@ run() {
 
 # tag 创建git tag
 tag() {
-  console.skyblue "请输入tagname:"
+  logSkyblue "请输入tagname:"
   read tagname
   if [ "$tagname" = "" ]; then
-    console.red "tagname不能为空"
+    logRed "tagname不能为空"
     exit 1
   fi
 
-  console.skyblue "请输入描述:"
+  logSkyblue "请输入描述:"
 
   read detail
   if [ -n "detail" ]; then
@@ -273,10 +274,10 @@ tag() {
 # 自动生成.gitignore
 ignore() {
   if [ -f ".gitignore" ]; then
-    console.red ".gitignore已存在"
+    logRed ".gitignore已存在"
     return
   fi
-  console.green "...正在生成.gitignore"
+  logGreen "...正在生成.gitignore"
   touch .gitignore                                                                                                                                # 创建文件
   echo "*.DS_Store  \nnode_modules \n*.log \nidea/ \n*.local \n.DS_Store \ndist \n.cache \n.idea \nlogs \n&-debug.log \n*-error.log" >>.gitignore # 添加内容
 }
@@ -310,24 +311,24 @@ clone() {
   fi
   isGit "${str}"
   if [ $? = 1 ]; then
-    console.red "请输入正确的git地址"
+    logRed "请输入正确的git地址"
     return
   fi
   str1=${str##*/}
   result=${str1%.*}
   if [ -d $result ]; then
-    console.skyblue "已存在同名目录，正在为您直接打开..."
+    logSkyblue "已存在同名目录，正在为您直接打开..."
     code $result
     return 0
   fi
-  console.skyblue "正在clone $result"
+  logSkyblue "正在clone $result"
 
-  git clone $str && console.pink "下载完成,正在打开 $result" && code $result && cd $result || hasWrong=1
+  git clone $str && logPink "下载完成,正在打开 $result" && code $result && cd $result || hasWrong=1
   if [ -f "package.json" ]; then
-    console.green '正在下载依赖' && pi || pi || pi || console.red '安装依赖失败，请重新尝试'
+    logGreen '正在下载依赖' && pi || pi || pi || logRed '安装依赖失败，请重新尝试'
   fi
   if [ "$command" ]; then
-    console.blue "正在执行 prun $command" && prun $command || eval $command
+    logBlue "正在执行 prun $command" && prun $command || eval $command
   fi
 
   # 回到上一级目录
@@ -367,7 +368,7 @@ template() {
     echo "项目名称不能为空"
     return 0
   fi
-  console.skyblue "请选择一个模板: ts | vue-h | vue-template | vue-js-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid | vscode"
+  logSkyblue "请选择一个模板: ts | vue-h | vue-template | vue-js-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid | vscode"
   templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-jsvue vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress vitesse-vitessr vitesse-reactssr vitesse-svelte vitesse-solid vitesse-vscode" | gum filter --placeholder=" 请选择一个模板 ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid | vscode")
   if [ ! $templateName ]; then
     echo "已取消"
@@ -375,13 +376,13 @@ template() {
   fi
 
 
-  console.blue "正在创建$projectName目录,下载starter-$templateName模板,请稍等..."
-  npx degit Simon-He95/$templateName $projectName && console.green "正在打开$projectName" && code $projectName && cd $projectName || hasWrong=1
+  logBlue "正在创建$projectName目录,下载starter-$templateName模板,请稍等..."
+  npx degit Simon-He95/$templateName $projectName && logGreen "正在打开$projectName" && code $projectName && cd $projectName || hasWrong=1
   if [ -f "package.json" ]; then
-    echo ${"$(cat ./package.json)//vitesse/$projectName"}>package.json  && console.pink '正在下载依赖' && pi || pi || pi || console.red '安装依赖失败，请重新尝试'
+    echo ${"$(cat ./package.json)//vitesse/$projectName"}>package.json  && logPink '正在下载依赖' && pi || pi || pi || logRed '安装依赖失败，请重新尝试'
   fi
   if [ "$2" ]; then
-    console.blue "正在执行 prun $2" && prun $2 || eval ${2}
+    logBlue "正在执行 prun $2" && prun $2 || eval ${2}
   fi
 
   # 回到上一级目录
@@ -394,31 +395,31 @@ template() {
 remove() {
   root=~
   if [ "$1" = "$root" ];then
-    console.red "不允许删除根目录！"
+    logRed "不允许删除根目录！"
     return 1
   fi
   # remove . -> 删除当前目录
   if [ "$1" = "." ];then
     _path=$(pwd)
     current=$(basename $_path)
-    console.blue "正在删除当前目录"
+    logBlue "正在删除当前目录"
     _current="../${current}"
-    gum confirm "确认要删除${current}目录吗?" && rimraf $_current && console.green "删除成功👅" && cd .. || console.red "删除失败,请重新尝试:(" || echo "已取消"
+    gum confirm "确认要删除${current}目录吗?" && rimraf $_current && logGreen "删除成功👅" && cd .. || logRed "删除失败,请重新尝试:(" || echo "已取消"
     return 0
   fi
   # remove ! -> 删除node_modules
     if [ "$1" = "!" ];then
-    console.blue "正在删除node_modules"
-    rimraf "node_modules" && console.green "删除成功👅" || console.red "删除失败,请重新尝试:("
+    logBlue "正在删除node_modules"
+    rimraf "node_modules" && logGreen "删除成功👅" || logRed "删除失败,请重新尝试:("
     return 0
   fi
   if [ "$1" ]; then
     if [ ! -f "$1" ] && [ ! -d "$1" ]; then
-      console.red '文件或目录不存在:('
+      logRed '文件或目录不存在:('
       return 0
     else
-      console.blue "正在删除$1"
-      gum confirm "确认要删除$1吗?" && rimraf $1 && console.green "删除成功👅" || console.red "删除失败,请重新尝试:(" || echo "已取消"
+      logBlue "正在删除$1"
+      gum confirm "确认要删除$1吗?" && rimraf $1 && logGreen "删除成功👅" || logRed "删除失败,请重新尝试:(" || echo "已取消"
       return 1
     fi
   fi
@@ -430,8 +431,8 @@ remove() {
     echo "已取消"
     return 1
   fi
-  console.blue "正在删除$content"
-  rimraf $content && console.green "删除成功👅" || console.red "删除失败,请重新尝试:("
+  logBlue "正在删除$content"
+  rimraf $content && logGreen "删除成功👅" || logRed "删除失败,请重新尝试:("
   return 1
 }
 
@@ -450,14 +451,14 @@ nii() {
 
 # pkginit 生成package.json
 pkginit() {
-  console.blue "请输入包名:"
+  logBlue "请输入包名:"
   read pkgname
   if [ ! $pkgname ]; then
-    console.red "包名不能为空"
+    logRed "包名不能为空"
     return 0
   fi
   if [ -f package.json ]; then
-    console.red 'package.json已存在'
+    logRed 'package.json已存在'
     return 0
   fi
 
@@ -525,16 +526,16 @@ pkginit() {
   }
 }' >>package.json
   if [ $? = 0 ]; then
-    console.green '创建成功👅'
+    logGreen '创建成功👅'
   else
-    console.red '创建失败:('
+    logRed '创建失败:('
   fi
 }
 
 # grant 授予文件权限
 grant() {
   chmod +x $1
-  console.green '已授权成功👅'
+  logGreen '已授权成功👅'
 }
 
 # update 安装最新版本
@@ -546,12 +547,12 @@ update() {
   all=$*
     includes $all " -"
     isParams=$?
-    console.blue "正在安装最新版本: ${all%% -*}"
+    logBlue "正在安装最新版本: ${all%% -*}"
     str=${all// /@latest }
   if [[ $isParams == 0 ]];then
-    console.green pi $str && pi $str && console.green "安装成功👅"
+    logGreen pi $str && pi $str && logGreen "安装成功👅"
   else
-    console.green pi $str@latest && pi $str@latest && console.green "安装成功👅"
+    logGreen pi $str@latest && pi $str@latest && logGreen "安装成功👅"
   fi
 }
 
@@ -602,31 +603,31 @@ new() {
   if [[ $dir = "" ]]; then
     if [[ $(echo $1 | grep '\.') != "" ]]; then
       if [[ -f $1 ]]; then
-        console.red '文件已存在'
+        logRed '文件已存在'
         return 1
       fi
       touch $1
     else
       if [ -d $1 ]; then
-        console.red '文件夹已存在'
+        logRed '文件夹已存在'
         return 1
       fi
       mkdir $1
     fi
     if [[ $? = 1 ]]; then
-      console.red "$1, created failed"
+      logRed "$1, created failed"
       return 1
     fi
-    console.green "$1, created successfully"
+    logGreen "$1, created successfully"
     return 1
   fi
   currentDir=$(echo ${1%%/*})
   right=$1
   if [[ $(echo $1 | grep '\.') != '' && -f $1 ]]; then
-    console.red '文件已存在'
+    logRed '文件已存在'
     return 1
   elif [ -d $1 ]; then
-    console.red '文件夹已存在'
+    logRed '文件夹已存在'
     return 1
   fi
   while [ true ]; do
@@ -644,10 +645,10 @@ new() {
         mkdir $1
       fi
       if [[ $? = 1 ]]; then
-        console.red "$1, created failed"
+        logRed "$1, created failed"
         return 1
       fi
-      console.green "$1, created successfully"
+      logGreen "$1, created successfully"
       return 0
     fi
   done
@@ -851,7 +852,7 @@ getHeader(){
 # write file
 wf(){
   if [[ $1 == "" ]];then
-    console.red "请输入要写入的文件"
+    logRed "请输入要写入的文件"
     return 1
   fi
   getTitle "以esc 或 ctrl + D 确认写入内容 ✍️"
@@ -861,11 +862,11 @@ wf(){
 # copy directory
 cpd(){
   if [[ $1 == "" ]];then
-    console.red "请输入要复制的目录"
+    logRed "请输入要复制的目录"
     return 1
   fi
   if [[ $2 == "" ]];then
-    console.red "请输入要复制到的目录"
+    logRed "请输入要复制到的目录"
     return 1
   fi
   cp -r $1 $2
@@ -918,14 +919,14 @@ rename(){
     cd ..
     mv "$dir" "$2"
     if [ $? = 0 ];then
-      console.green "文件名$1已成功修改为$2"
+      logGreen "文件名$1已成功修改为$2"
     fi
     cd "$2"
     return
   fi
   mv "$1" "$2"
   if [ $? = 0 ];then
-    console.green "文件名$1已成功修改为$2"
+    logGreen "文件名$1已成功修改为$2"
   fi
 }
 
@@ -967,6 +968,7 @@ export PI_COLOR=blue
 export PI_SPINNER=moon
 export PI_DEFAULT=pnpm
 export PI_MaxSockets=8
+export PI_Lang=zh
 # pi config end
 
 # github
@@ -992,5 +994,5 @@ export PNPM_HOME="/Users/hejian/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
-# Fig post block. Keep at the bottom of this file.
-# [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
+
