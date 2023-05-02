@@ -41,11 +41,12 @@ https://user-images.githubusercontent.com/57086651/203928145-0f3469f0-ac8a-4c07-
 
 ## How to install plugins
 
+- sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)" && rm -rf install.sh
 - git clone https://gitee.com/mirrors_marlonrichert/zsh-autocomplete.git ~/.oh-my-zsh/custom/plugins/zsh-autocomplete
 - git clone https://gitee.com/yanzhongqian/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 - git clone https://gitee.com/lightnear/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 - git clone https://gitee.com/github-mirror-zsh/zsh-z.git ~/.oh-my-zsh/custom/plugins/zsh-z
-
+- git clone https://gitee.com/xiaoqqya/spaceship-prompt.git "~/.oh-my-zsh/custom/themes/spaceship-prompt" --depth=1 && ln -s "${customTheme}spaceship-prompt/spaceship.zsh-theme" "${customTheme}/spaceship.zsh-theme"
 ## [More zsh plugins](/zshrc/.oh-my-zsh/)
 
 ## :coffee:
