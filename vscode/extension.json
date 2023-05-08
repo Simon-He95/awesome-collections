@@ -1,5 +1,10 @@
 {
   "recommendations": [
+    "simonhe.log",
+    "to unocss",
+    "Generate Variable Names",
+    "unocss to css",
+    "vscode translate",
     "GitHub Copilot",
     "Codeium",
     "Blackbox",
@@ -47,7 +52,6 @@
     "Nested Comments",
     "npm Intellisense",
     "NPM-Scripts",
-    "Parameter Hints",
     "Power Mode",
     "Prettier - Code formatter",
     "Regex Previewer",

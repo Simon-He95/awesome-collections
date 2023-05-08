@@ -50,7 +50,7 @@
     "description": "Log output to console"
   },
   "defineComponent": {
-    "prefix": "mydefineComponent",
+    "prefix": "_defineComponent",
     "body": [
       "<script lang=\"ts\">",
       "import { defineComponent } from 'vue';",
@@ -62,29 +62,29 @@
     "description": "defineComponent"
   },
   "useAttrs": {
-    "prefix": "myuseAttrs",
+    "prefix": "_useAttrs",
     "body": ["const attrs = useAttrs()"],
     "description": "useAttrs"
   },
   "defineProps": {
-    "prefix": "mydefineProps",
+    "prefix": "_defineProps",
     "body": ["const props = defineProps<{name:any}>()"],
     "description": "defineProps"
   },
   "ref": {
-    "prefix": "myref",
+    "prefix": "_ref",
     "body": ["const $1 = ref(${2})"],
     "description": "ref"
   },
   "reactive": {
-    "prefix": "myreactive",
+    "prefix": "_reactive",
     "body": ["const $1 = reactive(${2})"],
     "description": "reactive"
   },
   "slot": {
-    "prefix": "myslot",
+    "prefix": "_slot",
     "body": ["<slot />"],
-    "description": "myslot"
+    "description": "_slot"
   },
   "ts": {
     "prefix": "<ts",
