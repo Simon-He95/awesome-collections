@@ -47,57 +47,57 @@
     "description": "filter 过滤"
   },
   "useAttrs": {
-    "prefix": "myuseAttrs",
+    "prefix": "_useAttrs",
     "body": ["const attrs = useAttrs()"],
     "description": "useAttrs"
   },
   "defineProps": {
-    "prefix": "mydefineProps",
+    "prefix": "_defineProps",
     "body": ["const props = defineProps()"],
     "description": "defineProps"
   },
   "ref": {
-    "prefix": "myref",
+    "prefix": "_ref",
     "body": ["const $1 = ref(${2})"],
     "description": "ref"
   },
   "reactive": {
-    "prefix": "myreactive",
+    "prefix": "_reactive",
     "body": ["const $1 = reactive(${2})"],
     "description": "reactive"
   },
   "useToggle": {
-    "prefix": "myuseToggle",
+    "prefix": "_useToggle",
     "body": ["const toggle = useToggle(mode)"],
-    "description": "myuseToggle"
+    "description": "_useToggle"
   },
   "useElementBounding": {
-    "prefix": "myuseElementBounding",
+    "prefix": "_useElementBounding",
     "body": ["const rect = useElementBounding(el)"],
     "description": "useElementBounding"
   },
   "watch": {
-    "prefix": "mywatch",
+    "prefix": "_watch",
     "body": ["watch(${1:ref}, (value) => {", "  ${2}", "})"],
     "description": "useElementBounding"
   },
   "computed": {
-    "prefix": "mycomputed",
+    "prefix": "_computed",
     "body": ["const result = computed(() => {", "  ${1}", "})"],
     "description": "computed"
   },
   "useEventListener": {
-    "prefix": "myuseEventListener",
+    "prefix": "_useEventListener",
     "body": "useEventListener('resize', update)",
     "description": "useEventListener"
   },
   "watchEffect": {
-    "prefix": "mywatchEffect",
+    "prefix": "_watchEffect",
     "body": ["watchEffect(() => {", "  ${1}", "})"],
     "description": "watchEffect"
   },
   "useStorage": {
-    "prefix": "myuseStorage",
+    "prefix": "_useStorage",
     "body": ["useStorage('${1:key}', ${2:defaultValue})"],
     "description": "useStorage"
   },
