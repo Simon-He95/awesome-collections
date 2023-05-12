@@ -1,0 +1,52 @@
+{
+  // Place your snippets for typescriptreact here. Each snippet is defined under a snippet name and has a prefix, body and
+  // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+  // same ids are connected.
+  // Example:
+  "useRef": {
+    "prefix": "_ref",
+    "body": ["  const ref = useRef('$1')"],
+    "description": "useRef"
+  },
+  "useReducer": {
+    "prefix": "_reducer",
+    "body": ["  const [state, dispatch] = useReducer(reducer, $1)"],
+    "description": "useReducer"
+  },
+  "useMemo": {
+    "prefix": "_memo",
+    "body": ["  const cachedValue = useMemo(() => { $2 }, [$1])"],
+    "description": "useMemo"
+  },
+  "useState": {
+    "prefix": "_memo",
+    "body": ["  const [state, setState] = useState($1)"],
+    "description": "useState"
+  },
+  "useTransition": {
+    "prefix": "_memo",
+    "body": ["  const [isPending, startTransition] = useTransition()"],
+    "description": "useTransition"
+  },
+  "useEffect": {
+    "prefix": "_effect",
+    "body": ["  useEffect(() => {", "    $2", "  }, ['$1'])"],
+    "description": "useEffect"
+  },
+  "useContext": {
+    "prefix": "_context",
+    "body": ["  const value = useContext(${1:Context})"],
+    "description": "useContext"
+  },
+  "useCallback": {
+    "prefix": "_callback",
+    "body": ["  const cachedFn = useCallback(() => {", "    $2", "  }, [$1])"],
+    "description": "useCallback"
+  },
+  "useLayoutEffect": {
+    "prefix": "_layoutEffect",
+    "body": ["  useLayoutEffect(() => {", "    $2", "  }, [$1])"],
+    "description": "useLayoutEffect"
+  }
+}

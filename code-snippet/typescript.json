@@ -5,8 +5,8 @@
   // same ids are connected.
   // Example:
   "function": {
-    "prefix": "function",
-    "body": ["function ${1:name}(${2:args}:string) {", "$2", "}"],
+    "prefix": "fn",
+    "body": ["function ${1:name}(${2:args}:string) {", "  $3", "}"],
     "description": "function 函数"
   },
   "arrowFunction": {
@@ -15,24 +15,39 @@
     "description": "arrowFunction 函数"
   },
   "import": {
-    "prefix": "import",
-    "body": ["import ${1:name} from '${2:path}';"],
+    "prefix": "_import",
+    "body": ["import ${1:name} from '${2:module}'"],
     "description": "import 导入"
   },
   "require": {
-    "prefix": "require",
+    "prefix": "_require",
     "body": ["const ${1:name} = require('${2:path}');"],
     "description": "require 导入"
   },
   "type": {
-    "prefix": "type",
+    "prefix": "_type",
     "body": ["type ${1:name} = {", "${2:_name}: string", "}"],
     "description": "type 类型"
   },
   "interface": {
-    "prefix": "interface",
-    "body": ["interface ${1:name}  {", "${2:_name}: string", "}"],
+    "prefix": "_interface",
+    "body": ["interface ${1:name} {", "${2:_name}: string", "}"],
     "description": "interface 类型"
+  },
+  "onMounted": {
+    "prefix": "_mount",
+    "body": ["onMounted(() => {", "  $1", "})"],
+    "description": "onMounted"
+  },
+  "onUnMounted": {
+    "prefix": "_unmount",
+    "body": ["onUnmounted(() => {", "  $1", "})"],
+    "description": "onUnmounted"
+  },
+  "onUpdated": {
+    "prefix": "_update",
+    "body": ["onUpdated(() => {", "  $1", "})"],
+    "description": "onUpdated"
   },
   "useAttrs": {
     "prefix": "_useAttrs",
@@ -49,10 +64,36 @@
     "body": ["const $1 = ref(${2})"],
     "description": "ref"
   },
+  "toRef": {
+    "prefix": "_toRef",
+    "body": ["const $1 = toRef(state, '$2')"],
+    "description": "toRef"
+  },
+  "shallowRef": {
+    "prefix": "_shallowRef",
+    "body": ["const $1 = shallowRef(${2})"],
+    "description": "shallowRef"
+  },
   "reactive": {
     "prefix": "_reactive",
-    "body": ["const $1 = reactive<${1:any}>(${2})"],
+    "body": ["const $1 = reactive(${2})"],
     "description": "reactive"
+  },
+  "shallowReactive": {
+    "prefix": "_shallowReactive",
+    "body": ["const $1 = shallowReactive(${2})"],
+    "description": "shallowReactive"
+  },
+  "effectScope": {
+    "prefix": "_effectScope",
+    "body": [
+      "const scope = effectScope()",
+      "scope.run(() => {",
+      "  $1",
+      "})",
+      "scope.stop()"
+    ],
+    "description": "effectScope"
   },
   "useToggle": {
     "prefix": "_useToggle",
@@ -90,22 +131,22 @@
     "description": "useStorage"
   },
   "log": {
-    "prefix": "log 打印",
+    "prefix": "_log",
     "body": ["console.log('$1');", "$2"],
     "description": "Log output to console"
   },
   "forEach": {
-    "prefix": "forEach",
+    "prefix": "_forEach",
     "body": ["${1:array}.forEach((${2:i}) => {", "  ${3}", "}"],
     "description": "forEach"
   },
   "map": {
-    "prefix": "map",
+    "prefix": "_map",
     "body": ["${1:array}.map((${2:i}) => {", "  ${3}", "}"],
     "description": "map"
   },
   "filter": {
-    "prefix": "filter",
+    "prefix": "_filter",
     "body": ["${1:array}.filter((${2:item}) => {", "  ${3}", "}"],
     "description": "filter 过滤"
   },

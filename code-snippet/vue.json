@@ -24,6 +24,26 @@
     ],
     "description": "Log output to console"
   },
+  "template": {
+    "prefix": "temp",
+    "body": ["<template>", " $1", "</template>"],
+    "description": "template"
+  },
+  "onMounted": {
+    "prefix": "_mount",
+    "body": ["onMounted(() => {", "  $1", "})"],
+    "description": "onMounted"
+  },
+  "onUnMounted": {
+    "prefix": "_unmount",
+    "body": ["onUnmounted(() => {", "  $1", "})"],
+    "description": "onUnmounted"
+  },
+  "onUpdated": {
+    "prefix": "_update",
+    "body": ["onUpdated(() => {", "  $1", "})"],
+    "description": "onUpdated"
+  },
   "setup": {
     "prefix": "setup",
     "body": [
@@ -76,10 +96,36 @@
     "body": ["const $1 = ref(${2})"],
     "description": "ref"
   },
+  "toRef": {
+    "prefix": "_toRef",
+    "body": ["const $1 = toRef(state, '$2')"],
+    "description": "toRef"
+  },
+  "shallowRef": {
+    "prefix": "_shallowRef",
+    "body": ["const $1 = shallowRef(${2})"],
+    "description": "shallowRef"
+  },
   "reactive": {
     "prefix": "_reactive",
     "body": ["const $1 = reactive(${2})"],
     "description": "reactive"
+  },
+  "shallowReactive": {
+    "prefix": "_shallowReactive",
+    "body": ["const $1 = shallowReactive(${2})"],
+    "description": "shallowReactive"
+  },
+  "effectScope": {
+    "prefix": "_effectScope",
+    "body": [
+      "const scope = effectScope()",
+      "scope.run(() => {",
+      "  $1",
+      "})",
+      "scope.stop()"
+    ],
+    "description": "effectScope"
   },
   "slot": {
     "prefix": "_slot",
@@ -119,6 +165,11 @@
   "forawait": {
     "prefix": "forawait",
     "body": ["for await (const item of ${1:array) {", "  $2", "}"],
+    "description": "for await of"
+  },
+  "scoped": {
+    "prefix": "scoped style",
+    "body": ["<style scoped>", "  $1", "</style>"],
     "description": "for await of"
   }
 }
