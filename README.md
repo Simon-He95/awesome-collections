@@ -29,6 +29,10 @@ plugins:  git web-search zsh-autosuggestions zsh-autocomplete zsh-z last-working
 
 [vue](./code-snippet/vue.json)
 
+[javascriptreact](./code-snippet/javascriptreact.json)
+
+[typescriptreact](./code-snippet/typescriptreact.json)
+
 ## Alfred
 
 [Alfred 5 crack version tool](./Alfred/Alfred5/Alfred_PowerPack_5.0.4.2092__iMacSO.com.dmg)
@@ -47,6 +51,7 @@ https://user-images.githubusercontent.com/57086651/203928145-0f3469f0-ac8a-4c07-
 - git clone https://gitee.com/lightnear/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 - git clone https://gitee.com/github-mirror-zsh/zsh-z.git ~/.oh-my-zsh/custom/plugins/zsh-z
 - git clone https://gitee.com/xiaoqqya/spaceship-prompt.git "~/.oh-my-zsh/custom/themes/spaceship-prompt" --depth=1 && ln -s "${customTheme}spaceship-prompt/spaceship.zsh-theme" "${customTheme}/spaceship.zsh-theme"
+
 ## [More zsh plugins](/zshrc/.oh-my-zsh/)
 
 ## :coffee:
@@ -60,5 +65,3 @@ https://user-images.githubusercontent.com/57086651/203928145-0f3469f0-ac8a-4c07-
 ## License
 
 [MIT](./license)
-
-<span><div align="center">![sponsors](https://www.hejian.club/images/sponsors.jpg)</div></span>
