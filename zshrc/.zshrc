@@ -971,11 +971,6 @@ export PI_MaxSockets=8
 export PI_Lang=zh
 # pi config end
 
-# github
-export Github_token=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
-export Github_owner=Simon-He95
-# github end
-
 # clash
 export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
 # clash end
