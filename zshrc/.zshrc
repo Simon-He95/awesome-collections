@@ -4,12 +4,11 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="spaceship"
 
 # plugins
-# 使用fig 替换了zsh-autocomplete
-plugins=(git web-search zsh-autocomplete  zsh-autosuggestions zsh-z last-working-dir zsh-syntax-highlighting)
+plugins=(git web-search zsh-autocomplete zsh-autosuggestions zsh-z last-working-dir zsh-syntax-highlighting)
 
 
 # fnm env
-eval "$(fnm env --use-on-cd)"
+# eval "$(fnm env --use-on-cd)"
 
 # User configuration
 # -------------------------#
@@ -20,8 +19,8 @@ eval "$(fnm env --use-on-cd)"
 alias python=python3
 
 # code
-alias Github="cd ~/Documents/GitHub" # 快速进入github文件夹
-alias Go="cd ~/Documents/go" # 快速进入github文件夹
+alias Github="cd ~/simon/GitHub" # 快速进入github文件夹
+alias Go="cd ~/simon/go" # 快速进入github文件夹
 alias gopath="cd ~/go/src"
 alias goi="go get"
 alias gor="go run"
@@ -32,7 +31,10 @@ alias goinit="go mod init"
 alias rustinit="cargo new"
 
 # alias - pi -> @simon_he/pi
+alias c=clone
 alias i=pi
+alias il=pil
+alias ui=pui
 alias r=prun
 alias f=pfind
 alias cacheclean="npm cache clean --force"
@@ -47,15 +49,16 @@ alias t="prun test" # test 执行测试
 alias tu="prun test -u" # update snapshots 执行测试并更新快照
 alias w="prun watch" # watch mode 执行watch命令
 alias lint="prun lint" # eslint 检查eslint
-alias lintf="prun lint:fix" # fix linting errors 修复eslint错误
+alias lintf="prun lint --fix" # fix linting errors 修复eslint错误
 alias fmt="prun fmt" # fix linting errors 修复eslint错误
 alias p="prun play || d" # play or dev 启动项目
 alias pr="prun preview" # preview 预览
 alias pb="prun play:build || b" # build and play 执行playground打包
-alias publish="npm publish --access public" # publish to npm 发布到npm
+alias publish="npm publish --access=public" # publish to npm 发布到npm
 alias clean="git add . && git commit -m 'chore: clean' && git push" # clean 提交清理
 alias v="npm view" # 查看包信息
-alias lock="pnpm install --no-frozen-lockfile" # 更新依赖
+alias lock="pnpm install --no-frozen-lockfile" # lock
+alias port="lsof -i " #查看端口号下进程
 
 #--------------------------#
 # project simple
@@ -83,11 +86,13 @@ alias gcc="git checkout" # 切换分支
 alias gl="git log" # 查看提交日志
 alias glo="git log --online --graph" # 查看提交日志
 alias gb="git branch" # 查看分支
-alias gbd="git branch -d" # 删除分支
+alias gbd="git branch -D" # 删除分支
 alias gba="git branch -a" # 查看所有分支
 alias gbm="git branch -m" # 重命名分支
 alias gc="git add . && git commit -m" # 提交
+alias gcv="git add . && git commit --no-verify -m" # 提交
 alias gca="git commit --amend --message=" # 修改最后一次提交
+alias cmt="commit" #  git 提交
 alias ga="git add ." # 添加
 alias gp="git push" # 推送
 alias gpl="git pull --rebase" # 拉取
@@ -96,7 +101,6 @@ alias gpt="git push origin --tags" # 推送所有标签
 alias gptf="git push origin --tags -f" # 强制推送所有标签
 alias stash="git stash" # 暂存
 alias pop="git stash pop" # 恢复暂存
-alias rebase="git rebase" # 重写提交
 alias abort="git rebase --abort" # 退出变基
 alias main="git checkout main" # 切换到主分支
 alias master="git checkout master" # 切换到主分支
@@ -108,15 +112,14 @@ alias pullmain="git pull origin main" # 拉取主分支
 alias flog="git reflog" # 查看提交日志
 alias see="ps -ef" # 查看进程
 alias typecheck="prun typecheck"
-alias ignorecase="git config core.ignorecase false" # git 提交 区分大小写
-
+alias ignorecase="git config core.ignorecase true" # git 提交 区分大小写
+alias checkout="git checkout ."
 #--------------------------#
 # vsce
 # -------------------------#
 
 alias package="vsce package" # vscode 插件 打包
 alias vpublish="vsce publish" # vscode 插件 发布
-alias package="vsce package" # vscode 插件 打包
 
 #--------------------------#
 # ipinfo -> brew install ipinfo-cli
@@ -128,8 +131,8 @@ alias ip="ipinfo myip"
 # ccommand
 # -------------------------#
 
-alias c="ccommand" # 选择当前scripts命令
-alias cf="ccommand find" # 查找workspace命令
+# alias c="ccommand" # 选择当前scripts命令
+# alias cf="ccommand find" # 查找workspace命令
 
 #--------------------------#
 # console color
@@ -291,6 +294,8 @@ endWith(){
 
 # clone 项目clone
 clone() {
+  # 默认clone在我的Github文件夹下
+  Github
   command=$2
   hasWrong=0
   if [ $(uname) = "Darwin" ]; then
@@ -318,6 +323,7 @@ clone() {
   result=${str1%.*}
   if [ -d $result ]; then
     logSkyblue "已存在同名目录，正在为您直接打开..."
+    fetch
     code $result
     return 0
   fi
@@ -564,7 +570,7 @@ commit() {
       gp
     fi
   else
-    commitType="fix feat docs style refactor test chore revert perf build ci"
+    commitType="chore fix feat refactor docs style test revert perf build ci"
     TYPE=$(spaceToLine $commitType | gum filter --placeholder=" 请选择提交类型")
     if [ $? = 130 ];then
       echo "已取消"
@@ -592,7 +598,7 @@ commit() {
      if [[ $1 == "-p" ]];then
       gp
       else
-      gum confirm "Do you want to push this commit ?" && gp
+      $(gum confirm "Do you want to push this commit ?") && gp
     fi
   fi
 }
@@ -786,7 +792,7 @@ db() {
 
 # checkout the chosen PR
 cpr() {
-  gh pr list | cut -f1,2 | gum choose | cut -f1 | xargs gh pr checkout
+  npx gh pr list | cut -f1,2 | gum choose | cut -f1 | xargs gh pr checkout
 }
 
 ##字符串替换
@@ -821,6 +827,21 @@ merge() {
     return 1
   fi
   git merge $(echo $branch | sed "s/*//g")
+}
+
+# rebase 选择分支合并到当前
+rebase() {
+  if [ $1 ]; then
+    git rebase $1
+    return 0
+  fi
+  branch=$(echo $(git branch) | sed "s/* /*/g" | sed 's/ /\n/g' | sed "s/*/* /g" | gum filter --placeholder=" 请选择一个分支合并")
+  branch=$(echo ${branch// /} | sed 's/\*//g')
+  if [ ! $branch ]; then
+    echo "已取消"
+    return 1
+  fi
+  git rebase $(echo $branch | sed "s/*//g")
 }
 
 # before 查找前20条使用过的命令
@@ -911,9 +932,9 @@ search(){
   web_search $*
 }
 
-# rename
+# rename 修改目录或者文件名
 rename(){
-  if [ "$1" = "." ];then
+  if [ "$1" = "." ];then 
     url=$(pwd)
     dir=$(basename $url)
     cd ..
@@ -934,7 +955,7 @@ rename(){
 killer(){
   data=$(ps > .ps.temp)
   content=$(tail -n +2 .ps.temp > ._ps.temp)
-  result=$(cat ._ps.temp | gum filter | cut -d ' ' -f 1)
+  result=$(cat ._ps.temp | gum filter | cut -d ' ' -f 1) 
    if [ $? -eq 130 ] || [ -z "$result" ];then
       echo "已取消"
       rimraf .ps.temp
@@ -966,28 +987,6 @@ export RUNEWIDTH_EASTASIAN=0
 # pi config
 export PI_COLOR=blue
 export PI_SPINNER=moon
-export PI_DEFAULT=pnpm
 export PI_MaxSockets=8
 export PI_Lang=zh
 # pi config end
-
-# clash
-export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
-# clash end
-
-# thefuck
-eval $(thefuck --alias q)
-# thefuck end
-
-# fnm
-export PATH="/Users/hejian/Library/Application Support/fnm:$PATH"
-eval "`fnm env`"
-# fnm end
-
-# pnpm
-export PNPM_HOME="/Users/hejian/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-# pnpm end
-
-
-
