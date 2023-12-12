@@ -57,7 +57,7 @@ alias pb="prun play:build || b" # build and play 执行playground打包
 alias publish="npm publish --access=public" # publish to npm 发布到npm
 alias clean="git add . && git commit -m 'chore: clean' && git push" # clean 提交清理
 alias v="npm view" # 查看包信息
-alias lock="pnpm install --no-frozen-lockfile" # lock
+alias lock="pnpm install --no-frozen-lockfile" # 更新依赖
 alias port="lsof -i " #查看端口号下进程
 
 #--------------------------#
@@ -598,9 +598,10 @@ commit() {
      if [[ $1 == "-p" ]];then
       gp
       else
-      $(gum confirm "Do you want to push this commit ?") && gp
+      gum confirm "Do you want to push this commit ?" && gp
     fi
   fi
+  print -s "git commit --quiet --allow-empty-message -m \"$SUMMARY\""
 }
 
 # new 创建新文件或目录
