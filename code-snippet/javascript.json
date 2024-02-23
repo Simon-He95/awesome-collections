@@ -1,8 +1,15 @@
 {
+  // Place your 全局 snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
   "function": {
-    "prefix": "function 新建方法",
-    "body": "function ${1:name}() {${2}}",
-    "description": "方法"
+    "prefix": "fn",
+    "body": ["function ${1:name}(${2:args}) {", "  $3", "}"],
+    "description": "function方法"
   },
   "arrow": {
     "prefix": "arrowFunction 新建方法",
@@ -10,34 +17,44 @@
     "description": "方法"
   },
   "import": {
-    "prefix": "import 导入资源",
-    "body": "import {$0} from '';",
-    "description": "导入"
+    "prefix": ["_import", "import"],
+    "body": "import ${2:name} from '${1:module}'",
+    "description": "import 导入"
   },
   "require": {
-    "prefix": "require",
-    "body": "const {$1} = require('$2')",
+    "prefix": ["_require", "require"],
+    "body": ["const ${1:name} = require('${2:path}');"],
     "description": "require 导入模板"
   },
   "log": {
-    "prefix": "log 打印",
+    "prefix": ["_log", "log"],
     "body": ["console.log('$1');", "$2"],
     "description": "Log output to console"
   },
   "forEach": {
-    "prefix": "forEach",
-    "body": ["${1:array}.forEach((${2:i}) => {", "  ${3}", "}"],
+    "prefix": "_forEach",
+    "body": ["${1:array}.forEach((${2:i}) => {", "  ${3}", "})"],
     "description": "forEach"
   },
   "map": {
-    "prefix": "map",
-    "body": ["${1:array}.map((${2:item}) => {", "  ${3}", "}"],
+    "prefix": "_map",
+    "body": ["${1:array}.map((${2:item}) => {", "  ${3}", "})"],
     "description": "map"
   },
   "filter": {
-    "prefix": "filter",
-    "body": ["${1:array}.filter((${2:item}) => {", "  ${3}", "}"],
+    "prefix": "_filter",
+    "body": ["${1:array}.filter((${2:item}) => {", "  ${3}", "})"],
     "description": "filter 过滤"
+  },
+  "some": {
+    "prefix": ["some", "_some"],
+    "body": ["${1:array}.some((${2:item}) => {", "  ${3}", "})"],
+    "description": "some"
+  },
+  "every": {
+    "prefix": ["_every", "every"],
+    "body": ["${1:array}.every((${2:item}) => {", "  ${3}", "})"],
+    "description": "every"
   },
   "useAttrs": {
     "prefix": "_useAttrs",

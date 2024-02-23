@@ -7,9 +7,6 @@ ZSH_THEME="spaceship"
 plugins=(git web-search zsh-autocomplete zsh-autosuggestions zsh-z last-working-dir zsh-syntax-highlighting)
 
 
-# fnm env
-# eval "$(fnm env --use-on-cd)"
-
 # User configuration
 # -------------------------#
 #  Node Package Managerƒ
@@ -43,7 +40,6 @@ alias d="prun dev" # dev 启动dev环境
 alias s="prun start" # start the server 启动项目
 alias serve="prun serve" # start the server 启动项目
 alias ck="prun check" # check type
-# alias b="prun build" # build 执行打包
 alias bw="prun build --watch" # watch mode 执行构建并监视文件更改
 alias t="prun test" # test 执行测试
 alias tu="prun test -u" # update snapshots 执行测试并更新快照
@@ -73,7 +69,7 @@ alias ....="cd ../../.." # 返回上上上级
 alias 。。。。="cd ../../.." # 返回上上上级
 alias link="npm link" # link 本地包
 alias unlink="npm unlink" # unlink 本地包
-alias rmmodule="remove !" # 删除node_modules
+alias rmmodule="remove !" # 删除当前cwd下的node_modules
 
 #--------------------------#
 # Git
@@ -112,7 +108,7 @@ alias pullmain="git pull origin main" # 拉取主分支
 alias flog="git reflog" # 查看提交日志
 alias see="ps -ef" # 查看进程
 alias typecheck="prun typecheck"
-alias ignorecase="git config core.ignorecase true" # git 提交 区分大小写
+alias ignorecase="git config core.ignorecase false" # git 提交 区分大小写
 alias checkout="git checkout ."
 #--------------------------#
 # vsce
@@ -707,7 +703,7 @@ cnvm() {
 # cfnm 选择node版本 - fnm
 cn() {
   current=$(echo $(fnm current))
-  registery=$(echo $(fnm ls) | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/* $current/g" | gum filter --placeholder=" 请选择一个node版本")
+  registery=$(echo $(fnm ls) | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/\* $current/g" | gum filter --placeholder=" 请选择一个node版本")
   registery=$(echo ${registery// /} | sed 's/\*//g')
   if [ ! $registery ]; then
     echo "已取消"
@@ -991,3 +987,6 @@ export PI_SPINNER=moon
 export PI_MaxSockets=8
 export PI_Lang=zh
 # pi config end
+
+# vue-inspect
+export VUE_EDITOR=code

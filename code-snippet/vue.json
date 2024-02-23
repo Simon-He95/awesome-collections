@@ -1,4 +1,9 @@
 {
+  "class": {
+    "prefix": "class",
+    "body": ["class=\"${1: }\""],
+    "description": "class"
+  },
   "vue2": {
     "prefix": "vue2",
     "body": [
@@ -67,7 +72,7 @@
       "<style scoped>",
       "</style>"
     ],
-    "description": "Log output to console"
+    "description": "setupscriptsetup"
   },
   "defineComponent": {
     "prefix": "_defineComponent",
@@ -129,7 +134,7 @@
   },
   "slot": {
     "prefix": "_slot",
-    "body": ["<slot />"],
+    "body": ["<slot name=\"$1\"></slot>"],
     "description": "_slot"
   },
   "ts": {

@@ -1,0 +1,75 @@
+{
+  "contributes": {
+    "prefix": "contributes",
+    "body": ["\"contributes\": {", "    $2", "},"],
+    "description": "vscode contributes"
+  },
+  "configuration": {
+    "prefix": "configuration",
+    "body": [
+      "\"configuration\": {",
+      "    \"type\": \"object\",",
+      "    \"title\": \"${1:tailwindMagic}\",",
+      "    \"properties\": {",
+      "      \"${1:tailwindMagic}.${2:variantGroup}\": {",
+      "        \"type\": \"${3|string,boolean,array,object,number|}\",",
+      "        \"default\": \"${4|true,false,[],{},0|}\",",
+      "        \"description\": \"${5:description}\"",
+      "      }",
+      "    }",
+      "}"
+    ],
+    "description": "vscode configuration"
+  },
+  "commands": {
+    "prefix": "commands",
+    "body": [
+      "\"commands\": [",
+      "    {",
+      "      \"command\": \"$1\",",
+      "      \"title\": \"$2\"",
+      "    }",
+      "]"
+    ],
+    "description": "vscode commands"
+  },
+  "keybindings": {
+    "prefix": "keybindings",
+    "body": [
+      "\"keybindings\": [",
+      "    {",
+      "      \"command\": \"$1\",",
+      "      \"key\": \"$2\",",
+      "      \"when\": \"${3:isMac}\"",
+      "    }",
+      "]"
+    ],
+    "description": "vscode keybindings"
+  },
+  "menus": {
+    "prefix": "menus",
+    "body": [
+      "\"menus\": {",
+      "    \"editor/context\": [",
+      "        {",
+      "          \"submenu\": \"$1\",",
+      "          \"group\": \"${2:6_px}\"",
+      "        }",
+      "    ],",
+      "    \"$1\": [",
+      "        {",
+      "          \"command\": \"${3:extension.command}\",",
+      "          \"when\": \"${4:editorFocus && !editorHasSelection && (editorLangId == javascript || editorLangId == typescript || editorLangId == vue)}\"",
+      "        }",
+      "    ]",
+      "},",
+      "\"submenus\": [",
+      "    {",
+      "      \"id\": \"$1\",",
+      "      \"label\": \"$1\"",
+      "    }",
+      "]"
+    ],
+    "description": "vscode menus"
+  }
+}

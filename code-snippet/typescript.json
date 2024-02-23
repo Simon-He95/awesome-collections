@@ -1,17 +1,49 @@
 {
+  "ignore": {
+    "prefix": "_ignore",
+    "body": ["// @ts-ignore"],
+    "description": "typescript 单行忽略"
+  },
   "function": {
     "prefix": "fn",
     "body": ["function ${1:name}(${2:args}:string) {", "  $3", "}"],
     "description": "function 函数"
+  },
+  "describe": {
+    "prefix": ["_describe", "describe"],
+    "body": [
+      "describe('${1:test}', () => {",
+      "  it('${2:test}', () => {  ",
+      "    $3",
+      "    expect(${4:''}).toMatchInlineSnapshot()",
+      "  })",
+      "})"
+    ],
+    "description": "vitest describe"
+  },
+  "it": {
+    "prefix": ["_it", "it"],
+    "body": [
+      "it('${2:test}', () => {  ",
+      "  $3",
+      "  expect(${4:''}).toMatchInlineSnapshot()",
+      "})"
+    ],
+    "description": "vitest it"
   },
   "arrowFunction": {
     "prefix": "arrowFunction",
     "body": ["const ${1:name} = ($2) => {", "  $3", "}"],
     "description": "arrowFunction 函数"
   },
+  "asyncArrowFunction": {
+    "prefix": "async arrowFunction",
+    "body": ["const ${1:name} = async ($2) => {", "  $3", "}"],
+    "description": "async arrowFunction 函数"
+  },
   "import": {
     "prefix": "_import",
-    "body": ["import ${1:name} from '${2:module}'"],
+    "body": ["import ${2:name} from '${1:module}'"],
     "description": "import 导入"
   },
   "require": {
@@ -20,42 +52,47 @@
     "description": "require 导入"
   },
   "type": {
-    "prefix": "_type",
-    "body": ["type ${1:name} = {", "${2:_name}: string", "}"],
+    "prefix": ["_type", "type"],
+    "body": ["type ${1:name} = {", "  ${2:_name}: string", "}"],
     "description": "type 类型"
   },
   "interface": {
-    "prefix": "_interface",
-    "body": ["interface ${1:name} {", "${2:_name}: string", "}"],
+    "prefix": ["interface", "_interface"],
+    "body": ["interface ${1:name} {", "  ${2:_name}: string", "}"],
     "description": "interface 类型"
   },
   "onMounted": {
-    "prefix": "_mount",
+    "prefix": ["mounted", "_mounted"],
     "body": ["onMounted(() => {", "  $1", "})"],
     "description": "onMounted"
   },
   "onUnMounted": {
-    "prefix": "_unmount",
+    "prefix": ["unmount", "_unmount"],
     "body": ["onUnmounted(() => {", "  $1", "})"],
     "description": "onUnmounted"
   },
   "onUpdated": {
-    "prefix": "_update",
+    "prefix": ["update", "_updated"],
     "body": ["onUpdated(() => {", "  $1", "})"],
     "description": "onUpdated"
   },
   "useAttrs": {
-    "prefix": "_useAttrs",
+    "prefix": ["_useAttrs", "useAttrs"],
     "body": ["const attrs = useAttrs()"],
     "description": "useAttrs"
   },
-  "defineProps": {
+  "_defineProps": {
     "prefix": "_defineProps",
-    "body": ["const props = defineProps<{name:any}>()"],
+    "body": ["const props = defineProps({", "  ${1:name}: ${2:String}", "})"],
+    "description": "defineProps"
+  },
+  "defineProps": {
+    "prefix": "defineProps",
+    "body": ["defineProps({", "  ${1:name}: ${2:String}", "})"],
     "description": "defineProps"
   },
   "ref": {
-    "prefix": "_ref",
+    "prefix": ["_ref", "ref"],
     "body": ["const $1 = ref(${2})"],
     "description": "ref"
   },
@@ -101,12 +138,12 @@
     "description": "useElementBounding"
   },
   "watch": {
-    "prefix": "_watch",
+    "prefix": ["_watch", "watch"],
     "body": ["watch(${1:ref}, (newV, oldV) => {", "  ${2}", "})"],
     "description": "useElementBounding"
   },
   "computed": {
-    "prefix": "_computed",
+    "prefix": ["_computed", "computed"],
     "body": ["const result = computed(() => {", "  ${1}", "})"],
     "description": "computed"
   },
@@ -116,33 +153,43 @@
     "description": "useEventListener"
   },
   "watchEffect": {
-    "prefix": "_watchEffect",
+    "prefix": ["_watchEffect", "watchEffect"],
     "body": ["watchEffect(() => {", "  ${1}", "})"],
     "description": "watchEffect"
   },
   "useStorage": {
-    "prefix": "_useStorage",
+    "prefix": ["_useStorage", "useStorage"],
     "body": ["const $1 = useStorage('${2:key}', ${3:defaultValue})"],
     "description": "useStorage"
   },
   "log": {
-    "prefix": "_log",
+    "prefix": ["_log", "log"],
     "body": ["console.log('$1');", "$2"],
     "description": "Log output to console"
   },
   "forEach": {
-    "prefix": "_forEach",
-    "body": ["${1:array}.forEach((${2:i}) => {", "  ${3}", "}"],
+    "prefix": ["_forEach", "forEach"],
+    "body": ["${1:array}.forEach((${2:i}: any) => {", "  ${3}", "})"],
     "description": "forEach"
   },
   "map": {
-    "prefix": "_map",
-    "body": ["${1:array}.map((${2:i}) => {", "  ${3}", "}"],
+    "prefix": ["_map", "map"],
+    "body": ["${1:array}.map((${2:i}: any) => {", "  ${3}", "})"],
     "description": "map"
+  },
+  "some": {
+    "prefix": ["_some", "some"],
+    "body": ["${1:array}.some((${2:i}: any) => {", "  ${3}", "})"],
+    "description": "some"
+  },
+  "every": {
+    "prefix": ["every", "_every"],
+    "body": ["${1:array}.every((${2:i}: any) => {", "  ${3}", "})"],
+    "description": "every"
   },
   "filter": {
     "prefix": "_filter",
-    "body": ["${1:array}.filter((${2:item}) => {", "  ${3}", "}"],
+    "body": ["${1:array}.filter((${2:item}: any) => {", "  ${3}", "})"],
     "description": "filter 过滤"
   },
   "forloop": {
