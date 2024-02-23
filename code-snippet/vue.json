@@ -66,7 +66,6 @@
       "</script>\n",
       "<template>",
       "  <div>",
-      "    <slot />",
       "  </div>",
       "</template>\n",
       "<style scoped>",
