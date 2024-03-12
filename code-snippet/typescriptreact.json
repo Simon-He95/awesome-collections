@@ -1,4 +1,186 @@
 {
+  "ignore": {
+    "prefix": "_ignore",
+    "body": ["// @ts-ignore"],
+    "description": "typescript 单行忽略"
+  },
+  "function": {
+    "prefix": "fn",
+    "body": ["function ${1:name}(${2:args}:string) {", "  $3", "}"],
+    "description": "function 函数"
+  },
+  "onClick": {
+    "prefix": ["_onClick", "onClick"],
+    "body": ["onClick={(${2:e}) => ${1:handleClick(${2:e})}}$3"],
+    "description": "onClick 函数"
+  },
+  "@click": {
+    "prefix": "@click",
+    "body": ["onClick={(${2:e}) => ${1:handleClick(${2:e})}}$3"],
+    "description": "onClick 函数"
+  },
+  "@keydown": {
+    "prefix": "@keydown",
+    "body": ["onKeyDown={(${2:e}) => ${1:handleKeyDown(${2:e})}}$3"],
+    "description": "onKeyDown 函数"
+  },
+  "onKeyDown": {
+    "prefix": ["_onKeyDown", "onKeyDown"],
+    "body": ["onKeyDown={(${2:e}) => ${1:handleKeyDown(${2:e})}}$3"],
+    "description": "onKeyDown 函数"
+  },
+  "@keyup": {
+    "prefix": "@keyup",
+    "body": ["onKeyUp={(${2:e}) => ${1:handleKeyUp(${2:e})}}$3"],
+    "description": "onKeyUp 函数"
+  },
+  "onKeyUp": {
+    "prefix": ["_onKeyUp", "onKeyUp"],
+    "body": ["onKeyUp={(${2:e}) => ${1:handleKeyUp(${2:e})}}$3"],
+    "description": "onKeyUp 函数"
+  },
+  "@focus": {
+    "prefix": "@focus",
+    "body": ["onFocus={(${2:e}) => ${1:handleFocus(${2:e})}}$3"],
+    "description": "onFocus 函数"
+  },
+  "onFocus": {
+    "prefix": ["_onFocus", "onFocus"],
+    "body": ["onFocus={(${2:e}) => ${1:handleFocus(${2:e})}}$3"],
+    "description": "onFocus 函数"
+  },
+  "@blur": {
+    "prefix": "@blur",
+    "body": ["onBlur={(${2:e}) => ${1:handleBlur(${2:e})}}$3"],
+    "description": "onBlur 函数"
+  },
+  "onBlur": {
+    "prefix": ["_onBlur", "onBlur"],
+    "body": ["onBlur={(${2:e}) => ${1:handleBlur(${2:e})}}$3"],
+    "description": "onBlur 函数"
+  },
+  "@mouseover": {
+    "prefix": "@mouseover",
+    "body": ["onMouseOver={(${2:e}) => ${1:handleMouseOver(${2:e})}}$3"],
+    "description": "onMouseOver 函数"
+  },
+  "onMouseOver": {
+    "prefix": ["_onMouseOver", "onMouseOver"],
+    "body": ["onMouseOver={(${2:e}) => ${1:handleMouseOver(${2:e})}}$3"],
+    "description": "onMouseOver 函数"
+  },
+  "@mouseout": {
+    "prefix": "@mouseout",
+    "body": ["onMouseOut={(${2:e}) => ${1:handleMouseOut(${2:e})}}$3"],
+    "description": "onMouseOut 函数"
+  },
+  "onMouseOut": {
+    "prefix": ["_onMouseOut", "onMouseOut"],
+    "body": ["onMouseOut={(${2:e}) => ${1:handleMouseOut(${2:e})}}$3"],
+    "description": "onMouseOut 函数"
+  },
+  "@load": {
+    "prefix": "@load",
+    "body": ["onLoad={(${2:e}) => ${1:handleLoad(${2:e})}}$3"],
+    "description": "onLoad 函数"
+  },
+  "onLoad": {
+    "prefix": ["_onLoad", "onLoad"],
+    "body": ["onLoad={(${2:e}) => ${1:handleLoad(${2:e})}}$3"],
+    "description": "onLoad 函数"
+  },
+  "@error": {
+    "prefix": "@error",
+    "body": ["onError={(${2:e}) => ${1:handleError(${2:e})}}$3"],
+    "description": "onError 函数"
+  },
+  "onError": {
+    "prefix": ["_onError", "onError"],
+    "body": ["onError={(${2:e}) => ${1:handleError(${2:e})}}$3"],
+    "description": "onError 函数"
+  },
+  "@submit": {
+    "prefix": "@submit",
+    "body": ["onSubmit={(${2:e}) => ${1:handleSubmit(${2:e})}}$3"],
+    "description": "onSubmit 函数"
+  },
+  "onSubmit": {
+    "prefix": ["_onSubmit", "onSubmit"],
+    "body": ["onSubmit={(${2:e}) => ${1:handleSubmit(${2:e})}}$3"],
+    "description": "onSubmit 函数"
+  },
+  "@scroll": {
+    "prefix": "@scroll",
+    "body": ["onScroll={(${2:e}) => ${1:handleScroll(${2:e})}}$3"],
+    "description": "onScroll 函数"
+  },
+  "onScroll": {
+    "prefix": ["_onScroll", "onScroll"],
+    "body": ["onScroll={(${2:e}) => ${1:handleScroll(${2:e})}}$3"],
+    "description": "onScroll 函数"
+  },
+  "onChange": {
+    "prefix": ["_onChange", "onChange"],
+    "body": ["onChange={(${2:e}) => ${1:handleChange(${2:e})}}$3"],
+    "description": "onChange 函数"
+  },
+  "@change": {
+    "prefix": "@change",
+    "body": ["onChange={(${2:e}) => ${1:handleChange(${2:e})}}$3"],
+    "description": "onChange 函数"
+  },
+  "describe": {
+    "prefix": ["_describe", "describe"],
+    "body": [
+      "describe('${1:test}', () => {",
+      "  it('${2:test}', () => {  ",
+      "    $3",
+      "    expect(${4:''}).toMatchInlineSnapshot()",
+      "  })",
+      "})"
+    ],
+    "description": "vitest describe"
+  },
+  "it": {
+    "prefix": ["_it", "it"],
+    "body": [
+      "it('${2:test}', () => {  ",
+      "  $3",
+      "  expect(${4:''}).toMatchInlineSnapshot()",
+      "})"
+    ],
+    "description": "vitest it"
+  },
+  "arrowFunction": {
+    "prefix": "arrowFunction",
+    "body": ["const ${1:name} = ($2) => {", "  $3", "}"],
+    "description": "arrowFunction 函数"
+  },
+  "asyncArrowFunction": {
+    "prefix": "async arrowFunction",
+    "body": ["const ${1:name} = async ($2) => {", "  $3", "}"],
+    "description": "async arrowFunction 函数"
+  },
+  "import": {
+    "prefix": "_import",
+    "body": ["import ${2:name} from '${1:module}'"],
+    "description": "import 导入"
+  },
+  "require": {
+    "prefix": "_require",
+    "body": ["const ${1:name} = require('${2:path}');"],
+    "description": "require 导入"
+  },
+  "type": {
+    "prefix": ["_type", "type"],
+    "body": ["type ${1:name} = {", "  ${2:_name}: string", "}"],
+    "description": "type 类型"
+  },
+  "interface": {
+    "prefix": ["interface", "_interface"],
+    "body": ["interface ${1:name} {", "  ${2:_name}: string", "}"],
+    "description": "interface 类型"
+  },
   "useRef": {
     "prefix": "_ref",
     "body": ["  const ref = useRef('$1')"],
@@ -15,12 +197,12 @@
     "description": "useMemo"
   },
   "useState": {
-    "prefix": "_memo",
+    "prefix": "_state",
     "body": ["  const [state, setState] = useState($1)"],
     "description": "useState"
   },
   "useTransition": {
-    "prefix": "_memo",
+    "prefix": "_transition",
     "body": ["  const [isPending, startTransition] = useTransition()"],
     "description": "useTransition"
   },
