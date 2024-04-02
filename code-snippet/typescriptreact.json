@@ -20,7 +20,7 @@
     "description": "react-router-dom useLocation 获取 url 信息"
   },
   "function": {
-    "prefix": "fn",
+    "prefix": ["fn", "_fn"],
     "body": ["function ${1:name}(${2:args}:string) {", "  $3", "}"],
     "description": "function 函数"
   },
@@ -141,12 +141,17 @@
     "description": "async arrowFunction 函数"
   },
   "import": {
-    "prefix": "_import",
+    "prefix": ["_import", "import"],
     "body": ["import ${2:name} from '${1:module}'"],
     "description": "import 导入"
   },
+  "importCss": {
+    "prefix": ["_importCss", "_css", "css"],
+    "body": ["import '${1:module}'"],
+    "description": "import 导入 css"
+  },
   "require": {
-    "prefix": "_require",
+    "prefix": ["_require", "require"],
     "body": ["const ${1:name} = require('${2:path}');"],
     "description": "require 导入"
   },
@@ -166,42 +171,42 @@
     "description": "useRef"
   },
   "useReducer": {
-    "prefix": "_reducer",
+    "prefix": ["_reducer", "useReducer"],
     "body": ["  const [state, dispatch] = useReducer(reducer, $1)"],
     "description": "useReducer"
   },
   "useMemo": {
-    "prefix": "_memo",
+    "prefix": ["_memo", "useMemo"],
     "body": ["  const cachedValue = useMemo(() => { $2 }, [$1])"],
     "description": "useMemo"
   },
   "useState": {
-    "prefix": "_state",
+    "prefix": ["_state", "useState"],
     "body": ["  const [state, setState] = useState($1)"],
     "description": "useState"
   },
   "useTransition": {
-    "prefix": "_transition",
+    "prefix": ["_transition", "useTransition"],
     "body": ["  const [isPending, startTransition] = useTransition()"],
     "description": "useTransition"
   },
   "useEffect": {
-    "prefix": "_effect",
+    "prefix": ["_effect", "useEffect"],
     "body": ["  useEffect(() => {", "    $2", "  }, ['$1'])"],
     "description": "useEffect"
   },
   "useContext": {
-    "prefix": "_context",
+    "prefix": ["_context", "useContext"],
     "body": ["  const value = useContext(${1:Context})"],
     "description": "useContext"
   },
   "useCallback": {
-    "prefix": "_callback",
+    "prefix": ["_callback", "useCallback"],
     "body": ["  const cachedFn = useCallback(() => {", "    $2", "  }, [$1])"],
     "description": "useCallback"
   },
   "useLayoutEffect": {
-    "prefix": "_layoutEffect",
+    "prefix": ["_layoutEffect", "useLayoutEffect"],
     "body": ["  useLayoutEffect(() => {", "    $2", "  }, [$1])"],
     "description": "useLayoutEffect"
   }
