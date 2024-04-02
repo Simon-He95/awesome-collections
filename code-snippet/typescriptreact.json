@@ -7,7 +7,7 @@
   "swr": {
     "prefix": ["_swr", "swr"],
     "body": ["const { data, isLoading } = useSWR('$1', () => $2)"],
-    "description": "typescript 单行忽略"
+    "description": "react SWR"
   },
   "navigate": {
     "prefix": ["useNavigate", "_useNavigate"],
