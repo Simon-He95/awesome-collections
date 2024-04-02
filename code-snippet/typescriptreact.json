@@ -4,129 +4,108 @@
     "body": ["// @ts-ignore"],
     "description": "typescript 单行忽略"
   },
+  "swr": {
+    "prefix": ["_swr", "swr"],
+    "body": ["const { data, isLoading } = useSWR('$1', () => $2)"],
+    "description": "typescript 单行忽略"
+  },
+  "navigate": {
+    "prefix": ["useNavigate", "_useNavigate"],
+    "body": ["const navigate = useNavigate()"],
+    "description": "react-router-dom useNavigate 路由"
+  },
+  "location": {
+    "prefix": ["useLocation", "_useLocation"],
+    "body": ["const locations = useLocation()"],
+    "description": "react-router-dom useLocation 获取 url 信息"
+  },
   "function": {
     "prefix": "fn",
     "body": ["function ${1:name}(${2:args}:string) {", "  $3", "}"],
     "description": "function 函数"
   },
   "onClick": {
-    "prefix": ["_onClick", "onClick"],
-    "body": ["onClick={(${2:e}) => ${1:handleClick(${2:e})}}$3"],
+    "prefix": ["_onClick", "onClick", "@click"],
+    "body": [
+      "onClick={(${2:e}) => ${1|clickHandler,handlerClick,onClick,removeHandler,onRemove,closeHandler,onClose,openHandler,onOpen,submitHandler,onSubmit,onLogin,onLogout,toggleHandler,onToggle,showHandler,onShow,hideHandler,onHide|}(${2:e}$3)}$4"
+    ],
     "description": "onClick 函数"
-  },
-  "@click": {
-    "prefix": "@click",
-    "body": ["onClick={(${2:e}) => ${1:handleClick(${2:e})}}$3"],
-    "description": "onClick 函数"
-  },
-  "@keydown": {
-    "prefix": "@keydown",
-    "body": ["onKeyDown={(${2:e}) => ${1:handleKeyDown(${2:e})}}$3"],
-    "description": "onKeyDown 函数"
   },
   "onKeyDown": {
-    "prefix": ["_onKeyDown", "onKeyDown"],
-    "body": ["onKeyDown={(${2:e}) => ${1:handleKeyDown(${2:e})}}$3"],
+    "prefix": ["_onKeyDown", "onKeyDown", "@keydown"],
+    "body": [
+      "onKeyDown={(${2:e}) => ${1|keydownHandler,handlerKeydown,onKeyDown|}(${2:e}$3)}$4"
+    ],
     "description": "onKeyDown 函数"
   },
-  "@keyup": {
-    "prefix": "@keyup",
-    "body": ["onKeyUp={(${2:e}) => ${1:handleKeyUp(${2:e})}}$3"],
-    "description": "onKeyUp 函数"
-  },
   "onKeyUp": {
-    "prefix": ["_onKeyUp", "onKeyUp"],
-    "body": ["onKeyUp={(${2:e}) => ${1:handleKeyUp(${2:e})}}$3"],
+    "prefix": ["_onKeyUp", "onKeyUp", "@keyup"],
+    "body": [
+      "onKeyUp={(${2:e}) => ${1|keyUpHandler,handlerKeyUp,onKeyUp|}(${2:e}$3)}$4"
+    ],
     "description": "onKeyUp 函数"
-  },
-  "@focus": {
-    "prefix": "@focus",
-    "body": ["onFocus={(${2:e}) => ${1:handleFocus(${2:e})}}$3"],
-    "description": "onFocus 函数"
   },
   "onFocus": {
-    "prefix": ["_onFocus", "onFocus"],
-    "body": ["onFocus={(${2:e}) => ${1:handleFocus(${2:e})}}$3"],
+    "prefix": ["_onFocus", "onFocus", "@focus"],
+    "body": [
+      "onFocus={(${2:e}) => ${1|focusHandler,handlerFocus,onFocus|}(${2:e}$3)}$4"
+    ],
     "description": "onFocus 函数"
   },
-  "@blur": {
-    "prefix": "@blur",
-    "body": ["onBlur={(${2:e}) => ${1:handleBlur(${2:e})}}$3"],
-    "description": "onBlur 函数"
-  },
   "onBlur": {
-    "prefix": ["_onBlur", "onBlur"],
-    "body": ["onBlur={(${2:e}) => ${1:handleBlur(${2:e})}}$3"],
+    "prefix": ["_onBlur", "onBlur", "@blur"],
+    "body": [
+      "onBlur={(${2:e}) => ${1|blurHandler,handlerBlur,onBlur|}(${2:e}$3)}$4"
+    ],
     "description": "onBlur 函数"
-  },
-  "@mouseover": {
-    "prefix": "@mouseover",
-    "body": ["onMouseOver={(${2:e}) => ${1:handleMouseOver(${2:e})}}$3"],
-    "description": "onMouseOver 函数"
   },
   "onMouseOver": {
-    "prefix": ["_onMouseOver", "onMouseOver"],
-    "body": ["onMouseOver={(${2:e}) => ${1:handleMouseOver(${2:e})}}$3"],
+    "prefix": ["_onMouseOver", "onMouseOver", "@mouseover"],
+    "body": [
+      "onMouseOver={(${2:e}) => ${1|mouseOverHandler,handlerMouseOver,onMouseOver|}(${2:e}$3)}$4"
+    ],
     "description": "onMouseOver 函数"
   },
-  "@mouseout": {
-    "prefix": "@mouseout",
-    "body": ["onMouseOut={(${2:e}) => ${1:handleMouseOut(${2:e})}}$3"],
-    "description": "onMouseOut 函数"
-  },
   "onMouseOut": {
-    "prefix": ["_onMouseOut", "onMouseOut"],
-    "body": ["onMouseOut={(${2:e}) => ${1:handleMouseOut(${2:e})}}$3"],
+    "prefix": ["_onMouseOut", "onMouseOut", "@mouseOut"],
+    "body": [
+      "onMouseOut={(${2:e}) => ${1|mouseOutHandler,handlerMouseOut,onMouseOut|}(${2:e}$3)}$4"
+    ],
     "description": "onMouseOut 函数"
-  },
-  "@load": {
-    "prefix": "@load",
-    "body": ["onLoad={(${2:e}) => ${1:handleLoad(${2:e})}}$3"],
-    "description": "onLoad 函数"
   },
   "onLoad": {
-    "prefix": ["_onLoad", "onLoad"],
-    "body": ["onLoad={(${2:e}) => ${1:handleLoad(${2:e})}}$3"],
+    "prefix": ["_onLoad", "onLoad", "@load"],
+    "body": [
+      "onLoad={(${2:e}) => ${1|loadHandler,handlerLoad,onLoad|}(${2:e}$3)}$4"
+    ],
     "description": "onLoad 函数"
   },
-  "@error": {
-    "prefix": "@error",
-    "body": ["onError={(${2:e}) => ${1:handleError(${2:e})}}$3"],
-    "description": "onError 函数"
-  },
   "onError": {
-    "prefix": ["_onError", "onError"],
-    "body": ["onError={(${2:e}) => ${1:handleError(${2:e})}}$3"],
+    "prefix": ["_onError", "onError", "@error"],
+    "body": [
+      "onError={(${2:e}) => ${1|errorHandler,handlerError,onError|}(${2:e}$3)}$4"
+    ],
     "description": "onError 函数"
-  },
-  "@submit": {
-    "prefix": "@submit",
-    "body": ["onSubmit={(${2:e}) => ${1:handleSubmit(${2:e})}}$3"],
-    "description": "onSubmit 函数"
   },
   "onSubmit": {
-    "prefix": ["_onSubmit", "onSubmit"],
-    "body": ["onSubmit={(${2:e}) => ${1:handleSubmit(${2:e})}}$3"],
+    "prefix": ["_onSubmit", "onSubmit", "@submit"],
+    "body": [
+      "onSubmit={(${2:e}) => ${1|submitHandler,handlerSubmit,onSubmit|}(${2:e}$3)}$4"
+    ],
     "description": "onSubmit 函数"
   },
-  "@scroll": {
-    "prefix": "@scroll",
-    "body": ["onScroll={(${2:e}) => ${1:handleScroll(${2:e})}}$3"],
-    "description": "onScroll 函数"
-  },
   "onScroll": {
-    "prefix": ["_onScroll", "onScroll"],
-    "body": ["onScroll={(${2:e}) => ${1:handleScroll(${2:e})}}$3"],
+    "prefix": ["_onScroll", "onScroll", "@scroll"],
+    "body": [
+      "onScroll={(${2:e}) => ${1|scrollHandler,handlerScroll,onScroll|}(${2:e}$3)}$4"
+    ],
     "description": "onScroll 函数"
   },
   "onChange": {
-    "prefix": ["_onChange", "onChange"],
-    "body": ["onChange={(${2:e}) => ${1:handleChange(${2:e})}}$3"],
-    "description": "onChange 函数"
-  },
-  "@change": {
-    "prefix": "@change",
-    "body": ["onChange={(${2:e}) => ${1:handleChange(${2:e})}}$3"],
+    "prefix": ["_onChange", "onChange", "@change"],
+    "body": [
+      "onChange={(${2:e}) => ${1|changeHandler,handlerChange,onChange|}(${2:e}$3)}$4"
+    ],
     "description": "onChange 函数"
   },
   "describe": {
