@@ -1,6 +1,6 @@
 {
   "ignore": {
-    "prefix": "_ignore",
+    "prefix": ["_ignore", "ignore"],
     "body": ["// @ts-ignore"],
     "description": "typescript 单行忽略"
   },
