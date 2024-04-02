@@ -147,7 +147,7 @@
   },
   "importCss": {
     "prefix": ["_importCss", "_css", "css"],
-    "body": ["import '${1:module}'"],
+    "body": ["import '${1:./index.css}'"],
     "description": "import 导入 css"
   },
   "require": {
