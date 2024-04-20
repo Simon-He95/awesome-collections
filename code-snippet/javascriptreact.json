@@ -165,11 +165,6 @@
     "body": ["interface ${1:name} {", "  ${2:_name}: string", "}"],
     "description": "interface 类型"
   },
-  "v-html": {
-    "prefix": ["v-html", "__html"],
-    "body": ["dangerouslySetInnerHTML={{ __html: ${1:html}}}"],
-    "description": "v-html"
-  },
   "useRef": {
     "prefix": ["_ref", "_useRef", "useRef"],
     "body": ["const ref = useRef('$1')"],
@@ -214,5 +209,18 @@
     "prefix": ["_layoutEffect", "_useLayoutEffect", "useLayoutEffect"],
     "body": ["useLayoutEffect(() => {", "  $2", "}, [$1])"],
     "description": "useLayoutEffect"
+  },
+  "qs": {
+    "prefix": ["qsparse"],
+    "body": [
+      "const locations = useLocation()",
+      "const params = QueryString.parse(locations.search, { ignoreQueryPrefix: true })"
+    ],
+    "description": "QueryString.parse"
+  },
+  "v-html": {
+    "prefix": ["v-html", "__html"],
+    "body": ["dangerouslySetInnerHTML={{ __html: ${1:html}}}"],
+    "description": "v-html"
   }
 }
