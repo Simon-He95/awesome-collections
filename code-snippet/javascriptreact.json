@@ -1,47 +1,218 @@
 {
+  "ignore": {
+    "prefix": "_ignore",
+    "body": ["// @ts-ignore"],
+    "description": "typescript 单行忽略"
+  },
+  "swr": {
+    "prefix": ["_swr", "useSWR", "_useSWR"],
+    "body": ["const { data, isLoading } = useSWR('$1', () => $2)"],
+    "description": "react SWR"
+  },
+  "navigate": {
+    "prefix": ["useNavigate", "_useNavigate"],
+    "body": ["const navigate = useNavigate()"],
+    "description": "react-router-dom useNavigate 路由"
+  },
+  "location": {
+    "prefix": ["useLocation", "_useLocation"],
+    "body": ["const locations = useLocation()"],
+    "description": "react-router-dom useLocation 获取 url 信息"
+  },
+  "function": {
+    "prefix": ["fn", "_fn"],
+    "body": ["function ${1:name}(${2:args}:string) {", "  $3", "}"],
+    "description": "function 函数"
+  },
+  "onClick": {
+    "prefix": ["_onClick", "onClick", "@click"],
+    "body": [
+      "onClick={(${2:e}) => ${1|clickHandler,handlerClick,onClick,removeHandler,onRemove,closeHandler,onClose,openHandler,onOpen,submitHandler,onSubmit,onLogin,onLogout,toggleHandler,onToggle,showHandler,onShow,hideHandler,onHide|}(${2:e}$3)}$4"
+    ],
+    "description": "onClick 函数"
+  },
+  "onKeyDown": {
+    "prefix": ["_onKeyDown", "onKeyDown", "@keydown"],
+    "body": [
+      "onKeyDown={(${2:e}) => ${1|keydownHandler,handlerKeydown,onKeyDown|}(${2:e}$3)}$4"
+    ],
+    "description": "onKeyDown 函数"
+  },
+  "onKeyUp": {
+    "prefix": ["_onKeyUp", "onKeyUp", "@keyup"],
+    "body": [
+      "onKeyUp={(${2:e}) => ${1|keyUpHandler,handlerKeyUp,onKeyUp|}(${2:e}$3)}$4"
+    ],
+    "description": "onKeyUp 函数"
+  },
+  "onFocus": {
+    "prefix": ["_onFocus", "onFocus", "@focus"],
+    "body": [
+      "onFocus={(${2:e}) => ${1|focusHandler,handlerFocus,onFocus|}(${2:e}$3)}$4"
+    ],
+    "description": "onFocus 函数"
+  },
+  "onBlur": {
+    "prefix": ["_onBlur", "onBlur", "@blur"],
+    "body": [
+      "onBlur={(${2:e}) => ${1|blurHandler,handlerBlur,onBlur|}(${2:e}$3)}$4"
+    ],
+    "description": "onBlur 函数"
+  },
+  "onMouseOver": {
+    "prefix": ["_onMouseOver", "onMouseOver", "@mouseover"],
+    "body": [
+      "onMouseOver={(${2:e}) => ${1|mouseOverHandler,handlerMouseOver,onMouseOver|}(${2:e}$3)}$4"
+    ],
+    "description": "onMouseOver 函数"
+  },
+  "onMouseOut": {
+    "prefix": ["_onMouseOut", "onMouseOut", "@mouseOut"],
+    "body": [
+      "onMouseOut={(${2:e}) => ${1|mouseOutHandler,handlerMouseOut,onMouseOut|}(${2:e}$3)}$4"
+    ],
+    "description": "onMouseOut 函数"
+  },
+  "onLoad": {
+    "prefix": ["_onLoad", "onLoad", "@load"],
+    "body": [
+      "onLoad={(${2:e}) => ${1|loadHandler,handlerLoad,onLoad|}(${2:e}$3)}$4"
+    ],
+    "description": "onLoad 函数"
+  },
+  "onError": {
+    "prefix": ["_onError", "onError", "@error"],
+    "body": [
+      "onError={(${2:e}) => ${1|errorHandler,handlerError,onError|}(${2:e}$3)}$4"
+    ],
+    "description": "onError 函数"
+  },
+  "onSubmit": {
+    "prefix": ["_onSubmit", "onSubmit", "@submit"],
+    "body": [
+      "onSubmit={(${2:e}) => ${1|submitHandler,handlerSubmit,onSubmit|}(${2:e}$3)}$4"
+    ],
+    "description": "onSubmit 函数"
+  },
+  "onScroll": {
+    "prefix": ["_onScroll", "onScroll", "@scroll"],
+    "body": [
+      "onScroll={(${2:e}) => ${1|scrollHandler,handlerScroll,onScroll|}(${2:e}$3)}$4"
+    ],
+    "description": "onScroll 函数"
+  },
+  "onChange": {
+    "prefix": ["_onChange", "onChange", "@change"],
+    "body": [
+      "onChange={(${2:e}) => ${1|changeHandler,handlerChange,onChange|}(${2:e}$3)}$4"
+    ],
+    "description": "onChange 函数"
+  },
+  "describe": {
+    "prefix": ["_describe", "describe"],
+    "body": [
+      "describe('${1:test}', () => {",
+      "  it('${2:test}', () => {  ",
+      "    $3",
+      "    expect(${4:''}).toMatchInlineSnapshot()",
+      "  })",
+      "})"
+    ],
+    "description": "vitest describe"
+  },
+  "it": {
+    "prefix": ["_it", "it"],
+    "body": [
+      "it('${2:test}', () => {  ",
+      "  $3",
+      "  expect(${4:''}).toMatchInlineSnapshot()",
+      "})"
+    ],
+    "description": "vitest it"
+  },
+  "arrowFunction": {
+    "prefix": "arrowFunction",
+    "body": ["const ${1:name} = ($2) => {", "  $3", "}"],
+    "description": "arrowFunction 函数"
+  },
+  "asyncArrowFunction": {
+    "prefix": "async arrowFunction",
+    "body": ["const ${1:name} = async ($2) => {", "  $3", "}"],
+    "description": "async arrowFunction 函数"
+  },
+  "import": {
+    "prefix": ["_import", "import"],
+    "body": ["import ${2:name} from '${1:module}'"],
+    "description": "import 导入"
+  },
+  "importCss": {
+    "prefix": ["_importCss", "_css", "css"],
+    "body": ["import '${1:./index.css}'"],
+    "description": "import 导入 css"
+  },
+  "require": {
+    "prefix": ["_require", "require"],
+    "body": ["const ${1:name} = require('${2:path}');"],
+    "description": "require 导入"
+  },
+  "type": {
+    "prefix": ["_type", "type"],
+    "body": ["type ${1:name} = {", "  ${2:_name}: string", "}"],
+    "description": "type 类型"
+  },
+  "interface": {
+    "prefix": ["interface", "_interface"],
+    "body": ["interface ${1:name} {", "  ${2:_name}: string", "}"],
+    "description": "interface 类型"
+  },
+  "v-html": {
+    "prefix": ["v-html", "__html"],
+    "body": ["dangerouslySetInnerHTML={{ __html: ${1:html}}}"],
+    "description": "v-html"
+  },
   "useRef": {
-    "prefix": "_ref",
-    "body": ["  const ref = useRef('$1')"],
+    "prefix": ["_ref", "_useRef", "useRef"],
+    "body": ["const ref = useRef('$1')"],
     "description": "useRef"
   },
   "useReducer": {
-    "prefix": "_reducer",
-    "body": ["  const [state, dispatch] = useReducer(reducer, $1)"],
+    "prefix": ["_reducer", "_useReducer", "useReducer"],
+    "body": ["const [state, dispatch] = useReducer(reducer, $1)"],
     "description": "useReducer"
   },
   "useMemo": {
-    "prefix": "_memo",
-    "body": ["  const cachedValue = useMemo(() => { $2 }, [$1])"],
+    "prefix": ["_memo", "_useMemo", "useMemo"],
+    "body": ["const cachedValue = useMemo(() => { $2 }, [$1])"],
     "description": "useMemo"
   },
   "useState": {
-    "prefix": "_memo",
-    "body": ["  const [state, setState] = useState($1)"],
+    "prefix": ["_state", "_useState", "useState"],
+    "body": ["const [state, setState] = useState($1)"],
     "description": "useState"
   },
   "useTransition": {
-    "prefix": "_memo",
-    "body": ["  const [isPending, startTransition] = useTransition()"],
+    "prefix": ["_transition", "_useTransition", "useTransition"],
+    "body": ["const [isPending, startTransition] = useTransition()"],
     "description": "useTransition"
   },
   "useEffect": {
-    "prefix": "_effect",
-    "body": ["  useEffect(() => {", "    $2", "  }, ['$1'])"],
+    "prefix": ["_effect", "_useEffect", "useEffect"],
+    "body": ["useEffect(() => {", "  $2", "}, ['$1'])"],
     "description": "useEffect"
   },
   "useContext": {
-    "prefix": "_context",
-    "body": ["  const value = useContext(${1:Context})"],
+    "prefix": ["_context", "_useContext", "useContext"],
+    "body": ["const value = useContext(${1:Context})"],
     "description": "useContext"
   },
   "useCallback": {
-    "prefix": "_callback",
-    "body": ["  const cachedFn = useCallback(() => {", "    $2", "  }, [$1])"],
+    "prefix": ["_callback", "_useCallback", "useCallback"],
+    "body": ["const cachedFn = useCallback(() => {", "  $2", "}, [$1])"],
     "description": "useCallback"
   },
   "useLayoutEffect": {
-    "prefix": "_layoutEffect",
-    "body": ["  useLayoutEffect(() => {", "    $2", "  }, [$1])"],
+    "prefix": ["_layoutEffect", "_useLayoutEffect", "useLayoutEffect"],
+    "body": ["useLayoutEffect(() => {", "  $2", "}, [$1])"],
     "description": "useLayoutEffect"
   }
 }

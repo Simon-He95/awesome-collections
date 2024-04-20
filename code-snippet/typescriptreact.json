@@ -1,11 +1,11 @@
 {
   "ignore": {
-    "prefix": ["_ignore", "ignore"],
+    "prefix": "_ignore",
     "body": ["// @ts-ignore"],
     "description": "typescript 单行忽略"
   },
   "swr": {
-    "prefix": ["_swr", "swr"],
+    "prefix": ["_swr", "useSWR", "_useSWR"],
     "body": ["const { data, isLoading } = useSWR('$1', () => $2)"],
     "description": "react SWR"
   },
@@ -165,49 +165,54 @@
     "body": ["interface ${1:name} {", "  ${2:_name}: string", "}"],
     "description": "interface 类型"
   },
+  "v-html": {
+    "prefix": ["v-html", "__html"],
+    "body": ["dangerouslySetInnerHTML={{ __html: ${1:html}}}"],
+    "description": "v-html"
+  },
   "useRef": {
-    "prefix": "_ref",
-    "body": ["  const ref = useRef('$1')"],
+    "prefix": ["_ref", "_useRef", "useRef"],
+    "body": ["const ref = useRef('$1')"],
     "description": "useRef"
   },
   "useReducer": {
-    "prefix": ["_reducer", "useReducer"],
-    "body": ["  const [state, dispatch] = useReducer(reducer, $1)"],
+    "prefix": ["_reducer", "_useReducer", "useReducer"],
+    "body": ["const [state, dispatch] = useReducer(reducer, $1)"],
     "description": "useReducer"
   },
   "useMemo": {
-    "prefix": ["_memo", "useMemo"],
-    "body": ["  const cachedValue = useMemo(() => { $2 }, [$1])"],
+    "prefix": ["_memo", "_useMemo", "useMemo"],
+    "body": ["const cachedValue = useMemo(() => { $2 }, [$1])"],
     "description": "useMemo"
   },
   "useState": {
-    "prefix": ["_state", "useState"],
-    "body": ["  const [state, setState] = useState($1)"],
+    "prefix": ["_state", "_useState", "useState"],
+    "body": ["const [state, setState] = useState($1)"],
     "description": "useState"
   },
   "useTransition": {
-    "prefix": ["_transition", "useTransition"],
-    "body": ["  const [isPending, startTransition] = useTransition()"],
+    "prefix": ["_transition", "_useTransition", "useTransition"],
+    "body": ["const [isPending, startTransition] = useTransition()"],
     "description": "useTransition"
   },
   "useEffect": {
-    "prefix": ["_effect", "useEffect"],
-    "body": ["  useEffect(() => {", "    $2", "  }, ['$1'])"],
+    "prefix": ["_effect", "_useEffect", "useEffect"],
+    "body": ["useEffect(() => {", "  $2", "}, ['$1'])"],
     "description": "useEffect"
   },
   "useContext": {
-    "prefix": ["_context", "useContext"],
-    "body": ["  const value = useContext(${1:Context})"],
+    "prefix": ["_context", "_useContext", "useContext"],
+    "body": ["const value = useContext(${1:Context})"],
     "description": "useContext"
   },
   "useCallback": {
-    "prefix": ["_callback", "useCallback"],
-    "body": ["  const cachedFn = useCallback(() => {", "    $2", "  }, [$1])"],
+    "prefix": ["_callback", "_useCallback", "useCallback"],
+    "body": ["const cachedFn = useCallback(() => {", "  $2", "}, [$1])"],
     "description": "useCallback"
   },
   "useLayoutEffect": {
-    "prefix": ["_layoutEffect", "useLayoutEffect"],
-    "body": ["  useLayoutEffect(() => {", "    $2", "  }, [$1])"],
+    "prefix": ["_layoutEffect", "_useLayoutEffect", "useLayoutEffect"],
+    "body": ["useLayoutEffect(() => {", "  $2", "}, [$1])"],
     "description": "useLayoutEffect"
   }
 }
