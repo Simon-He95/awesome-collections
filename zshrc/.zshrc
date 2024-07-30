@@ -15,6 +15,9 @@ plugins=(git web-search zsh-autocomplete zsh-autosuggestions zsh-z last-working-
 # python
 alias python=python3
 
+# taze
+alias taze="npx taze -w -r"
+
 # code
 alias Github="cd ~/simon/GitHub" # 快速进入github文件夹
 alias Go="cd ~/simon/go" # 快速进入github文件夹
@@ -27,27 +30,32 @@ alias gom="gor main.go"
 alias goinit="go mod init"
 alias rustinit="cargo new"
 
+# pnpm-patch-i 
+alias patch="pnpm-patch-i"
+
 # alias - pi -> @simon_he/pi
 alias c=clone
-alias i=pi
-alias il=pil
-alias ui=pui
-alias r=prun
-alias f=pfind
+alias i="pi"
+alias il="pil"
+alias ui="pui"
+alias r="prun"
+alias f="pfind"
 alias cacheclean="npm cache clean --force"
 alias nio="pi --prefer-offline" # npm install offline 离线安装
-alias d="prun dev" # dev 启动dev环境
-alias s="prun start" # start the server 启动项目
-alias serve="prun serve" # start the server 启动项目
+alias d="prun dev || prun start" # dev 启动dev环境
+alias D="prun dev || prun start" # dev 启动dev环境
+alias s="prun start || prun dev || prun serve" # start the server 启动项目
+alias S="prun start || prun dev || prun serve" # start the server 启动项目
 alias ck="prun check" # check type
+# alias b="prun build" # build 执行打包
 alias bw="prun build --watch" # watch mode 执行构建并监视文件更改
 alias t="prun test" # test 执行测试
 alias tu="prun test -u" # update snapshots 执行测试并更新快照
 alias w="prun watch" # watch mode 执行watch命令
 alias lint="prun lint" # eslint 检查eslint
 alias lintf="prun lint --fix" # fix linting errors 修复eslint错误
-alias fmt="prun fmt" # fix linting errors 修复eslint错误
-alias p="prun play || d" # play or dev 启动项目
+alias fmt="prun fmt || lintf" # fix linting errors 修复eslint错误
+alias p="prun play || prun pack || d" # play or dev 启动项目
 alias pr="prun preview" # preview 预览
 alias pb="prun play:build || b" # build and play 执行playground打包
 alias publish="npm publish --access=public" # publish to npm 发布到npm
@@ -69,7 +77,7 @@ alias ....="cd ../../.." # 返回上上上级
 alias 。。。。="cd ../../.." # 返回上上上级
 alias link="npm link" # link 本地包
 alias unlink="npm unlink" # unlink 本地包
-alias rmmodule="remove !" # 删除当前cwd下的node_modules
+alias rmmodule="remove !" # 删除node_modules
 
 #--------------------------#
 # Git
@@ -110,6 +118,7 @@ alias see="ps -ef" # 查看进程
 alias typecheck="prun typecheck"
 alias ignorecase="git config core.ignorecase false" # git 提交 区分大小写
 alias checkout="git checkout ."
+alias chore="git add . && git commit --quiet --allow-empty-message -m \"chore: update\""
 #--------------------------#
 # vsce
 # -------------------------#
@@ -370,15 +379,15 @@ template() {
     echo "项目名称不能为空"
     return 0
   fi
-  logSkyblue "请选择一个模板: ts | vue-h | vue-template | vue-js-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid | vscode"
-  templateName=$(spaceToLine "starter-ts vitesse-h vitesse-template vitesse-jsvue vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress vitesse-vitessr vitesse-reactssr vitesse-svelte vitesse-solid vitesse-vscode" | gum filter --placeholder=" 请选择一个模板 ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid | vscode")
+  logSkyblue "请选择一个模板: ts | unplugin-starter | vue-uno | vue-tailwind | vue-h | uniapp | vue-template | vue-js-template | vue-tsx | nuxt3 | vitesse | react-uno | react-tailwind | next | vitepress | vite-ssr | react-ssr | svelte | solid | vscode"
+  templateName=$(spaceToLine "starter-ts unplugin-starter vitesse-vue-uno vitesse-vue-tailwind vitesse-h vitesse-template vitesse-jsvue vitesse-tsx vitesse-nuxt3 vitesse vitesse-lite-react vitesse-next vitesse-vitepress vitesse-vitessr vitesse-reactssr vitesse-svelte vitesse-solid vitesse-vscode" | gum filter --placeholder=" 请选择一个模板 ts | vue-h | vue-template | vue-tsx | nuxt3 | vitesse | react | next | vitepress | vite-ssr | react-ssr | svelte | solid | vscode")
   if [ ! $templateName ]; then
     echo "已取消"
     return 1
   fi
 
 
-  logBlue "正在创建$projectName目录,下载starter-$templateName模板,请稍等..."
+  logBlue "正在创建$projectName目录,下载 $templateName模板,请稍等..."
   npx degit Simon-He95/$templateName $projectName && logGreen "正在打开$projectName" && code $projectName && cd $projectName || hasWrong=1
   if [ -f "package.json" ]; then
     echo ${"$(cat ./package.json)//vitesse/$projectName"}>package.json  && logPink '正在下载依赖' && pi || pi || pi || logRed '安装依赖失败，请重新尝试'
@@ -969,24 +978,3 @@ source "$HOME/.oh-my-zsh/oh-my-zsh.sh"
 
 # 修改终端标题
 ZSH_THEME_TERM_TITLE_IDLE="Simon"
-
-export GOROOT=/usr/local/go
-export PATH=$PATH:$GOROOT/bin
-export GOPATH=$HOME/go
-export GO111MODULE=on
-export GOPROXY=https://goproxy.cn,direct
-export DRAW_FILE=~/Documents/GitHub/to/draw.txt
-export LC_CTYPE="en_US.UTF-8"
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export RUNEWIDTH_EASTASIAN=0
-
-# pi config
-export PI_COLOR=blue
-export PI_SPINNER=moon
-export PI_MaxSockets=8
-export PI_Lang=zh
-# pi config end
-
-# vue-inspect
-export VUE_EDITOR=code
