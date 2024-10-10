@@ -4,7 +4,7 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="spaceship"
 
 # plugins
-plugins=(git web-search zsh-autocomplete zsh-autosuggestions zsh-z last-working-dir zsh-syntax-highlighting)
+plugins=(git web-search zsh-autosuggestions zsh-syntax-highlighting last-working-dir)
 
 
 # User configuration
@@ -19,8 +19,8 @@ alias python=python3
 alias taze="npx taze -w -r"
 
 # code
-alias Github="cd ~/simon/GitHub" # 快速进入github文件夹
-alias Go="cd ~/simon/go" # 快速进入github文件夹
+alias Github="cd ~/GitHub" # 快速进入github文件夹
+alias Go="cd ~/go" # 快速进入github文件夹
 alias gopath="cd ~/go/src"
 alias goi="go get"
 alias gor="go run"
@@ -110,7 +110,7 @@ alias main="git checkout main" # 切换到主分支
 alias master="git checkout master" # 切换到主分支
 alias use="nrm use" # 切换npm源
 alias unproxy="git config --global --unset http.proxy && git config --global --unset https.proxy" # 取消代理
-alias proxy="git config --global http.proxy http://127.0.0.1:57932 && git config --global https.proxy https://127.0.0.1:57932" # 设置代理
+alias proxy="git config --global http.proxy http://127.0.0.1:7890 && git config --global https.proxy https://127.0.0.1:7890" # 设置代理
 alias pullmaster="git pull origin master" # 拉取主分支
 alias pullmain="git pull origin main" # 拉取主分支
 alias flog="git reflog" # 查看提交日志
@@ -328,8 +328,8 @@ clone() {
   result=${str1%.*}
   if [ -d $result ]; then
     logSkyblue "已存在同名目录，正在为您直接打开..."
-    fetch
     code $result
+    cd $result && fetch
     return 0
   fi
   logSkyblue "正在clone $result"
@@ -780,19 +780,22 @@ nb(){
 
 # db 删除分支
 db() {
-  branch=$(git branch -a | cut -c 3- | gum filter --placeholder=" 请选择一个分支删除")
+  branch=$(git branch -a | cut -c 3- | gum filter --no-limit --placeholder=" 请选择一个分支删除")
   if [[ $? == 130 ]]; then
     echo "已取消"
     return 1
   fi
+  branch=$(lineToSpace $branch)
+  branch=$(trim $branch)
   includes $branch "remotes/"
   isRemote=$?
   if [ $isRemote = 0 ]; then
     origin=$(echo ${branch#remotes/}  | cut -d'/' -f1)
     _branch=$(echo $branch | sed "s/remotes\/$origin\///g")
     git push $origin --delete $_branch
-  else
-    git branch -D $branch
+  else {
+    echo $branch | xargs git branch -D
+  }
   fi
 }
 
@@ -809,6 +812,21 @@ replace() {
 # 空格替换换行
 spaceToLine() {
   replace $1 " " "\n"
+}
+
+# 换行替换成空格
+lineToSpace() {
+  echo "$1" | tr '\n' ' '
+}
+
+# 删除换行
+remoteLine() {
+  echo "$1" | tr -d '\n'
+}
+
+# 删除内容前后空格
+trim() {
+  echo "$1" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
 }
 
 # includes 判断是否包含
@@ -978,3 +996,21 @@ source "$HOME/.oh-my-zsh/oh-my-zsh.sh"
 
 # 修改终端标题
 ZSH_THEME_TERM_TITLE_IDLE="Simon"
+
+
+# bun completions
+[ -s "/Users/Simon/.bun/_bun" ] && source "/Users/Simon/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export LANG=en.US
+
+export https_proxy=http://127.0.0.1:7890 
+export http_proxy=http://127.0.0.1:7890 
+export all_proxy=socks5://127.0.0.1:7890
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+export JAVA_HOME=$(/usr/libexec/java_home -v"17");
+
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/platform-tools
