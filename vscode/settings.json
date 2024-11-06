@@ -351,7 +351,6 @@
   "terminal.integrated.defaultProfile.osx": "zsh",
   "powermode.enabled": true,
   "powermode.shake.enabled": false,
-  "powermode.presets": "flames",
   "git.path": "/usr/bin/git",
   "terminal.integrated.drawBoldTextInBrightColors": false,
   "settingsSync.ignoredSettings": ["terminal.external.windowsExec"],
@@ -693,7 +692,7 @@
       "from": "vue",
       "only": true,
       "isScriptSetup": true,
-      "content": "onMounted(() => {\n  $1\n})\n"
+      "content": "onMounted(() => {\n    $1\n})\n"
     },
     {
       "name": "onUpdated",
@@ -703,7 +702,8 @@
       "version": "2.7",
       "from": "vue",
       "isScriptSetup": true,
-      "content": "onUpdated(() => {\n  $1\n})\n"
+      "only": true,
+      "content": "  onUpdated(() => {\n    $1\n  })\n"
     },
     {
       "name": "onUnmounted",
@@ -713,7 +713,8 @@
       "version": "2.7",
       "from": "vue",
       "isScriptSetup": true,
-      "content": "onUnmounted(() => {\n  $1\n})\n"
+      "only": true,
+      "content": "  onUnmounted(() => {\n    $1\n  })\n"
     },
     {
       "name": "onBeforeMount",
@@ -723,7 +724,8 @@
       "version": "2.7",
       "from": "vue",
       "isScriptSetup": true,
-      "content": "onBeforeMount(() => {\n  $1\n})\n"
+      "only": true,
+      "content": "  onBeforeMount(() => {\n    $1\n  })\n"
     },
     {
       "name": "onBeforeUpdate",
@@ -733,7 +735,8 @@
       "version": "2.7",
       "from": "vue",
       "isScriptSetup": true,
-      "content": "onBeforeUpdate(() => {\n  $1\n})\n"
+      "only": true,
+      "content": "  onBeforeUpdate(() => {\n    $1\n  })\n"
     },
     {
       "name": "onBeforeUnmount",
@@ -743,7 +746,8 @@
       "version": "2.7",
       "from": "vue",
       "isScriptSetup": true,
-      "content": "onBeforeUnmount(() => {\n  $1\n})\n"
+      "only": true,
+      "content": "  onBeforeUnmount(() => {\n    $1\n  })\n"
     },
     {
       "name": "onErrorCaptured",
@@ -753,7 +757,8 @@
       "version": "2.7",
       "from": "vue",
       "isScriptSetup": true,
-      "content": "onErrorCaptured(() => {\n  $1\n})\n"
+      "only": true,
+      "content": "  onErrorCaptured(() => {\n    $1\n  })\n"
     },
     {
       "name": "useRouter",
@@ -762,7 +767,8 @@
       "description": "快速从 vue-router 中, 获取当前路由信息",
       "languageIds": ["vue"],
       "isScriptSetup": true,
-      "content": "const router = useRouter()\n"
+      "only": true,
+      "content": "  const router = useRouter()\n"
     },
     {
       "name": "useLocation",
