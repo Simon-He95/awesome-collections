@@ -792,13 +792,16 @@
       "from": "",
       "position": "hoist-top",
       "description": "使用 import 顶部导入依赖",
-      "languageIds": [
-        "vue",
-        "typescriptreact",
-        "typescript",
-        "javascriptreact"
-      ],
+      "languageIds": ["typescriptreact", "typescript", "javascriptreact"],
       "content": "import ${2:<title>} from '${1:module}'\n"
+    },
+    {
+      "name": "import",
+      "from": "",
+      "position": "hoist-top",
+      "description": "使用 import 顶部导入依赖",
+      "languageIds": ["vue"],
+      "content": "  import ${2:<title>} from '${1:module}'\n"
     },
     {
       "name": "import {}",
@@ -812,6 +815,14 @@
         "javascriptreact"
       ],
       "content": "import { ${2:<title>} } from '${1:module}'\n"
+    },
+    {
+      "name": "import {}",
+      "from": "",
+      "position": "hoist-top",
+      "description": "使用 import {} 顶部导入依赖",
+      "languageIds": ["vue"],
+      "content": "  import { ${2:<title>} } from '${1:module}'\n"
     },
     {
       "name": "@click",
