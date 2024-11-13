@@ -452,7 +452,7 @@
   },
   "git-graph.date.format": "Relative",
   "tailwindMagic.aggressiveMode": true,
-  "symbol-mapping-conversion.isEnable": false,
+  "symbol-mapping-conversion.isEnable": true,
   "symbol-mapping-conversion.extLanguage": [],
   "symbol-mapping-conversion.mappings": {
     "rust": {
@@ -767,8 +767,23 @@
       "description": "快速从 vue-router 中, 获取当前路由信息",
       "languageIds": ["vue"],
       "isScriptSetup": true,
+      "version": "3",
       "only": true,
       "content": "  const router = useRouter()\n"
+    },
+    {
+      "name": "getRoute",
+      "position": "top",
+      "description": "vue2 获取当前路由信息",
+      "languageIds": ["vue"],
+      "only": true,
+      "additionalDependencies": [
+        {
+          "name": "getCurrentInstance",
+          "from": "vue"
+        }
+      ],
+      "content": "  const vm = getCurrentInstance().proxy\n  const route = vm.\\$route$1\n"
     },
     {
       "name": "useLocation",
@@ -808,12 +823,7 @@
       "from": "",
       "position": "hoist-top",
       "description": "使用 import {} 顶部导入依赖",
-      "languageIds": [
-        "vue",
-        "typescriptreact",
-        "typescript",
-        "javascriptreact"
-      ],
+      "languageIds": ["typescriptreact", "typescript", "javascriptreact"],
       "content": "import { ${2:<title>} } from '${1:module}'\n"
     },
     {
@@ -1028,9 +1038,7 @@
   "workbench.preferredDarkColorTheme": "Vitesse Dark Soft",
   "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace",
   "common-intellisense.alias": {},
-  "common-intellisense.localUris": [
-    "/Users/Simon/Github/lazy-js-utils/index.cjs"
-  ],
+  "common-intellisense.localUris": [],
   "common-intellisense.remoteNpmUris": [],
   "unocss.autocomplete.strict": true,
   "common-intellisense-local.prefixMap": [],
@@ -1041,7 +1049,6 @@
     "el-table": ["border"],
     "Table": ["border"]
   },
-  "typescript.referencesCodeLens.enabled": true,
   "common-intellisense.remoteUris": [],
   "baidu.comate.privateService": "",
   "baidu.comate.username": "heartrffg",
@@ -1049,5 +1056,6 @@
   "baidu.comate.enableSecurityEnhancement": false,
   "baidu.comate.linePreferMode": "auto",
   "vue.format.script.initialIndent": true,
-  "vue.format.style.initialIndent": true
+  "vue.format.style.initialIndent": true,
+  "typescript.referencesCodeLens.enabled": true
 }
