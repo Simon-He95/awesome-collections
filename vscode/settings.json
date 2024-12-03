@@ -668,11 +668,27 @@
   "vue.server.includeLanguages": ["vue"],
   "fast-create-variable.snippet": [
     {
+      "name": "readFile",
+      "position": "current",
+      "description": "在 vue 中, 使用 unref 获取 ref 实例",
+      "languageIds": ["typescript"],
+      "additionalDependencies": [
+        {
+          "name": "fsp",
+          "from": "node:fs/promises",
+          "isDefault": true
+        }
+      ],
+      "content": "const content = fsp.readFile(\"${1:filePath}\", 'utf-8')"
+    },
+    {
       "name": "unref",
       "position": "wrapper",
       "description": "在 vue 中, 使用 unref 获取 ref 实例",
       "languageIds": ["vue"],
       "isScriptSetup": true,
+      "isInScript": true,
+      "isInTemplateTag": true,
       "content": "unref(<title>)"
     },
     {
@@ -692,7 +708,7 @@
       "from": "vue",
       "only": true,
       "isScriptSetup": true,
-      "content": "onMounted(() => {\n    $1\n})\n"
+      "content": "  onMounted(() => {\n    $1\n  })\n"
     },
     {
       "name": "onUpdated",
@@ -772,11 +788,24 @@
       "content": "  const router = useRouter()\n"
     },
     {
-      "name": "getRoute",
+      "name": "useRoute",
+      "from": "vue-router",
       "position": "top",
-      "description": "vue2 获取当前路由信息",
+      "description": "快速从 vue-router 中, 获取当前路由信息",
+      "languageIds": ["vue"],
+      "isScriptSetup": true,
+      "version": "3",
+      "only": true,
+      "content": "  const route = useRoute()\n"
+    },
+    {
+      "name": "useRoute",
+      "position": "top",
+      "description": "vue3 获取当前路由信息",
       "languageIds": ["vue"],
       "only": true,
+      "version": "<3.0.0",
+      "isScriptSetup": true,
       "additionalDependencies": [
         {
           "name": "getCurrentInstance",
@@ -784,6 +813,22 @@
         }
       ],
       "content": "  const vm = getCurrentInstance().proxy\n  const route = vm.\\$route$1\n"
+    },
+    {
+      "name": "useRouter",
+      "position": "top",
+      "description": "vue3 获取当前路由信息",
+      "languageIds": ["vue"],
+      "only": true,
+      "version": "<3.0.0",
+      "isScriptSetup": true,
+      "additionalDependencies": [
+        {
+          "name": "getCurrentInstance",
+          "from": "vue"
+        }
+      ],
+      "content": "  const vm = getCurrentInstance().proxy\n  const router = vm.\\$router$1\n"
     },
     {
       "name": "useLocation",
@@ -809,6 +854,14 @@
       "description": "使用 import 顶部导入依赖",
       "languageIds": ["typescriptreact", "typescript", "javascriptreact"],
       "content": "import ${2:<title>} from '${1:module}'\n"
+    },
+    {
+      "name": "import css",
+      "from": "",
+      "position": "hoist-top",
+      "description": "使用 import 顶部导入依赖 css 样式",
+      "languageIds": ["typescriptreact", "typescript", "javascriptreact"],
+      "content": "import '${1:module}'\n"
     },
     {
       "name": "import",
