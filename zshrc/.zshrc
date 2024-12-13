@@ -712,7 +712,7 @@ cnvm() {
 # cfnm 选择node版本 - fnm
 cn() {
   current=$(echo $(fnm current))
-  registery=$(echo $(fnm ls) | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/\* $current/g" | gum filter --placeholder=" 请选择一个node版本")
+  registery=$(echo $(fnm ls) | sed 's/system//g' | sed 's/default//g' | sed 's/\* /\n/g' | sed "s/$current/\* $current/g" | sed '/^$/d' | gum filter --placeholder=" 请选择一个node版本")
   registery=$(echo ${registery// /} | sed 's/\*//g')
   if [ ! $registery ]; then
     echo "已取消"
