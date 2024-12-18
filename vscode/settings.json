@@ -329,6 +329,7 @@
     "torusg",
     "tsup",
     "tubeg",
+    "unfetch",
     "unplugin",
     "Unplugin",
     "vant",
@@ -452,7 +453,7 @@
   },
   "git-graph.date.format": "Relative",
   "tailwindMagic.aggressiveMode": true,
-  "symbol-mapping-conversion.isEnable": true,
+  "symbol-mapping-conversion.isEnable": false,
   "symbol-mapping-conversion.extLanguage": [],
   "symbol-mapping-conversion.mappings": {
     "rust": {
@@ -671,7 +672,7 @@
       "name": "readFile",
       "position": "current",
       "description": "在 vue 中, 使用 unref 获取 ref 实例",
-      "languageIds": ["typescript"],
+      "languageIds": ["typescript", "javascript"],
       "additionalDependencies": [
         {
           "name": "fsp",
@@ -852,7 +853,12 @@
       "from": "",
       "position": "hoist-top",
       "description": "使用 import 顶部导入依赖",
-      "languageIds": ["typescriptreact", "typescript", "javascriptreact"],
+      "languageIds": [
+        "typescriptreact",
+        "typescript",
+        "javascriptreact",
+        "javascript"
+      ],
       "content": "import ${2:<title>} from '${1:module}'\n"
     },
     {
@@ -860,7 +866,12 @@
       "from": "",
       "position": "hoist-top",
       "description": "使用 import 顶部导入依赖 css 样式",
-      "languageIds": ["typescriptreact", "typescript", "javascriptreact"],
+      "languageIds": [
+        "typescriptreact",
+        "typescript",
+        "javascriptreact",
+        "javascript"
+      ],
       "content": "import '${1:module}'\n"
     },
     {
@@ -876,7 +887,12 @@
       "from": "",
       "position": "hoist-top",
       "description": "使用 import {} 顶部导入依赖",
-      "languageIds": ["typescriptreact", "typescript", "javascriptreact"],
+      "languageIds": [
+        "typescriptreact",
+        "typescript",
+        "javascriptreact",
+        "javascript"
+      ],
       "content": "import { ${2:<title>} } from '${1:module}'\n"
     },
     {
@@ -894,7 +910,7 @@
       "description": "在 vue template 中, 当前位置创建 @click 事件",
       "isInTemplateTag": true,
       "languageIds": ["vue"],
-      "content": "@click=\"${1|clickHandler,handleClick,onClick,removeHandler,onRemove,closeHandler,onClose,openHandler,onOpen,submitHandler,onSubmit,onLogin,onLogout,toggleHandler,onToggle,showHandler,onShow,hideHandler,onHide|}$2\""
+      "content": "@click=\"${1|clickHandler,handleClick,onClick,removeHandler,onRemove,onReset,closeHandler,onClose,openHandler,onOpen,submitHandler,onSubmit,onLogin,onLogout,toggleHandler,onToggle,showHandler,onShow,hideHandler,onHide|}$2\""
     },
     {
       "name": "@click",
@@ -903,7 +919,7 @@
       "description": "在 react 中, 当前位置创建 onClick 事件",
       "isInTemplateTag": true,
       "languageIds": ["typescriptreact", "javascriptreact"],
-      "content": "onClick={(${2:e}) => ${1|clickHandler,handleClick,onClick,removeHandler,onRemove,closeHandler,onClose,openHandler,onOpen,submitHandler,onSubmit,onLogin,onLogout,toggleHandler,onToggle,showHandler,onShow,hideHandler,onHide|}(${2:e}$3)}$4"
+      "content": "onClick={(${2:e}) => ${1|clickHandler,handleClick,onClick,removeHandler,onRemove,onReset,closeHandler,onClose,openHandler,onOpen,submitHandler,onSubmit,onLogin,onLogout,toggleHandler,onToggle,showHandler,onShow,hideHandler,onHide|}(${2:e}$3)}$4"
     },
     {
       "name": "@keydown",
@@ -1100,7 +1116,8 @@
     "el-form": ["inline"],
     "Form": ["inline"],
     "el-table": ["border"],
-    "Table": ["border"]
+    "Table": ["border"],
+    "van-button": ["block"]
   },
   "common-intellisense.remoteUris": [],
   "baidu.comate.privateService": "",
@@ -1110,5 +1127,7 @@
   "baidu.comate.linePreferMode": "auto",
   "vue.format.script.initialIndent": true,
   "vue.format.style.initialIndent": true,
-  "typescript.referencesCodeLens.enabled": true
+  "typescript.referencesCodeLens.enabled": true,
+  "terminal.integrated.gpuAcceleration": "on",
+  "editor.cursorSmoothCaretAnimation": "on"
 }
