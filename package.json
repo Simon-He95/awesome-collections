@@ -1,7 +1,7 @@
 {
   "name": "@simon_he/config",
   "private": true,
-  "packageManager": "pnpm@6.32.3",
+  "packageManager": "pnpm@6.35.1",
   "description": "A directory-configuration related to oh my zsh",
   "author": "Simon He",
   "repository": {
@@ -20,14 +20,14 @@
     "lint:fix": "eslint . --fix --cache"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.31.0",
-    "eslint": "^8.13.0",
-    "lint-staged": "^13.1.0",
-    "picocolors": "^1.0.0",
-    "prettier": "^2.8.1",
-    "simple-git-hooks": "^2.8.1",
-    "tsx": "^3.12.1",
-    "typescript": "^4.9.3"
+    "@antfu/eslint-config": "^3.12.0",
+    "eslint": "^8.57.1",
+    "lint-staged": "^13.3.0",
+    "picocolors": "^1.1.1",
+    "prettier": "^2.8.8",
+    "simple-git-hooks": "^2.11.1",
+    "tsx": "^3.14.0",
+    "typescript": "^4.9.5"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec lint-staged --concurrent false",
@@ -38,8 +38,5 @@
       "prettier --write --cache --ignore-unknown"
     ],
     "*.{vue,js,ts,jsx,tsx,md,json}": "eslint --fix"
-  },
-  "eslintConfig": {
-    "extends": "@antfu"
   }
 }
