@@ -11,6 +11,7 @@ module.exports = antfu(
   {
     rules: {
       // overrides
+      'jsonc/no-useless-escape': 'off',
     },
   },
 )

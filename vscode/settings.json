@@ -499,17 +499,24 @@
           "match": [
             "^\\s*(?:export)?\\s*(type)\\s+",
             "^\\s*(?:export)?\\s*(interface)\\s+"
-          ]
+          ],
+          "color": "transparent",
+          "background": " linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%) text;"
         },
         "#d798da": {
-          "match": ["(?:=|^)\\s*(function) +(\\w*)"],
+          "match": ["(?:=|^)(export|export default)?\\s*(function) +(\\w*)"],
           "matchCss": [
             {
-              "color": "#7a84b9"
+              "color": "transparent",
+              "background": " linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%) text;"
             },
             {
-              "color": "#5c69ac",
-              "backgroundColor": "rgba(92, 105, 172, 0.1)",
+              "color": "transparent",
+              "background": " linear-gradient( 135deg, #81FFEF 10%, #F067B4 100%) text;"
+            },
+            {
+              "color": "transparent",
+              "background": " linear-gradient( 135deg, #FFD26F 10%, #3677FF 100%) text;",
               "borderRadius": "8px"
             }
           ]
@@ -529,10 +536,14 @@
           "match": ["\\s(v-else-if)=", "\\s(v-if)=", "\\s(v-else)\\s"],
           "before": {
             "contentText": "✨"
-          }
+          },
+          "color": "transparent",
+          "background": " linear-gradient( 135deg, #FDD819 10%, #E80505 100%) text;"
         },
         "#B392F0": {
-          "match": ["\\s+(v-for)="]
+          "match": ["\\s+(v-for)="],
+          "color": "transparent",
+          "background": " linear-gradient( 135deg, #FFF886 10%, #F072B6 100%) text;"
         },
         "#FFC83D": [
           "<template\\s+(\\#[^\\s\\/>=]+)",
@@ -1107,7 +1118,9 @@
   "workbench.preferredDarkColorTheme": "Vitesse Dark Soft",
   "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace",
   "common-intellisense.alias": {},
-  "common-intellisense.localUris": [],
+  "common-intellisense.localUris": [
+    "/Users/Simon/Github/common-intellisense/index.cjs"
+  ],
   "common-intellisense.remoteNpmUris": [],
   "unocss.autocomplete.strict": true,
   "common-intellisense-local.prefixMap": [],
@@ -1120,9 +1133,6 @@
     "van-button": ["block"]
   },
   "common-intellisense.remoteUris": [],
-  "baidu.comate.privateService": "",
-  "baidu.comate.username": "heartrffg",
-  "baidu.comate.license": "8cccd325-59cf-4484-b856-7185761edcde",
   "baidu.comate.enableSecurityEnhancement": false,
   "baidu.comate.linePreferMode": "auto",
   "vue.format.script.initialIndent": true,
