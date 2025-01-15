@@ -501,18 +501,18 @@
             "^\\s*(?:export)?\\s*(interface)\\s+"
           ],
           "color": "transparent",
-          "background": " linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%) text;"
+          "background": "linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%) text;"
         },
         "#d798da": {
           "match": ["(?:=|^)(export|export default)?\\s*(function) +(\\w*)"],
           "matchCss": [
             {
               "color": "transparent",
-              "background": " linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%) text;"
+              "background": "linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%) text;"
             },
             {
               "color": "transparent",
-              "background": " linear-gradient( 135deg, #81FFEF 10%, #F067B4 100%) text;"
+              "background": "linear-gradient( 135deg, #81FFEF 10%, #F067B4 100%) text;"
             },
             {
               "color": "transparent",
