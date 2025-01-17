@@ -6,6 +6,7 @@ module.exports = antfu(
     ignores: [
       // eslint ignore globs here
       'test/**/*',
+      'vscode/*.js',
     ],
   },
   {
