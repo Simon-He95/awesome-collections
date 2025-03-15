@@ -680,7 +680,71 @@
   "vue.server.includeLanguages": ["vue"],
   "fast-create-variable.snippet": [
     {
-      "name": "readFile",
+      "name": "definePageMeta",
+      "position": "top",
+      "only": true,
+      "description": "在 nuxt 中, 使用 definePageMeta 定义页面元信息",
+      "languageIds": ["vue"],
+      "isNuxt": true,
+      "content": "  definePageMeta({\n    layout: 'default'\n  })\n"
+    },
+    {
+      "name": "useColorScheme",
+      "position": "top",
+      "only": true,
+      "description": "在 react-native 中, 使用 useColorScheme 获取当前主题",
+      "languageIds": ["typescriptreact", "javascriptreact"],
+      "isReactNative": true,
+      "from": "react-native",
+      "content": "  const ${1:colorScheme} = useColorScheme()\n"
+    },
+    {
+      "name": "useWindowDimensions",
+      "position": "top",
+      "only": true,
+      "description": "在 react-native 中, 使用 useWindowDimensions 获取当前窗口尺寸",
+      "languageIds": ["typescriptreact", "javascriptreact"],
+      "isReactNative": true,
+      "from": "react-native",
+      "content": "  const { height, width${1:, scale, fontScale} } = useWindowDimensions()\n"
+    },
+    {
+      "name": "usePathname",
+      "position": "top",
+      "only": true,
+      "description": "在 next 中, 使用 usePathname 获取当前路径",
+      "languageIds": ["typescriptreact", "javascriptreact"],
+      "isNext": true,
+      "from": "next/navigation",
+      "content": "  const ${1:pathname} = usePathname()\n"
+    },
+    {
+      "name": "useSearchParams",
+      "position": "top",
+      "only": true,
+      "description": "在 next 中, 使用 usePathname 获取当前路径",
+      "languageIds": ["typescriptreact", "javascriptreact"],
+      "isNext": true,
+      "from": "next/navigation",
+      "content": "  const ${1:searchParams} = useSearchParams()\n  const ${2:search} = ${1:searchParams}.get('${2:search}')\n"
+    },
+    {
+      "name": "useRouter",
+      "position": "top",
+      "only": true,
+      "description": "在 next 中, 使用 useRouter 获取当前路由信息",
+      "languageIds": [
+        "typescript",
+        "javascript",
+        "typescriptreact",
+        "javascriptreact"
+      ],
+      "isNext": true,
+      "from": "next/navigation",
+      "content": "  const ${1:router} = useRouter()\n"
+    },
+    {
+      "name": "fsp.readFile",
       "position": "current",
       "description": "在 vue 中, 使用 unref 获取 ref 实例",
       "languageIds": ["typescript", "javascript"],
@@ -800,6 +864,17 @@
       "content": "  const router = useRouter()\n"
     },
     {
+      "name": "defineAsyncComponent",
+      "from": "vue",
+      "position": "top",
+      "description": "在 vue 中, 使用 defineAsyncComponent 异步组件",
+      "languageIds": ["vue"],
+      "isScriptSetup": true,
+      "version": "3",
+      "only": true,
+      "content": "  const ${2:AsyncComponent} = defineAsyncComponent(() =>\n  import('${1:./AsyncComponent}.vue').catch(() => {\n    throw new Error('Failed to load component')\n  })\n)\n"
+    },
+    {
       "name": "useRoute",
       "from": "vue-router",
       "position": "top",
@@ -827,6 +902,22 @@
       "content": "  const vm = getCurrentInstance().proxy\n  const route = vm.\\$route$1\n"
     },
     {
+      "name": "useStore",
+      "position": "top",
+      "description": "vue3 获取当前路由信息",
+      "languageIds": ["vue"],
+      "only": true,
+      "version": "<3.0.0",
+      "isScriptSetup": true,
+      "additionalDependencies": [
+        {
+          "name": "getCurrentInstance",
+          "from": "vue"
+        }
+      ],
+      "content": "  const ${1:vm} = getCurrentInstance().proxy\n  const store = ${1:vm}.\\$store$1\n"
+    },
+    {
       "name": "useRouter",
       "position": "top",
       "description": "vue3 获取当前路由信息",
@@ -840,7 +931,7 @@
           "from": "vue"
         }
       ],
-      "content": "  const vm = getCurrentInstance().proxy\n  const router = vm.\\$router$1\n"
+      "content": "  const ${1:vm} = getCurrentInstance().proxy\n  const router = ${1:vm}.\\$router$1\n"
     },
     {
       "name": "useLocation",
