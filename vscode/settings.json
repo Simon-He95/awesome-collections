@@ -680,6 +680,14 @@
   "vue.server.includeLanguages": ["vue"],
   "fast-create-variable.snippet": [
     {
+      "name": "rfc",
+      "position": "current",
+      "description": "在 react 中, 快速创建函数组件",
+      "languageIds": ["typescriptreact"],
+      "isInJSX": false,
+      "content": "  interface ${2:Props} {$3}\n\n  export default function ${1:rfc}({$4}: ${2:Props}) {\n    return <div>$5</div>;\n  }"
+    },
+    {
       "name": "definePageMeta",
       "position": "top",
       "only": true,
@@ -733,12 +741,7 @@
       "position": "top",
       "only": true,
       "description": "在 next 中, 使用 useRouter 获取当前路由信息",
-      "languageIds": [
-        "typescript",
-        "javascript",
-        "typescriptreact",
-        "javascriptreact"
-      ],
+      "languageIds": ["typescript", "typescriptreact", "javascriptreact"],
       "isNext": true,
       "from": "next/navigation",
       "content": "  const ${1:router} = useRouter()\n"
