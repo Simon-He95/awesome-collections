@@ -14,6 +14,8 @@ plugins=(git web-search zsh-autosuggestions zsh-syntax-highlighting last-working
 
 # python
 alias python=python3
+# python3 -m venv py simon
+# source simon/bin/activate
 
 # taze
 alias taze="npx taze -w -r"
@@ -56,7 +58,7 @@ alias lint="prun lint" # eslint 检查eslint
 alias lintf="prun lint --fix" # fix linting errors 修复eslint错误
 alias fmt="prun fmt || lintf" # fix linting errors 修复eslint错误
 alias p="prun play || prun pack || d" # play or dev 启动项目
-alias pr="prun preview" # preview 预览
+alias pr="prun preview || open dist/index.html" # preview 预览
 alias pb="prun play:build || b" # build and play 执行playground打包
 alias publish="npm publish --access=public" # publish to npm 发布到npm
 alias clean="git add . && git commit -m 'chore: clean' && git push" # clean 提交清理
@@ -321,6 +323,13 @@ clone() {
   fi
   isGit "${str}"
   if [ $? = 1 ]; then
+     # New code: Check if command is a directory in current location
+    if [ -d "$command" ]; then
+      logSkyblue "正在打开目录: $command"
+      code "$command"
+      return 0
+    fi
+    
     logRed "请输入正确的git地址"
     return
   fi
@@ -409,31 +418,71 @@ remove() {
     logRed "不允许删除根目录！"
     return 1
   fi
+  
   # remove . -> 删除当前目录
   if [ "$1" = "." ];then
     _path=$(pwd)
     current=$(basename $_path)
     logBlue "正在删除当前目录"
     _current="../${current}"
-    gum confirm "确认要删除${current}目录吗?" && rimraf $_current && logGreen "删除成功👅" && cd .. || logRed "删除失败,请重新尝试:(" || echo "已取消"
+    
+    # Fix the confirmation handling
+    gum confirm "确认要删除${current}目录吗?"
+    confirm_status=$?
+    
+    if [ $confirm_status -eq 0 ]; then
+      rimraf $_current
+      if [ $? -eq 0 ]; then
+        logGreen "删除成功👅"
+        cd ..
+      else
+        logRed "删除失败,请重新尝试:("
+      fi
+    else
+      echo "已取消"
+    fi
     return 0
   fi
+  
   # remove ! -> 删除node_modules
-    if [ "$1" = "!" ];then
+  if [ "$1" = "!" ];then
     logBlue "正在删除node_modules"
-    rimraf "node_modules" && logGreen "删除成功👅" || logRed "删除失败,请重新尝试:("
+    rimraf "node_modules"
+    if [ $? -eq 0 ]; then
+      logGreen "删除成功👅"
+    else
+      logRed "删除失败,请重新尝试:("
+    fi
     return 0
   fi
+  
+  # Handle specific file/directory deletion
   if [ "$1" ]; then
     if [ ! -f "$1" ] && [ ! -d "$1" ]; then
       logRed '文件或目录不存在:('
       return 0
     else
       logBlue "正在删除$1"
-      gum confirm "确认要删除$1吗?" && rimraf $1 && logGreen "删除成功👅" || logRed "删除失败,请重新尝试:(" || echo "已取消"
-      return 1
+      
+      # Fix the confirmation handling
+      gum confirm "确认要删除$1吗?"
+      confirm_status=$?
+      
+      if [ $confirm_status -eq 0 ]; then
+        rimraf $1
+        if [ $? -eq 0 ]; then
+          logGreen "删除成功👅"
+        else
+          logRed "删除失败,请重新尝试:("
+        fi
+      else
+        echo "已取消"
+      fi
+      return 0
     fi
   fi
+  
+  # Handle selection from current directory
   for file in $(ls); do
     str="$str\"$file\" "
   done
@@ -443,8 +492,22 @@ remove() {
     return 1
   fi
   logBlue "正在删除$content"
-  rimraf $content && logGreen "删除成功👅" || logRed "删除失败,请重新尝试:("
-  return 1
+  
+  # Fix the confirmation handling
+  gum confirm "确认要删除$content吗?"
+  confirm_status=$?
+  
+  if [ $confirm_status -eq 0 ]; then
+    rimraf $content
+    if [ $? -eq 0 ]; then
+      logGreen "删除成功👅"
+    else
+      logRed "删除失败,请重新尝试:("
+    fi
+  else
+    echo "已取消"
+  fi
+  return 0
 }
 
 # reni
@@ -785,18 +848,28 @@ db() {
     echo "已取消"
     return 1
   fi
-  branch=$(lineToSpace $branch)
-  branch=$(trim $branch)
-  includes $branch "remotes/"
-  isRemote=$?
-  if [ $isRemote = 0 ]; then
-    origin=$(echo ${branch#remotes/}  | cut -d'/' -f1)
-    _branch=$(echo $branch | sed "s/remotes\/$origin\///g")
-    git push $origin --delete $_branch
-  else {
-    echo $branch | xargs git branch -D
-  }
-  fi
+  
+  # Split multi-selection into an array
+  branches=($(echo "$branch" | tr ' ' '\n'))
+  
+  for br in "${branches[@]}"; do
+    br=$(trim "$br")
+    
+    includes "$br" "remotes/"
+    isRemote=$?
+    
+    if [ $isRemote = 0 ]; then
+      # Handle remote branch
+      origin=$(echo ${br#remotes/} | cut -d'/' -f1)
+      _branch=$(echo $br | sed "s/remotes\/$origin\///g")
+      echo "Deleting remote branch: $_branch from $origin"
+      git push $origin --delete $_branch
+    else
+      # Handle local branch
+      echo "Deleting local branch: $br"
+      git branch -D "$br"
+    fi
+  done
 }
 
 # checkout the chosen PR
@@ -1004,7 +1077,7 @@ ZSH_THEME_TERM_TITLE_IDLE="Simon"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-export LANG=en.US
+export LANG=en_US.UTF-8
 
 export https_proxy=http://127.0.0.1:7890 
 export http_proxy=http://127.0.0.1:7890 
@@ -1014,3 +1087,14 @@ export JAVA_HOME=$(/usr/libexec/java_home -v"17");
 
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# Added by Windsurf
+export PATH="/Users/Simon/.codeium/windsurf/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/Simon/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
