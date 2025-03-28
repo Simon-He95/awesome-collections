@@ -301,7 +301,7 @@ endWith(){
 
 # clone 项目clone
 clone() {
-   command=$2
+  command=$2
   hasWrong=0
   
   # Check if first argument is a directory in current location
@@ -310,10 +310,23 @@ clone() {
     code "$1"
     return 0
   fi
+
+  if [ $(uname) = "Darwin" ]; then
+    paste="pbpaste"
+  else
+    paste="powershell.exe -Command \"Get-Clipboard\""
+  fi
   
+  paste_content=$($paste)
   # If no arguments and we're not trying to clone, open current directory
-  if [ "$1" = "" ]; then
-    paste_content=$($paste)
+  if [ "$1" = "" ] && [ "$paste_content" = "" ]; then
+    logSkyblue "正在打开当前目录"
+    code .
+    return 0
+  fi
+
+  # If no arguments and we're not trying to clone, open current directory
+  if [ "$1" = "" ] && [ "$paste_content" != "" ]; then
     isGit "$paste_content"
     if [ $? = 1 ]; then
       logSkyblue "正在打开当前目录"
@@ -321,13 +334,10 @@ clone() {
       return 0
     fi
   fi
+
   # 默认clone在我的Github文件夹下
   Github
-  if [ $(uname) = "Darwin" ]; then
-    paste="pbpaste"
-  else
-    paste="powershell.exe -Command \"Get-Clipboard\""
-  fi
+
   if [ "$1" = "" ]; then
     str=$($paste)
   else
