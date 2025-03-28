@@ -301,10 +301,28 @@ endWith(){
 
 # clone 项目clone
 clone() {
+   command=$2
+  hasWrong=0
+  
+  # Check if first argument is a directory in current location
+  if [ "$1" != "" ] && [ -d "$1" ]; then
+    logSkyblue "正在打开目录: $1"
+    code "$1"
+    return 0
+  fi
+  
+  # If no arguments and we're not trying to clone, open current directory
+  if [ "$1" = "" ]; then
+    paste_content=$($paste)
+    isGit "$paste_content"
+    if [ $? = 1 ]; then
+      logSkyblue "正在打开当前目录"
+      code .
+      return 0
+    fi
+  fi
   # 默认clone在我的Github文件夹下
   Github
-  command=$2
-  hasWrong=0
   if [ $(uname) = "Darwin" ]; then
     paste="pbpaste"
   else
@@ -322,14 +340,7 @@ clone() {
     fi
   fi
   isGit "${str}"
-  if [ $? = 1 ]; then
-     # New code: Check if command is a directory in current location
-    if [ -d "$command" ]; then
-      logSkyblue "正在打开目录: $command"
-      code "$command"
-      return 0
-    fi
-    
+  if [ $? = 1 ]; then    
     logRed "请输入正确的git地址"
     return
   fi
@@ -357,24 +368,30 @@ clone() {
   fi
 }
 
-# isGit 判断是否是一个.git
+# isGit 判断是否是一个.git URL
 isGit(){
-  if [ "$1" = "" ]; then
-    str=$($paste)
-  else
-    endWith "$1" ".git"
-    if [ $? = 1 ];then
-      str=$($paste)
-      command=$1
-    else
-      str=$1
-    fi
-  fi
-  endWith "${str}" ".git"
-  if [ $? = 1 ]; then
+  # If no argument provided, return false
+  if [ -z "$1" ]; then
     return 1
   fi
-  return 0
+  
+  # Check if the string ends with .git
+  if echo "$1" | grep -q -E "\.git$"; then
+    # Additionally verify it looks like a URL (contains :// or user@host:)
+    if echo "$1" | grep -q -E "(://|@.*:)"; then
+      return 0  # It's a git URL
+    fi
+  fi
+  
+  # Check if it's an https URL to a git repository
+  if echo "$1" | grep -q -E "^https://.*/(.*)/(.*)$"; then
+    if echo "$1" | grep -q -E "github\.com|gitlab\.com|bitbucket\.org"; then
+      return 0  # It's likely a git repository URL even without .git
+    fi
+  fi
+  
+  # Not a git URL
+  return 1
 }
 
 # template 选择项目模板
