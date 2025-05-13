@@ -9,7 +9,7 @@ plugins=(git web-search zsh-autosuggestions zsh-syntax-highlighting last-working
 
 # User configuration
 # -------------------------#
-#  Node Package Managerƒ
+#  Node Package Manager
 # -------------------------#
 
 # python
@@ -42,6 +42,7 @@ alias il="pil"
 alias ui="pui"
 alias r="prun"
 alias f="pfind"
+alias pr="prun r"
 alias cacheclean="npm cache clean --force"
 alias nio="pi --prefer-offline" # npm install offline 离线安装
 alias d="prun dev || prun start" # dev 启动dev环境
@@ -279,6 +280,24 @@ tag() {
   if [ "$?" = 0 ]; then
     git tag -a $tagname -m $detail
   fi
+}
+
+# dtag 删除git tag
+dtag() {
+  tags=$(git tag | gum filter --no-limit --placeholder="请选择要删除的 tag")
+  if [[ $? == 130 || -z "$tags" ]]; then
+    echo "已取消"
+    return 1
+  fi
+  for tag in $tags; do
+    git tag -d "$tag"
+    echo "已删除本地 tag: $tag"
+    gum confirm "是否同时删除远程 tag $tag？"
+    if [[ $? == 0 ]]; then
+      git push origin :refs/tags/"$tag"
+      echo "已删除远程 tag: $tag"
+    fi
+  done
 }
 
 # 自动生成.gitignore
@@ -1120,8 +1139,11 @@ export PATH="/Users/Simon/.codeium/windsurf/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="/Users/Simon/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+# case ":$PATH:" in
+#   *":$PNPM_HOME:"*) ;;
+#   *) export PATH="$PNPM_HOME:$PATH" ;;
+# esac
 # pnpm end
+
+# PI
+export PI_SILENT=true
