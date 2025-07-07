@@ -9,7 +9,7 @@ plugins=(git web-search zsh-autosuggestions zsh-syntax-highlighting last-working
 
 # User configuration
 # -------------------------#
-#  Node Package Manager
+#  Node Package Managerƒ
 # -------------------------#
 
 # python
@@ -44,6 +44,7 @@ alias r="prun"
 alias f="pfind"
 alias pr="prun r"
 alias cacheclean="npm cache clean --force"
+alias viteclean="rm -rf node_modules/.vite"
 alias nio="pi --prefer-offline" # npm install offline 离线安装
 alias d="prun dev || prun start" # dev 启动dev环境
 alias D="prun dev || prun start" # dev 启动dev环境
@@ -1147,3 +1148,7 @@ export PNPM_HOME="/Users/Simon/Library/pnpm"
 
 # PI
 export PI_SILENT=true
+# electron
+export ELECTRON_MIRROR="https://npmmirror.com/mirrors/electron/"
+eval $(thefuck --alias)
+export PATH=$PATH:$(npm config get prefix)/bin
